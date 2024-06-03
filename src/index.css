@@ -3,6 +3,8 @@
   line-height: 1.5;
   font-weight: 400;
 
+  --primary-dark: #0f1214;
+
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -33,6 +35,14 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+.primary-dark {
+  background-color: var(--primary-dark) !important;
+}
+
+.h6 {
+  size: 1.1rem !important;
 }
 
 button {
