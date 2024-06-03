@@ -19,5 +19,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    "linebreak-style": ['error', process.platform === 'win32' ? 'windows' : 'unix'],
+    "react/jsx-filename-extension": [1,{extensions:['.js','.jsx']}],
   },
 }

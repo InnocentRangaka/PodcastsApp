@@ -21,7 +21,7 @@ function Header() {
           color="inherit"
           edge="start"
           sx={{ ml: 2 }}
-        //   sx={{ mr: 2, display: { sm: 'none' } }} // Hide menu button on small screens
+        //   sx={{ mr: 2, display: { sm: 'none' } }}
         >
           <MenuIcon />
         </IconButton>
@@ -34,7 +34,7 @@ function Header() {
           DJS11 - Podcast App
         </Typography>
         <Badge
-        //   badgeContent={4}
+          // badgeContent={4}
           color="secondary"
         >
           <IconButton
