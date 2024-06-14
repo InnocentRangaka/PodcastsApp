@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { fetchPosts } from '../../api.js';
 import reactLogo from '../assets/react.svg';
-import viteLogo from '/vite.svg';
+import viteLogo from '../assets/vite.svg';
 
 export default function Home() {
   const [count, setCount] = useState(0);
@@ -9,57 +10,64 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const getPosts = async () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch('https://podcast-api.netlify.app/');
-        if (!response.ok) {
+        const data = fetchPosts();
+        if (data.length === 0) {
           throw {
-            message: 'Data fetching failed',
-            statusText: response.status,
-            status: 'HTTP error!',
+            message: 'No available Podcasts yet',
+            statusText: 'No Podcasts',
+            status: 'Podcasts error!',
           };
         }
-        const data = await response.json();
+
         setPodcasts(data);
-      } catch (error) {
-        setError(error);
+      } catch (fetchError) {
+        setError(fetchError);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPosts();
+    getPosts();
   }, []);
 
   console.log(podcasts);
 
   return (
     <>
-      <div>
+      <section>
+        <div className="section-header">
+          <h2>Popular artists</h2>
+        </div>
+      </section>
+      <section>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is
-          {' '}
-          {count}
-        </button>
-        <p>
-          Edit
-          {' '}
-          <code>src/App.jsx</code>
-          {' '}
-          and save to test HMR
-        </p>
-      </div>
+      </section>
+      <section>
+        <h1>Vite + React</h1>
+        <div className="card">
+          <button onClick={() => setCount((count) => count + 1)}>
+            count is
+            {' '}
+            {count}
+          </button>
+          <p>
+            Edit
+            {' '}
+            <code>src/App.jsx</code>
+            {' '}
+            and save to test HMR
+          </p>
+        </div>
+      </section>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
