@@ -3,28 +3,24 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+
 import Badge from '@mui/material/Badge';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+import Button from '@mui/material/Button';
+
+import { darkTheme, lightTheme } from './Theme';
+import MainMenu from './components/MainMenu';
 
 function Header() {
   return (
     <AppBar
       position="static"
       className="primary-dark"
+      // theme={darkTheme}
     >
       <Toolbar disableGutters variant="dense">
-        <IconButton
-          size="large"
-          aria-label="open drawer"
-          color="inherit"
-          edge="start"
-          sx={{ ml: 2 }}
-        //   sx={{ mr: 2, display: { sm: 'none' } }}
-        >
-          <MenuIcon />
-        </IconButton>
+        <MainMenu />
         <Typography
           variant="p"
           noWrap
