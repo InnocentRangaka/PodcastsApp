@@ -47,8 +47,10 @@ export default function Home() {
         </div>
         <div className="section-slider">
           <div className="section-slider-item">
-            <div className="card thumbnail-card">
+            <div className="thumbnail-card">
               <div className="card-link" />
+              <img className="card-image" alt="" />
+              <div className="card-footer" />
             </div>
           </div>
         </div>
