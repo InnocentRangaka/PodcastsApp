@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchPosts } from '../../api.js';
+import fetchPosts from '../../api.js';
 import reactLogo from '../assets/react.svg';
 import viteLogo from '../assets/vite.svg';
 
@@ -14,7 +14,9 @@ export default function Home() {
       setLoading(true);
       setError(null);
       try {
-        const data = fetchPosts();
+        const data = await fetchPosts();
+        console.log(data.length);
+
         if (data.length === 0) {
           throw {
             message: 'No available Podcasts yet',
@@ -34,7 +36,8 @@ export default function Home() {
     getPosts();
   }, []);
 
-  console.log(podcasts);
+  // console.log(podcasts);
+  // console.log(error);
 
   return (
     <>
@@ -42,6 +45,14 @@ export default function Home() {
         <div className="section-header">
           <h2>Popular artists</h2>
         </div>
+        <div className="section-slider">
+          <div className="section-slider-item">
+            <div className="card thumbnail-card">
+              <div className="card-link" />
+            </div>
+          </div>
+        </div>
+
       </section>
       <section>
         <a href="https://vitejs.dev" target="_blank">
