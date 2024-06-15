@@ -50,7 +50,9 @@ export default function Home() {
             <div className="thumbnail-card">
               <div className="card-link" />
               <img className="card-image" alt="" />
-              <div className="card-footer" />
+              <div className="card-footer">
+                <div className="card-footer-content" />
+              </div>
             </div>
           </div>
         </div>

@@ -49,6 +49,10 @@
 }
 
 @media screen and (max-width: 690px) {
+  * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
 
   :root {
     --text-size-base: 1rem;
@@ -61,6 +65,7 @@
     --inline-image-size: 152px
     --border-radius: 6px;
     --corner-radius-base: 4px;
+    --spacing-tighter: 12px;
   }
 
   body {
@@ -223,7 +228,18 @@
   }
 
   .card-footer{
-    
+    display: flex;
+    column-gap: var(--spacing-tighter, 12px);
+    -webkit-box-align: center;
+    align-items: center;
+  }
+
+  .card-footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-basis: 100%;
+    align-items: flex-start;
   }
   
 }
