@@ -15,7 +15,6 @@ export default function Home() {
       setError(null);
       try {
         const data = await fetchPosts();
-        console.log(data.length);
 
         if (data.length === 0) {
           throw {
@@ -36,22 +35,26 @@ export default function Home() {
     getPosts();
   }, []);
 
-  // console.log(podcasts);
+  console.log(podcasts);
   // console.log(error);
 
   return (
     <>
       <section>
         <div className="section-header">
-          <h2>Popular artists</h2>
+          <h2>Popular podcasts</h2>
         </div>
         <div className="section-slider">
           <div className="section-slider-item">
-            <div className="thumbnail-card">
+            <div className="slider-card">
               <div className="card-link" />
               <img className="card-image" alt="" />
               <div className="card-footer">
-                <div className="card-footer-content" />
+                <div className="card-footer-content">
+                  <a className="card-footer-link overflow-wrap" title="Hello">
+                    <span className="">Hello</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

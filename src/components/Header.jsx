@@ -9,8 +9,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
 
-import { darkTheme, lightTheme } from './Theme';
-import MainMenu from './components/MainMenu';
+import MainMenu from './MainMenu';
 
 function Header() {
   return (
