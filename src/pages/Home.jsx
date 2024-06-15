@@ -35,7 +35,40 @@ export default function Home() {
     getPosts();
   }, []);
 
-  console.log(podcasts);
+  function ListPodcasts({ title, podcastsObject }) {
+    const notEmptyObject = podcastsObject || {};
+    if (notEmptyObject) {
+      console.log(notEmptyObject);
+      // return ()
+    }
+    // <section>
+    //     <div className="section-header">
+    //       <h2>Popular podcasts</h2>
+    //     </div>
+    //     <div className="section-slider">
+    //       <div className="section-slider-item">
+    //         <div className="slider-card">
+    //           <div className="card-link" />
+    //           <img className="card-image" alt="" />
+    //           <div className="card-footer">
+    //             <div className="card-footer-content">
+    //               <a className="card-footer-link overflow-wrap" title="Hello">
+    //                 <span className="">Hello</span>
+    //               </a>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </section>
+  }
+  const popularPodcasts = {
+    title: 'Popular podcasts',
+    podcastsObject: podcasts,
+  };
+  ListPodcasts(popularPodcasts);
+
+  // console.log(podcasts);
   // console.log(error);
 
   return (
