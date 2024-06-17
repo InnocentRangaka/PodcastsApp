@@ -7,32 +7,29 @@ const getPodcastListByLimit = (allPodcasts, limit) => {
   return allPodcasts.slice(0, maxNumber);
 };
 
-function decodeUrl(urlString) {
-  try {
-    // Try decoding as a URL parameter value
-    return decodeURIComponent(urlString);
-  } catch (error) {
-    // If decoding as a parameter value fails, try decoding the entire URI
-    // (being aware of limitations for reserved characters)
-    return decodeURI(urlString);
-  }
+function encodeTextWithCharacter(title, character = null) {
+  const encodedTitle = encodeURIComponent(title) || encodeURI(title);
+
+  // Replace spaces with %20 for URL safety
+  const urlSafeTitle = character ? encodedTitle.replace(/%20/g, character) : encodedTitle;
+
+  return urlSafeTitle;
 }
 
-function encodeUrl(urlString) {
-  try {
-    // Try decoding as a URL parameter value
-    return encodeURIComponent(urlString);
-  } catch (error) {
-    // If decoding as a parameter value fails, try decoding the entire URI
-    // (being aware of limitations for reserved characters)
-    return encodeURI(urlString);
-  }
+function encodeSearchText(title) {
+  return encodeTextWithCharacter(title, '+');
 }
 
-function decodeText(title) {
+function encodeText(title) {
+  return encodeTextWithCharacter(title, '_');
+}
+
+function decodeTextWithCharacter(title, character = null) {
+  const text = character ? title.replace(character, ' ') : title;
+  const decodedText = decodeURIComponent(title) || decodeURI(title);
   // Use DOMParser for more robust entity decoding
   const parser = new DOMParser();
-  const doc = parser.parseFromString(title, 'text/html');
+  const doc = parser.parseFromString(text, 'text/html');
 
   // Extract text content from the parsed element
   const decodedTitle = doc.body.textContent;
@@ -41,6 +38,14 @@ function decodeText(title) {
   // const decodedTitle = title.replace(/&amp;|&.*;/g, ''); // Replace &amp; and other entities
 
   return decodedTitle.trim(); // Remove leading/trailing whitespace
+}
+
+function decodeSearchText(title) {
+  return decodeTextWithCharacter(title, '+');
+}
+
+function decodeText(title) {
+  return decodeTextWithCharacter(title);
 }
 
 function ListPodcasts({ title, podcastsObject }) {
@@ -74,7 +79,7 @@ function ListPodcasts({ title, podcastsObject }) {
                   <div className="card-footer">
                     <div className="card-footer-content">
                       <Link
-                        to={`/show/${podcast.title}`}
+                        to={`/show/${encodeText(podcast.title)}`}
                         className="card-footer-link overflow-wrap"
                         title={podcast.title}
                       >
