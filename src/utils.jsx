@@ -7,8 +7,40 @@ const getPodcastListByLimit = (allPodcasts, limit) => {
   return allPodcasts.slice(0, maxNumber);
 };
 
-function decodeUrl(encodedString) {
-  return decodeURIComponent(encodedString);
+function decodeUrl(urlString) {
+  try {
+    // Try decoding as a URL parameter value
+    return decodeURIComponent(urlString);
+  } catch (error) {
+    // If decoding as a parameter value fails, try decoding the entire URI
+    // (being aware of limitations for reserved characters)
+    return decodeURI(urlString);
+  }
+}
+
+function encodeUrl(urlString) {
+  try {
+    // Try decoding as a URL parameter value
+    return encodeURIComponent(urlString);
+  } catch (error) {
+    // If decoding as a parameter value fails, try decoding the entire URI
+    // (being aware of limitations for reserved characters)
+    return encodeURI(urlString);
+  }
+}
+
+function decodeText(title) {
+  // Use DOMParser for more robust entity decoding
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(title, 'text/html');
+
+  // Extract text content from the parsed element
+  const decodedTitle = doc.body.textContent;
+
+  // Alternatively, use a regular expression for simpler cases
+  // const decodedTitle = title.replace(/&amp;|&.*;/g, ''); // Replace &amp; and other entities
+
+  return decodedTitle.trim(); // Remove leading/trailing whitespace
 }
 
 function ListPodcasts({ title, podcastsObject }) {
@@ -47,7 +79,7 @@ function ListPodcasts({ title, podcastsObject }) {
                         title={podcast.title}
                       >
                         <span className="">
-                          {decodeURIComponent(podcast.title)}
+                          {decodeText(podcast.title)}
                         </span>
                       </Link>
                     </div>
