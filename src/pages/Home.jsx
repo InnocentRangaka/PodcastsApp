@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import fetchPosts from '../../api';
-import getPopularPodcasts from '../utils';
+import { getPopularPodcasts, getNewPodcasts } from '../utils';
 import reactLogo from '../assets/react.svg';
 import viteLogo from '../assets/vite.svg';
 
@@ -40,11 +40,15 @@ export default function Home() {
   }, []);
 
   // console.log(podcasts);
+  const sortBySeasons = (a, b) => new Date(a.updated) - new Date(b.updated);
+  const byDate = podcasts.sort(sortBySeasons);
+  console.log(byDate);
   // console.log(error);
 
   return (
     <>
       {podcasts && getPopularPodcasts({ podcasts })}
+      {podcasts && getNewPodcasts({ podcasts })}
       <section>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
