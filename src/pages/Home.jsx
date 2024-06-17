@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import fetchPosts from '../../api';
-import { getPopularPodcasts, getNewPodcasts } from '../utils';
+import { getPopularPodcasts, getNewPodcasts } from '../utils/podcastUtils';
 import reactLogo from '../assets/react.svg';
 import viteLogo from '../assets/vite.svg';
 

@@ -1,14 +1,4 @@
-import { useState } from 'react';
-
-function setState({ type, value }) {
-  const [allPodcasts, setAllPodcasts] = useState([]);
-
-  if (type && type !== null && type !== undefined) {
-    if (type === 'podcast' || type === 'podcasts') {
-      setAllPodcasts(value);
-    }
-  }
-}
+// import { useState } from 'react';
 
 export default async function fetchPosts() {
   const response = await fetch('https://podcast-api.netlify.app/');
@@ -20,6 +10,5 @@ export default async function fetchPosts() {
     };
   }
   const data = await response.json();
-  // setState({ type: 'podcasts', value: data });
   return data;
 }
