@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import fetchPosts from '../../api';
-import { getPopularPodcasts, getNewPodcasts } from '../utils/podcastUtils';
+import { getPopularPodcasts, getNewPodcasts, getRecommendedPodcastsByDate } from '../utils/podcastUtils';
 import reactLogo from '../assets/react.svg';
 import viteLogo from '../assets/vite.svg';
 
@@ -47,8 +47,22 @@ export default function Home() {
 
   return (
     <>
-      {podcasts && getPopularPodcasts({ podcasts })}
-      {podcasts && getNewPodcasts({ podcasts })}
+      {loading
+        ? <h2>Loading...</h2>
+        : (
+          <>
+            {getPopularPodcasts(
+              { podcasts },
+            )}
+            {getNewPodcasts(
+              { podcasts },
+            )}
+            {getRecommendedPodcastsByDate(
+              { podcasts },
+            )}
+          </>
+        )}
+
       <section>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
