@@ -1,6 +1,7 @@
 import { React } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+// import { Img } from 'react-image';
 import { encodeText, decodeText } from './textUtils';
 
 export default function ListPodcasts({ title, podcastsObject }) {
@@ -30,7 +31,16 @@ export default function ListPodcasts({ title, podcastsObject }) {
               <div key={podcast.id} className="section-slider-item">
                 <div className="slider-card">
                   <div className="card-link" />
-                  <img src={podcast.image} className="card-image" alt={podcast.title} loading="lazy" />
+                  {podcast?.image && (
+                  <img
+                    src={podcast.image}
+                    className="card-image"
+                    alt={podcast.title}
+                    // fallback={<span>Loading...</span>} <- // use Img instead of img
+                    loading="lazy"
+                  />
+                  )}
+
                   <div className="card-footer">
                     <div className="card-footer-content">
                       <Link
