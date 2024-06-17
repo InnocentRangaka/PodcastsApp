@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
-import fetchPosts from '../../api.js';
+import { Link } from 'react-router-dom';
+import fetchPosts from '../../api';
+import getPopularPodcasts from '../utils';
 import reactLogo from '../assets/react.svg';
 import viteLogo from '../assets/vite.svg';
 
 export default function Home() {
   const [count, setCount] = useState(0);
   const [podcasts, setPodcasts] = useState([]);
+  const [popularPodcasts, setPopularPodcasts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const section = document.createElement('section');
 
   useEffect(() => {
     const getPosts = async () => {
@@ -35,65 +39,12 @@ export default function Home() {
     getPosts();
   }, []);
 
-  function ListPodcasts({ title, podcastsObject }) {
-    const notEmptyObject = podcastsObject || {};
-    if (notEmptyObject) {
-      console.log(notEmptyObject);
-      // return ()
-    }
-    // <section>
-    //     <div className="section-header">
-    //       <h2>Popular podcasts</h2>
-    //     </div>
-    //     <div className="section-slider">
-    //       <div className="section-slider-item">
-    //         <div className="slider-card">
-    //           <div className="card-link" />
-    //           <img className="card-image" alt="" />
-    //           <div className="card-footer">
-    //             <div className="card-footer-content">
-    //               <a className="card-footer-link overflow-wrap" title="Hello">
-    //                 <span className="">Hello</span>
-    //               </a>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </section>
-  }
-  const popularPodcasts = {
-    title: 'Popular podcasts',
-    podcastsObject: podcasts,
-  };
-  ListPodcasts(popularPodcasts);
-
   // console.log(podcasts);
   // console.log(error);
 
   return (
     <>
-      <section>
-        <div className="section-header">
-          <h2>Popular podcasts</h2>
-        </div>
-        <div className="section-slider">
-          <div className="section-slider-item">
-            <div className="slider-card">
-              <div className="card-link" />
-              <img className="card-image" alt="" />
-              <div className="card-footer">
-                <div className="card-footer-content">
-                  <a className="card-footer-link overflow-wrap" title="Hello">
-                    <span className="">Hello</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </section>
+      {podcasts && getPopularPodcasts({ podcasts })}
       <section>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
