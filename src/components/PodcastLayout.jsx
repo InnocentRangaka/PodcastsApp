@@ -39,7 +39,7 @@ export default function Podcast() {
   // console.log(podcasts);
   // console.log(error);
 
-  console.log(location);
+  console.log(location.state);
   console.log(name);
 
   return (
