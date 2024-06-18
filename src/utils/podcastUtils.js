@@ -1,9 +1,11 @@
-import { React, memo } from 'react';
+import { React, useState } from 'react';
 // import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchPodcasts, fetchPodcast } from '../../api';
 import ListPodcasts from '../components/ListPodcasts';
 import {decodeTextWithCharacter} from './textUtils'
+
+const [podcastsData, setPodcastsData] = useState([]);
 
 const slicePodcasts = (object, from, to) => object.slice(from, to);
 const podcastsNotEmpty = (object) => object || []; // Use empty array for default
@@ -12,6 +14,7 @@ const getPodcastListByLimit = (allPodcasts, limit) => {
   const maxNumber = allPodcasts.length >= limit ? limit : allPodcasts.length;
   return slicePodcasts(allPodcasts, 0, maxNumber);
 };
+
 export const getPopularPodcasts = ({ podcasts }) => {
   const notEmptyObject = podcastsNotEmpty(podcasts);
   let popularPodcasts = [];
@@ -66,46 +69,38 @@ export const showNameFromPath = (path) => {
   return startsWithShow && decodeTextWithCharacter(startsWithShow, '_');
 }
 
+const getPosts = async () => {
+  try {
+    const data = await fetchPodcasts();
+
+    if (data.length === 0) {
+      throw {
+        message: 'No available Podcasts yet',
+        statusText: 'No Podcasts',
+        status: 'Podcasts error!',
+      };
+    }
+
+    setPodcastsData(data);
+  } catch (fetchError) {
+    // setError(fetchError);
+  }
+};
+
 
 export const getCurrentShow = (path) => {
-  const getcurrentShowId = localStorage.getItem('previewShow') || undefined
-  const title = showNameFromPath(path)
-  let podcasts = null;
+  const title = showNameFromPath(path) 
+  getPosts()
 
-  const getPosts = async () => {
-    try {
-      const data = memo(fetchPodcasts());
-  
-      if (data.length === 0) {
-        throw {
-          message: 'No available Podcasts yet',
-          statusText: 'No Podcasts',
-          status: 'Podcasts error!',
-        };
-      }
-  
-      setPodcasts(data);
-    } catch (fetchError) {
-      // setError(fetchError);
-    }
-  };
+  let podcast = podcastsData && podcastsData.filter(podcast => podcast.title.toLowerCase() === title.toLowerCase())
 
-  const setPodcasts = (data) => podcasts = data
-
-  if(getcurrentShowId !== undefined){
-    return {
-        id: getcurrentShowId,
-        title: title
-    }
+  if(!podcast){
+    const localShowId = localStorage.getItem('previewShow') || undefined
+    podcast = localShowId && podcastsData && podcastsData.filter(podcast => parseInt(podcast.id) === parseInt(localShowId))
   }
-  memo(getPosts())
 
-
-  !podcasts && getPosts();
-  // const podcast = podcasts && podcasts.filter(podcast => podcast.title.toLowerCase() === title.toLowerCase())
-  
-  // return podcast?.id && {
-  //   id: podcast.id,
-  //   title: podcast.title
-  // }
+  return podcast?.id && {
+    id: podcast.id,
+    title: podcast.title
+  }
 }
