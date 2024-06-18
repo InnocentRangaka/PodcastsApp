@@ -47,6 +47,12 @@ export default function ListPodcasts({ title, podcastsObject }) {
                         to={`/show/${encodeText(podcast.title)}`}
                         className="card-footer-link overflow-wrap"
                         title={podcast.title}
+                        state={{
+                          podcast: {
+                            id: `${podcast.id}`,
+                            title: `${podcast.title}`,
+                          },
+                        }}
                       >
                         <span className="">
                           {decodeText(podcast.title)}

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import fetchPosts from '../../api';
 import { getPopularPodcasts, getNewPodcasts, getRecommendedPodcastsByDate } from '../utils/podcastUtils';
 import reactLogo from '../assets/react.svg';
@@ -7,11 +7,10 @@ import viteLogo from '../assets/vite.svg';
 
 export default function Home() {
   const [count, setCount] = useState(0);
+  const location = useLocation();
   const [podcasts, setPodcasts] = useState([]);
-  const [popularPodcasts, setPopularPodcasts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const section = document.createElement('section');
 
   useEffect(() => {
     const getPosts = async () => {
@@ -40,9 +39,7 @@ export default function Home() {
   }, []);
 
   // console.log(podcasts);
-  const sortBySeasons = (a, b) => new Date(a.updated) - new Date(b.updated);
-  const byDate = podcasts.sort(sortBySeasons);
-  console.log(byDate);
+  console.log(location);
   // console.log(error);
 
   return (

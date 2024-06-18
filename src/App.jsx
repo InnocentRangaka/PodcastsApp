@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="podcast" element={<Podcast />}>
+          <Route path="show" element={<Podcast />}>
             {/* <Route index element={<Home />} /> */}
             <Route path=":name" element={<Podcast />} />
           </Route>

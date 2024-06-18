@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import fetchPosts from '../../api';
 import { getPopularPodcasts, getNewPodcasts, getRecommendedPodcastsByDate } from '../utils/podcastUtils';
 
 export default function Podcast() {
-  const [count, setCount] = useState(0);
+  const { name } = useParams(); // Destructure name from useParams
+  const location = useLocation();
   const [podcasts, setPodcasts] = useState([]);
-  const [popularPodcasts, setPopularPodcasts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const section = document.createElement('section');
 
   useEffect(() => {
     const getPosts = async () => {
@@ -39,6 +38,9 @@ export default function Podcast() {
 
   // console.log(podcasts);
   // console.log(error);
+
+  console.log(location);
+  console.log(name);
 
   return (
     loading
