@@ -48,7 +48,7 @@ export default function ListPodcasts({ title, podcastsObject }) {
                         className="card-footer-link overflow-wrap"
                         title={podcast.title}
                         state={{
-                          podcast: {
+                          show: {
                             id: `${podcast.id}`,
                             title: `${podcast.title}`,
                           },
