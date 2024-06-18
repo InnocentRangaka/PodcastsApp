@@ -415,5 +415,10 @@
   span + span::before {
     content: " • ";
   }
+
+  .show-list-container {
+    display: flex;
+    flex-direction: column;
+  }
   
 }

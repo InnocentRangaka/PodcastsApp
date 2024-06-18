@@ -89,6 +89,7 @@ export default function Show() {
               </div>
             </div>
           </div>
+          <div className='show-list-container'>sds</div>
         </section>
       )
       : <h2>Loading...</h2>
