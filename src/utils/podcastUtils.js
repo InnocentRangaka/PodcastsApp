@@ -1,7 +1,7 @@
-import { React } from 'react';
+import { React, memo } from 'react';
 // import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchPodcasts } from '../../api';
+import { fetchPodcasts, fetchPodcast } from '../../api';
 import ListPodcasts from '../components/ListPodcasts';
 import {decodeTextWithCharacter} from './textUtils'
 
@@ -67,38 +67,45 @@ export const showNameFromPath = (path) => {
 }
 
 
-let podcasts = null;
-
-const getPosts = async () => {
-  try {
-    const data = await fetchPodcasts();
-
-    if (data.length === 0) {
-      throw {
-        message: 'No available Podcasts yet',
-        statusText: 'No Podcasts',
-        status: 'Podcasts error!',
-      };
-    }
-
-    setPodcasts(data);
-  } catch (fetchError) {
-    // setError(fetchError);
-  }
-};
-
-const setPodcasts = (data) => podcasts = data
-
 export const getCurrentShow = (path) => {
-  getPosts()
-
+  const getcurrentShowId = localStorage.getItem('previewShow') || undefined
   const title = showNameFromPath(path)
+  let podcasts = null;
+
+  const getPosts = async () => {
+    try {
+      const data = memo(fetchPodcasts());
+  
+      if (data.length === 0) {
+        throw {
+          message: 'No available Podcasts yet',
+          statusText: 'No Podcasts',
+          status: 'Podcasts error!',
+        };
+      }
+  
+      setPodcasts(data);
+    } catch (fetchError) {
+      // setError(fetchError);
+    }
+  };
+
+  const setPodcasts = (data) => podcasts = data
+
+  if(getcurrentShowId !== undefined){
+    return {
+        id: getcurrentShowId,
+        title: title
+    }
+  }
+  memo(getPosts())
+
 
   !podcasts && getPosts();
-  const podcast = podcasts && podcasts.filter(podcast => podcast.title.toLowerCase() === title.toLowerCase())
+  // const podcast = podcasts && podcasts.filter(podcast => podcast.title.toLowerCase() === title.toLowerCase())
   
-  return {
-    id: podcast.id,
-    title: podcast.title
-  }
+  // return podcast?.id && {
+  //   id: podcast.id,
+  //   title: podcast.title
+  // }
 }
