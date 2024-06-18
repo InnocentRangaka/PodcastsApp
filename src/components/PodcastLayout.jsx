@@ -103,8 +103,10 @@ export default function Show() {
               <div className='show-list'>
                 <div className='show-list-content'>
                 {podcast?.seasons && podcast.seasons.map((season) => (
-                  <div key={season.id}
-                  className='show-list-item padding-0'>
+                  <div 
+                  key={season.id}
+                  className='show-list-item padding-0'
+                  >
                     <div className='show-list-item-left'>
                       <div className='show-list-item-index'>
                         {/* <div className='show-list-item-thumbnail-overlay'>
@@ -131,8 +133,13 @@ export default function Show() {
                         >{season.title}</Link>
                       </div>
                       <div className='show-list-item-text'>
-                        {season?.season && (<span>Season {season.season}</span>)}
-                        {/* {season?.episodes && (<span>Season {season.episodes}</span>)} */}
+                        {season && (
+                          <div>  {/* Wrap the content in a single element (div) */}
+                            {season.season && <span>Season {season.season}</span>}
+                            {season.episodes && <span>{season.episodes.length}{' '}{season.episodes.length >= 2 ? 'Episodes' : "Episode"}</span>}
+                          </div>
+                          )}
+                        
                       </div>
                     </div>
                   </div>
