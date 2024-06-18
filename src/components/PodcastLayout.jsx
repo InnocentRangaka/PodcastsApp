@@ -91,7 +91,7 @@ export default function Show() {
             <div className='show-list-container'>
               <div className='show-list'>
                 <div className='show-list-content'>
-                  <div className='show-list-item'>
+                  <div className='show-list-item padding-0'>
                     <div className='show-list-item-left'>
                       <div className='show-list-item-index'>
                         {/* <div className='show-list-item-thumbnail-overlay'>
@@ -100,10 +100,25 @@ export default function Show() {
                         <div className='show-list-item-index-content'>
                           <div className='show-list-item-play-button-container'>
                             <div className='show-list-item-play-button'>
-                              sdsd
+                              <div className='show-list-item-play-button-icon'>
+                                <div className='show-list-item-play-button'>
+                                  1 
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
+                      </div>
+                    </div>
+                    <div className='show-list-item-center'>
+                      <div className='show-list-item-title'>
+                        <Link
+                        className='show-list-item-link'
+                        spellCheck="false"
+                        >sdsds</Link>
+                      </div>
+                      <div className='show-list-item-text'>
+                        sdsd
                       </div>
                     </div>
                   </div>

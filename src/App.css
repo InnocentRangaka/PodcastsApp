@@ -534,7 +534,52 @@
     height: 100%; /* 24px */
   }
 
+  .show-list-item-center {
+    display: flex;
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    flex-wrap: wrap;
+  }
+
+  .show-list-item-title {
+    display: flex;
+    height: 17px;
+    margin: 0 0 3px;
+    flex: 6 1 0;
+    flex-basis: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    white-space: pre;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .show-list-item-link {
+    display: block;
+    margin-right: -.1em;
+    padding-right: .1em;
+    white-space: pre;
+    word-wrap: none;
+    word-break: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+  }
+
+  .show-list-item-text {
+    display: flex;
+    flex: 9 1 0;
+    flex-basis: 1px;
+    overflow: hidden;
+    align-items: center;
+  }
+
 
   
   
+}
+
+.padding-0 {
+ padding: 0 !important;
 }
