@@ -44,7 +44,7 @@ export default function ListPodcasts({ title, podcastsObject }) {
                   <div className="card-footer">
                     <div className="card-footer-content">
                       <Link
-                        to={`/podcast/${encodeText(podcast.title)}`}
+                        to={`/show/${encodeText(podcast.title)}`}
                         className="card-footer-link overflow-wrap"
                         title={podcast.title}
                       >
