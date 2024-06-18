@@ -595,6 +595,10 @@
     color: #aaa;
   }
 
+  .show-list-item-text span + span::before {
+    content: " • ";
+  }
+
 
   
   
