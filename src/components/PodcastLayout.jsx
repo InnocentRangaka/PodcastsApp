@@ -10,8 +10,8 @@ export default function Show() {
   const [podcast, setPodcast] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const getCurrentShow = location.state?.show || getCurrentShow(location.pathname);
-  const { id, title } = getCurrentShow || [];
+  const getCurrentShowData = location.state?.show || getCurrentShow(location.pathname);
+  const { id, title } = getCurrentShowData || [];
   
   // setCurrentShow
 
