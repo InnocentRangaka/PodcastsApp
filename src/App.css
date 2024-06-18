@@ -480,5 +480,61 @@
     opacity: 1;
     background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8));
   }
+
+  .show-list-item-index-content {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .show-list-item-play-button-container {
+    display: inline-block;
+    position: relative;
+    --paper-spinner-stroke-width: 2px;
+    --paper-spinner-color: #aaa;
+    --play-button-size: 40px;
+    --play-button-icon-size: 24px;
+    --play-button-loading-indicator-size: var(--play-button-size);
+  }
+
+  .show-list-item-play-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--play-button-size);
+    height: var(--play-button-size);
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--play-button-background-color);
+    transition: transform .2s cubic-bezier(.2,0,.6,1), background .2s cubic-bezier(.2,0,.6,1);
+    cursor: pointer;
+  }
+
+  .show-list-item-play-button-icon {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    left: calc(var(--play-button-icon-size) / 32);
+    width: var(--play-button-icon-size);
+    height: var(--play-button-icon-size);
+    vertical-align: middle;
+    color: rgba(255,255,255,1.000);
+  }
+
+  .show-list-item-play-button-icon svg {
+    pointer-events: none;
+    display: block;
+    width: 100%;
+    height: 100%; /* 24px */
+  }
+
+
+  
   
 }

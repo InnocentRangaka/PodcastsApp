@@ -92,7 +92,20 @@ export default function Show() {
               <div className='show-list'>
                 <div className='show-list-content'>
                   <div className='show-list-item'>
-                    sdsd
+                    <div className='show-list-item-left'>
+                      <div className='show-list-item-index'>
+                        {/* <div className='show-list-item-thumbnail-overlay'>
+                          sdsd
+                        </div> */}
+                        <div className='show-list-item-index-content'>
+                          <div className='show-list-item-play-button-container'>
+                            <div className='show-list-item-play-button'>
+                              sdsd
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
