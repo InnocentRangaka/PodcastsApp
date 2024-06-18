@@ -1,7 +1,7 @@
 import { React } from 'react';
 // import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ListPodcasts from './ListPodcasts';
+import ListPodcasts from '../components/ListPodcasts';
 
 const slicePodcasts = (object, from, to) => object.slice(from, to);
 const podcastsNotEmpty = (object) => object || []; // Use empty array for default
