@@ -59,6 +59,16 @@ export default function Show() {
                   src={podcast.image}
                 />
               </div>
+              <div className="show-info">
+                <h1 className="show-title">
+                  {podcast.title}
+                </h1>
+                <div className="show-subtitle">
+                  <span>
+                    Show
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
