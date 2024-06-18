@@ -55,12 +55,12 @@ export default function Show() {
     getPodcastData(method, args);
   }, [id, path, getPodcastData]);
 
-  console.log(podcast.seasons)
+  // console.log(podcast.seasons)
 
   return (
     !loading && podcast
       ? (
-        <section className="show">
+        <section key={podcast.id} className="show">
           <div className="show-content">
             <div className="show-hero">
               <div className="show-hero-image">
@@ -118,7 +118,7 @@ export default function Show() {
                 <div className='show-list-content'>
                 {podcast?.seasons && podcast.seasons.map((season) => (
                   <div 
-                  key={season.id}
+                  key={season.season}
                   className='show-list-item padding-0'
                   >
                     <div className='show-list-item-left'>

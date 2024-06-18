@@ -14,6 +14,7 @@ export default function ListPodcasts({ title, podcastsObject }) {
 
   const typeName = title ? title.toLowerCase() : '';
   const podcasts = podcastsObject || []; // Use empty array for default
+  
   if (podcasts) {
     return (
       <section>

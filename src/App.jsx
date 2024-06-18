@@ -20,7 +20,9 @@ function App() {
           {/* Podcast Routes */}
           <Route path="show" element={<Show />}>
             {/* <Route index element={<Home />} /> */}
-            <Route path=":name" element={<Show />} />
+            <Route path=":name" element={<Show />} >
+              <Route path=":name" element={<Season />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
