@@ -68,6 +68,7 @@ export const showNameFromPath = (path) => {
   return startsWithShow && decodeTextWithCharacter(startsWithShow, '_');
 }
 
+// Delete the following function
 export const getCurrentShow = (path) => {
   const initialState = []; // Set default state for podcastsData
   const [podcastsData, setPodcastsData] = useState(initialState);
@@ -79,8 +80,6 @@ export const getCurrentShow = (path) => {
     const getPosts = async () => {
       try {
         const data = await fetchPodcastByTitle({ title });
-
-        console.log(data)
     
         if (data.length === 0) {
           throw {
@@ -107,8 +106,5 @@ export const getCurrentShow = (path) => {
     podcast = localShowId && podcastsData && podcastsData.filter(podcast => parseInt(podcast.id) === parseInt(localShowId))
   }
 
-  return podcast?.id && {
-    id: podcast.id,
-    title: podcast.title
-  }
+  return podcast
 }

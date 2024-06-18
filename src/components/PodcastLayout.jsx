@@ -1,48 +1,59 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
-import { fetchPodcast } from '../../api';
-import { getYear, getTotalEpisodes, getCurrentShow } from '../utils/podcastUtils';
+import { fetchPodcast, fetchPodcastByTitle } from '../../api';
+import { getYear, getTotalEpisodes, showNameFromPath } from '../utils/podcastUtils';
 
 export default function Show() {
   const { name } = useParams(); // Destructure name from useParams
   const location = useLocation();
+  const path = location?.pathname || '';
   const [podcast, setPodcast] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const getCurrentShowData = location.state?.show || getCurrentShow(location.pathname);
-  const { id, title } = getCurrentShowData || [];
+  const { id, title } = location.state?.show || [];
 
-  console.log(getCurrentShowData)
+  const getPodcastData = useCallback(async (method, args) => {
+    setLoading(true);
+    setError(null);
   
-  // setCurrentShow
+    try {
+      let data;
+      if (method === 'getByPath') {
+        const { path } = args;
+        const title = showNameFromPath(path)
+        data = await fetchPodcastByTitle({ title });
+      } else if (method === 'getPosts') {
+        const { id } = args;
+        data = await fetchPodcast({ id }); // `fetchPodcast` takes an ID
+      } else {
+        throw new Error('Invalid method provided');
+      }
+  
+      if (!data) {
+        throw {
+          message: 'No available Podcasts yet',
+          statusText: 'No Podcasts',
+          status: 'Podcasts error!',
+        };
+      }
+  
+      setPodcast(data);
+      data?.id && localStorage.setItem('previewShow', data.id);
+    } catch (fetchError) {
+      setError(fetchError);
+      console.error(fetchError); // Log for debugging purposes
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchPodcastByTitle, fetchPodcast]); // Dependencies for `getPodcastData`
 
   useEffect(() => {
-    const getPosts = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await fetchPodcast({ id });
+    const method = id ? 'getPosts' :  'getByPath'; // Assuming `path` is available in the component
+    const args = method === 'getPosts' ? { id } : { path }; // Pass ID if applicable
 
-        if (data.length === 0) {
-          throw {
-            message: 'No available Podcasts yet',
-            statusText: 'No Podcasts',
-            status: 'Podcasts error!',
-          };
-        }
-
-        setPodcast(data);
-        data?.id && localStorage.setItem('previewShow', data.id);
-      } catch (fetchError) {
-        setError(fetchError);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getPosts();
-  }, [id]);
+    getPodcastData(method, args);
+  }, [id, path, getPodcastData]);
 
   console.log(podcast.seasons)
 
