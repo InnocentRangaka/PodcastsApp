@@ -89,6 +89,15 @@ export default function Show() {
               </div>
             </div>
             <div className='show-list-container'>
+              
+              <div className="show-list-header">
+                <h4>
+                  {/* {(typeName && typeName.charAt(0).toUpperCase() + typeName.slice(1))}
+                  {' '} */}
+                  Seasons
+                </h4>
+              </div>
+              
               <div className='show-list'>
                 <div className='show-list-content'>
                   <div className='show-list-item padding-0'>
