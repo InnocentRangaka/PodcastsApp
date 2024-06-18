@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import fetchPosts from '../../api';
+import { fetchPodcasts } from '../../api';
 import { getPopularPodcasts, getNewPodcasts, getRecommendedPodcastsByDate } from '../utils/podcastUtils';
 import reactLogo from '../assets/react.svg';
 import viteLogo from '../assets/vite.svg';
@@ -17,7 +17,7 @@ export default function Home() {
       setLoading(true);
       setError(null);
       try {
-        const data = await fetchPosts();
+        const data = await fetchPodcasts();
 
         if (data.length === 0) {
           throw {

@@ -360,7 +360,7 @@
     opacity: 1;
   }
 
-  .show-hero-image image {
+  .show-hero-image img {
     height: 100%;
     width: 100%;
     -o-object-fit: cover;
