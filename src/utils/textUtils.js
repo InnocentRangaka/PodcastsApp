@@ -15,8 +15,8 @@ export function encodeText(title) {
   return encodeTextWithCharacter(title, '_');
 }
 
-function decodeTextWithCharacter(title, character = null) {
-  const text = character ? title.replace(character, ' ') : title;
+export function decodeTextWithCharacter(title, character = null) {
+  const text = character ? title.split(character).join(' ') : title;
   const decodedText = decodeURIComponent(title) || decodeURI(title);
   // Use DOMParser for more robust entity decoding
   const parser = new DOMParser();

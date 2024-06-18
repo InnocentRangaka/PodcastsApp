@@ -1,7 +1,9 @@
 import { React } from 'react';
 // import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { fetchPodcasts } from '../../api';
 import ListPodcasts from '../components/ListPodcasts';
+import {decodeTextWithCharacter} from './textUtils'
 
 const slicePodcasts = (object, from, to) => object.slice(from, to);
 const podcastsNotEmpty = (object) => object || []; // Use empty array for default
@@ -54,3 +56,49 @@ export const getRecommendedPodcastsByDate = ({ podcasts }) => {
 
   return newPodcasts;
 };
+
+export const getYear = (updated) => new Date(updated).getFullYear();
+
+export const getTotalEpisodes = (seasons) => seasons.reduce((acc, season) => acc + season.episodes.length, 0);
+
+export const showNameFromPath = (path) => {
+  const startsWithShow = path.startsWith('/show/') ? path.replace('/show/', '') : path;
+  return startsWithShow && decodeTextWithCharacter(startsWithShow, '_');
+}
+
+
+let podcasts = null;
+
+const getPosts = async () => {
+  try {
+    const data = await fetchPodcasts();
+
+    if (data.length === 0) {
+      throw {
+        message: 'No available Podcasts yet',
+        statusText: 'No Podcasts',
+        status: 'Podcasts error!',
+      };
+    }
+
+    setPodcasts(data);
+  } catch (fetchError) {
+    // setError(fetchError);
+  }
+};
+
+const setPodcasts = (data) => podcasts = data
+
+export const getCurrentShow = (path) => {
+  getPosts()
+
+  const title = showNameFromPath(path)
+
+  !podcasts && getPosts();
+  const podcast = podcasts && podcasts.filter(podcast => podcast.title.toLowerCase() === title.toLowerCase())
+  
+  return {
+    id: podcast.id,
+    title: podcast.title
+  }
+}

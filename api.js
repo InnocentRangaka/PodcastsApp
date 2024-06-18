@@ -12,6 +12,7 @@ export async function fetchPodcasts() {
   const data = await response.json();
   return data;
 }
+
 export async function fetchPodcast({ id }) {
   const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
   if (!response.ok) {
@@ -23,7 +24,10 @@ export async function fetchPodcast({ id }) {
   }
   const data = await response.json();
 
-  console.log(data);
+  const newPodcastData = {
+    ...data,
+    totalSeasons: data.seasons.length,
+  };
 
-  return data;
+  return newPodcastData;
 }

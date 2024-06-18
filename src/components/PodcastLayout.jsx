@@ -2,15 +2,18 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
 import { fetchPodcast } from '../../api';
-import { getPopularPodcasts, getNewPodcasts, getRecommendedPodcastsByDate } from '../utils/podcastUtils';
+import { getYear, getTotalEpisodes, getCurrentShow } from '../utils/podcastUtils';
 
 export default function Show() {
   const { name } = useParams(); // Destructure name from useParams
   const location = useLocation();
-  const { id, title } = location.state.show || [];
   const [podcast, setPodcast] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const getCurrentShow = location.state?.show || getCurrentShow(location.pathname);
+  const { id, title } = getCurrentShow || [];
+  
+  // setCurrentShow
 
   useEffect(() => {
     const getPosts = async () => {
@@ -38,16 +41,9 @@ export default function Show() {
     getPosts();
   }, [id]);
 
-  // console.log(podcasts);
-  // console.log(error);
-
-  console.log(podcast);
-  // console.log(name);
-
   return (
-    loading
-      ? <h2>Loading...</h2>
-      : (
+    !loading && podcast
+      ? (
         <section className="show">
           <div className="show-content">
             <div className="show-hero">
@@ -67,14 +63,34 @@ export default function Show() {
                   <span>
                     Show
                   </span>
+                  {podcast?.totalSeasons && (
+                    <span>
+                      {podcast.totalSeasons}
+                      {' '}
+                      Seasons
+                    </span>
+                  )}
+
+                  {podcast?.seasons && (
                   <span>
-                    Show
+                    {getTotalEpisodes(podcast.seasons)}
+                    {' '}
+                    Episodes
                   </span>
+                  )}
+
+                  {podcast?.updated && (
+                  <span>
+                    {getYear(podcast.updated)}
+                  </span>
+                  )}
+
                 </div>
               </div>
             </div>
           </div>
         </section>
       )
+      : <h2>Loading...</h2>
   );
 }
