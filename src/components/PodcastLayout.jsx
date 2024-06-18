@@ -3,7 +3,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import fetchPosts from '../../api';
 import { getPopularPodcasts, getNewPodcasts, getRecommendedPodcastsByDate } from '../utils/podcastUtils';
 
-export default function Podcast() {
+export default function Show() {
   const { name } = useParams(); // Destructure name from useParams
   const location = useLocation();
   const [podcasts, setPodcasts] = useState([]);
@@ -47,6 +47,11 @@ export default function Podcast() {
       ? <h2>Loading...</h2>
       : (
         <>
+          <section className="show">
+            <div className="show-content">
+              <div className="show-hero" />
+            </div>
+          </section>
           {getPopularPodcasts(
             { podcasts },
           )}

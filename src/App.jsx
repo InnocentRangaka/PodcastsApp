@@ -7,7 +7,7 @@ import {
 import './App.css';
 import { darkTheme, lightTheme } from './Theme';
 import Layout from './components/Layout';
-import Podcast from './components/PodcastLayout';
+import Show from './components/PodcastLayout';
 import Home from './pages/Home';
 
 function App() {
@@ -16,9 +16,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="show" element={<Podcast />}>
+
+          {/* Podcast Routes */}
+          <Route path="show" element={<Show />}>
             {/* <Route index element={<Home />} /> */}
-            <Route path=":name" element={<Podcast />} />
+            <Route path=":name" element={<Show />} />
           </Route>
         </Route>
       </Routes>
