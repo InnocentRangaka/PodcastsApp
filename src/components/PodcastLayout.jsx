@@ -12,6 +12,8 @@ export default function Show() {
   const [loading, setLoading] = useState(false);
   const getCurrentShowData = location.state?.show || getCurrentShow(location.pathname);
   const { id, title } = getCurrentShowData || [];
+
+  console.log(getCurrentShowData)
   
   // setCurrentShow
 

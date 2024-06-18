@@ -1,6 +1,20 @@
-// import { useState } from 'react';
+// import { useState, useEffects } from 'react';
+
+export const makeNewPodcastData = ({podcast}) => {
+
+  const calculateTotalEpisodes = (seasons) => seasons.reduce((acc, season) => acc + season.episodes.length, 0);
+  
+  const newPodcastData = {
+    ...podcast,
+    totalSeasons: podcast?.seasons?.length || 0,
+    totalEpisodes: podcast?.seasons && calculateTotalEpisodes(podcast.seasons) || 0,
+  };
+
+  return newPodcastData;
+}
 
 export async function fetchPodcasts() {
+  
   const response = await fetch('https://podcast-api.netlify.app/');
   if (!response.ok) {
     throw {
@@ -22,12 +36,20 @@ export async function fetchPodcast({ id }) {
       status: 'HTTP error!',
     };
   }
-  const data = await response.json();
+  const podcast = await response.json();
 
-  const newPodcastData = {
-    ...data,
-    totalSeasons: data.seasons.length,
-  };
+  const newPodcastData = makeNewPodcastData({podcast});
 
   return newPodcastData;
 }
+
+export async function fetchPodcastByTitle({ title }) {
+  const data = await fetchPodcasts();
+
+  const podcastData = data && data.filter(podcast => podcast.title.toLowerCase() === title.toLowerCase()),
+  podcast = podcastData[0] && fetchPodcast({ id: podcastData[0].id });
+
+  return podcast;
+}
+
+

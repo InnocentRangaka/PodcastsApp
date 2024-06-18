@@ -1,11 +1,10 @@
-import { React, useState } from 'react';
+import { useState, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchPodcasts, fetchPodcast } from '../../api';
+import { fetchPodcastByTitle } from '../../api';
 import ListPodcasts from '../components/ListPodcasts';
 import {decodeTextWithCharacter} from './textUtils'
 
-const [podcastsData, setPodcastsData] = useState([]);
 
 const slicePodcasts = (object, from, to) => object.slice(from, to);
 const podcastsNotEmpty = (object) => object || []; // Use empty array for default
@@ -69,30 +68,39 @@ export const showNameFromPath = (path) => {
   return startsWithShow && decodeTextWithCharacter(startsWithShow, '_');
 }
 
-const getPosts = async () => {
-  try {
-    const data = await fetchPodcasts();
-
-    if (data.length === 0) {
-      throw {
-        message: 'No available Podcasts yet',
-        statusText: 'No Podcasts',
-        status: 'Podcasts error!',
-      };
-    }
-
-    setPodcastsData(data);
-  } catch (fetchError) {
-    // setError(fetchError);
-  }
-};
-
-
 export const getCurrentShow = (path) => {
-  const title = showNameFromPath(path) 
-  getPosts()
+  const initialState = []; // Set default state for podcastsData
+  const [podcastsData, setPodcastsData] = useState(initialState);
 
-  let podcast = podcastsData && podcastsData.filter(podcast => podcast.title.toLowerCase() === title.toLowerCase())
+
+  const title = showNameFromPath(path) 
+
+  useEffect(()=>{
+    const getPosts = async () => {
+      try {
+        const data = await fetchPodcastByTitle({ title });
+
+        console.log(data)
+    
+        if (data.length === 0) {
+          throw {
+            message: 'No available Podcasts yet',
+            statusText: 'No Podcasts',
+            status: 'Podcasts error!',
+          };
+        }
+    
+        setPodcastsData(data);
+      } catch (fetchError) {
+        console.log(fetchError)
+        // setError(fetchError);
+      }
+    };
+
+    getPosts();
+  },[title])
+  
+  let podcast = podcastsData
 
   if(!podcast){
     const localShowId = localStorage.getItem('previewShow') || undefined
