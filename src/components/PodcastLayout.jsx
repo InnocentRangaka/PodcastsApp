@@ -67,6 +67,9 @@ export default function Show() {
                   <span>
                     Show
                   </span>
+                  <span>
+                    Show
+                  </span>
                 </div>
               </div>
             </div>

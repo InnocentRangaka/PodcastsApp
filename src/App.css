@@ -411,5 +411,9 @@
     white-space: nowrap;
     white-space: pre;
   }
+
+  span + span::before {
+    content: " • ";
+  }
   
 }
