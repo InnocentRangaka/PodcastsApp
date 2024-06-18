@@ -41,6 +41,8 @@ export default function Show() {
     getPosts();
   }, [id]);
 
+  console.log(podcast.seasons)
+
   return (
     !loading && podcast
       ? (
@@ -100,8 +102,9 @@ export default function Show() {
               
               <div className='show-list'>
                 <div className='show-list-content'>
-
-                  <div className='show-list-item padding-0'>
+                {podcast?.seasons && podcast.seasons.map((season) => (
+                  <div key={season.id}
+                  className='show-list-item padding-0'>
                     <div className='show-list-item-left'>
                       <div className='show-list-item-index'>
                         {/* <div className='show-list-item-thumbnail-overlay'>
@@ -112,7 +115,7 @@ export default function Show() {
                             <div className='show-list-item-play-button'>
                               <div className='show-list-item-play-button-icon'>
                                 <div className='show-list-item-play-button'>
-                                  1 
+                                  {season.season}
                                 </div>
                               </div>
                             </div>
@@ -125,14 +128,16 @@ export default function Show() {
                         <Link
                         className='show-list-item-link'
                         spellCheck="false"
-                        >sdsds</Link>
+                        >{season.title}</Link>
                       </div>
                       <div className='show-list-item-text'>
-                        sdsd
+                        {season?.season && (<span>Season {season.season}</span>)}
+                        {/* {season?.episodes && (<span>Season {season.episodes}</span>)} */}
                       </div>
                     </div>
                   </div>
                   
+                ))}
                 </div>
               </div>
             </div>

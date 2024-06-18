@@ -561,7 +561,7 @@
 
   .show-list-item-title {
     display: flex;
-    height: 17px;
+    height: 20px;
     margin: 0 0 3px;
     flex: 6 1 0;
     flex-basis: 100%;
