@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import { Img } from 'react-image';
 import fetchPosts from '../../api';
 import { getPopularPodcasts, getNewPodcasts, getRecommendedPodcastsByDate } from '../utils/podcastUtils';
 
@@ -49,7 +50,15 @@ export default function Show() {
         <>
           <section className="show">
             <div className="show-content">
-              <div className="show-hero" />
+              <div className="show-hero">
+                <div className="show-hero-image" />
+                <Img
+                  className=""
+                  aria-hidden=""
+                  loading="eager"
+                  src=""
+                />
+              </div>
             </div>
           </section>
           {getPopularPodcasts(

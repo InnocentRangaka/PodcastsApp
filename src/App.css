@@ -357,6 +357,16 @@
     background-color: #535353;-webkit-filter: drop-shadow(0 0 18.3529px rgba(0, 0, 0, .3));
     filter: drop-shadow(0 0 18.3529px rgba(0, 0, 0, .3));
     overflow: hidden;
+    opacity: 1;
+  }
+
+  .show-hero-image image {
+    height: 100%;
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center center;
+    object-position: center center;
   }
   
 }
