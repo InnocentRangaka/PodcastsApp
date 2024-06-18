@@ -100,6 +100,7 @@ export default function Show() {
               
               <div className='show-list'>
                 <div className='show-list-content'>
+
                   <div className='show-list-item padding-0'>
                     <div className='show-list-item-left'>
                       <div className='show-list-item-index'>
@@ -131,6 +132,7 @@ export default function Show() {
                       </div>
                     </div>
                   </div>
+                  
                 </div>
               </div>
             </div>
