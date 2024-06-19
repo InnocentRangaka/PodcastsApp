@@ -4,6 +4,8 @@ import { Img } from 'react-image';
 import {decodeTextWithCharacter} from '../utils/textUtils'
 import { fetchSeason, fetchPodcastByTitle } from '../../api';
 import FavouriteButton from './FavouriteButton';
+import AudioPlaceholder from './Audio/AudioPlaceholder';
+import AudioPlayerButton from './Audio/AudioPlayerButton';
 import { SvgIcon } from '@mui/material';
 
 export default function Season() {
@@ -168,7 +170,14 @@ export default function Season() {
                           </div>
                           )}
                       </div>
-                      <div><FavouriteButton audio='' /></div>
+                      <div>
+                        <FavouriteButton audio='' />
+                        {episode.file && (
+                          <AudioPlaceholder>
+                            <AudioPlayerButton key={episode.episode} audioSrc={episode.file} />
+                          </AudioPlaceholder>
+                          )}
+                      </div>
 
                       {episode?.description && (
                         <div className='show-list-item-description'>

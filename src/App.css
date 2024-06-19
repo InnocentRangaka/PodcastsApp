@@ -127,13 +127,17 @@
     color: #aaa !important;
   }
 
+  .playerButton {
+    color: var(--color) !important;
+  }
+
   h1 {
-    font-size: var(--text-size-large);
+    font-size: var(--text-size-large) !important;
     
   }
 
   h2 {
-    font-size: var(--text-size-medium);
+    font-size: var(--text-size-medium) !important;
   }
 
   h1, h2, h3, h4 {
