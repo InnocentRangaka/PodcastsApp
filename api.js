@@ -52,4 +52,13 @@ export async function fetchPodcastByTitle({ title }) {
   return podcast;
 }
 
+export async function fetchSeason(podcastName) {
+  const data = await fetchPodcasts();
+
+  const podcastData = data && data.filter(podcast => podcast.title.toLowerCase() === title.toLowerCase()),
+  podcast = podcastData[0] && fetchPodcast({ id: podcastData[0].id });
+
+  return podcast;
+}
+
 

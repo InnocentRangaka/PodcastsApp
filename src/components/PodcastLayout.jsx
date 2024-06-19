@@ -157,8 +157,11 @@ export default function Show() {
                         title={season.title}
                         state={{
                           show: {
-                            id: `${season.season}`,
-                            title: `${season.title}`,
+                            podcastId: `${podcast.id}`,
+                            viewSeason: {
+                              id: `${season.season}`,
+                              title: `${season.title}`,
+                            }
                           },
                         }}
                         >{season.title}

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
 import {decodeTextWithCharacter} from '../utils/textUtils'
+import { fetchSeason } from '../../api';
 
 export default function Season() {
   const showName = useParams()?.name && decodeTextWithCharacter(useParams().name, '_'),
@@ -11,9 +12,12 @@ export default function Season() {
   [season, setSeason] = useState([]),
   [error, setError] = useState(null),
   [loading, setLoading] = useState(false);
-  const { id, title } = location.state?.show || [];
+  const { podcastId, viewSeason } = location.state?.show || [];
+  const { id, title } = viewSeason || [];
 
-  console.log(showName,seasonId,id,title,path)
+  console.log(showName,podcastId,id,title,path)
+  console.log(location.state.show)
+  fetchSeason(showName)
 
   return (
     <section 
