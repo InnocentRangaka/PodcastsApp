@@ -69,42 +69,30 @@ export const showNameFromPath = (path) => {
 }
 
 // Delete the following function
-export const getCurrentShow = (path) => {
-  const initialState = []; // Set default state for podcastsData
-  const [podcastsData, setPodcastsData] = useState(initialState);
-
-
+export const getEpisodeShow = async (path) => {
   const title = showNameFromPath(path) 
 
-  useEffect(()=>{
-    const getPosts = async () => {
-      try {
-        const data = await fetchPodcastByTitle({ title });
-    
-        if (data.length === 0) {
-          throw {
-            message: 'No available Podcasts yet',
-            statusText: 'No Podcasts',
-            status: 'Podcasts error!',
-          };
-        }
-    
-        setPodcastsData(data);
-      } catch (fetchError) {
-        console.log(fetchError)
-        // setError(fetchError);
-      }
-    };
+  try {
+    const data = await fetchPodcastByTitle({ title });
 
-    getPosts();
-  },[title])
-  
-  let podcast = podcastsData
+    if (data.length === 0) {
+      throw {
+        message: 'No available Podcasts yet',
+        statusText: 'No Podcasts',
+        status: 'Podcasts error!',
+      };
+    }
 
-  if(!podcast){
-    const localShowId = localStorage.getItem('previewShow') || undefined
-    podcast = localShowId && podcastsData && podcastsData.filter(podcast => parseInt(podcast.id) === parseInt(localShowId))
+    // let podcast = podcastsData
+
+    // if(!podcast){
+    //   const localShowId = localStorage.getItem('previewShow') || undefined
+    //   podcast = localShowId && podcastsData && podcastsData.filter(podcast => parseInt(podcast.id) === parseInt(localShowId))
+    // }
+
+    return data;
+  } catch (fetchError) {
+    console.log(fetchError)
+    // setError(fetchError);
   }
-
-  return podcast
 }

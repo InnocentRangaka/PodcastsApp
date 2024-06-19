@@ -20,6 +20,7 @@ export default function Season() {
       setLoading(true);
       const fetchedSeason = await fetchSeason(podcastId, id);
       setSeason(fetchedSeason);
+      podcastId && localStorage.setItem('previewShow', {podcast: podcastId, season: podcastId,});
     } catch (error) {
       console.log(error)
       setError(error);

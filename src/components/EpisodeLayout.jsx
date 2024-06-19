@@ -20,7 +20,7 @@ export default function Episode() {
       const { id, title, description, file } = viewEpisode || [];
   
       const fetchedSeason = id && title && description && file ? viewEpisode : {};
-      setEpisode(viewEpisode);
+      setEpisode(fetchedSeason);
     } catch (error) {
       console.log(error)
       setError(error);

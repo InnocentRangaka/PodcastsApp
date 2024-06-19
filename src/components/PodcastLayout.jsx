@@ -41,7 +41,7 @@ export default function Show() {
       }
   
       setPodcast(data);
-      data?.id && localStorage.setItem('previewShow', data.id);
+      data?.id && localStorage.setItem('previewShow', {podcast: data.id,});
     } catch (fetchError) {
       setError(fetchError);
       console.error(fetchError); // Log for debugging purposes
