@@ -70,9 +70,15 @@ export const showNameFromPath = (path) => {
 
 // Delete the following function
 export const getEpisodeShow = async (path) => {
-  const title = showNameFromPath(path) 
 
   try {
+    
+    const getName = showNameFromPath(path),
+    splitedPath = getName.split("/"),
+    title = splitedPath[0],
+    seasonId = splitedPath[2],
+    episodeId = splitedPath[4] 
+    
     const data = await fetchPodcastByTitle({ title });
 
     if (data.length === 0) {
@@ -83,14 +89,15 @@ export const getEpisodeShow = async (path) => {
       };
     }
 
-    // let podcast = podcastsData
+    const season = data?.seasons.find((seasons) => seasons.season == seasonId);
+    const episode = season?.episodes.find((episodes) => episodes.episode == episodeId);
 
-    // if(!podcast){
-    //   const localShowId = localStorage.getItem('previewShow') || undefined
-    //   podcast = localShowId && podcastsData && podcastsData.filter(podcast => parseInt(podcast.id) === parseInt(localShowId))
-    // }
-
-    return data;
+    return { 
+      id: episode.id, 
+      title: episode.title, 
+      description: episode.description, 
+      file: episode.file 
+    };
   } catch (fetchError) {
     console.log(fetchError)
     // setError(fetchError);
