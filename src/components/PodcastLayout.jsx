@@ -14,6 +14,7 @@ export default function Show() {
   const [loading, setLoading] = useState(false);
   const { id, title } = location.state?.show || [];
 
+  // Use useCallback for fetchSeason to prevent unnecessary re-renders
   const getPodcastData = useCallback(async (method, args) => {
     setLoading(true);
     setError(null);

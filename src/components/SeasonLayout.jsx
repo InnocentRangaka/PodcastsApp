@@ -15,6 +15,23 @@ export default function Season() {
   const { podcastId, viewSeason } = location.state?.show || [];
   const { id, title } = viewSeason || [];
 
+  // Use useCallback for fetchSeason to prevent unnecessary re-renders
+  const getSeasonData = useCallback(async () => {
+    try {
+      setLoading(true);
+      const fetchedSeason = await fetchSeason(podcastId, id);
+      setSeason(fetchedSeason);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [podcastId, id, fetchSeason]);
+
+  useEffect(() => {
+    getSeasonData();
+  }, [getSeasonData]);
+
   console.log(showName,podcastId,id,title,path)
   console.log(location.state.show)
   fetchSeason(podcastId, id)
