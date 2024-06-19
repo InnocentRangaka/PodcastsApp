@@ -55,6 +55,11 @@ export default function Home() {
         ? <h2>Loading...</h2>
         : (
           <>
+            <span>Sort by</span>
+            <button onClick={() => handleSortChange('alphabetically')}>A-Z</button>
+            <button onClick={() => handleSortChange('reverseAlphabetically')}>Z-A</button>
+            <button onClick={() => handleSortChange('byDate')}>By Date</button>
+            <button onClick={() => handleSortChange('latestRelease')}>Latest Release</button>
             {getPopularPodcasts(
               { podcasts },
             )}
