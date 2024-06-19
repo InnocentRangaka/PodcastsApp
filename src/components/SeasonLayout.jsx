@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
 import {decodeTextWithCharacter} from '../utils/textUtils'
 import { fetchSeason } from '../../api';
+import { SvgIcon } from '@mui/material';
 
 export default function Season() {
   const showName = useParams()?.name && decodeTextWithCharacter(useParams().name, '_'),
@@ -98,7 +99,7 @@ export default function Season() {
                 {season?.episodes && season.episodes.map((episode) => (
                   <div 
                   key={episode.episode}
-                  className='show-list-item padding-0'
+                  className='show-list-item padding-10'
                   >
                     <div className='show-list-item-left'>
                       <div className='show-list-item-index'>
@@ -155,7 +156,7 @@ export default function Season() {
 
                       {episode?.description && (
                         <div className='show-list-item-description'>
-                          {episode.description}
+                          <p>{episode.description}</p>
                         </div>
                       )}
 
