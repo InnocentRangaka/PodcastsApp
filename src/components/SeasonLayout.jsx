@@ -17,7 +17,7 @@ export default function Season() {
 
   console.log(showName,podcastId,id,title,path)
   console.log(location.state.show)
-  fetchSeason(showName)
+  fetchSeason(podcastId, id)
 
   return (
     <section 

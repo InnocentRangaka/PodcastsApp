@@ -52,13 +52,15 @@ export async function fetchPodcastByTitle({ title }) {
   return podcast;
 }
 
-export async function fetchSeason(podcastName) {
-  const data = await fetchPodcasts();
+export async function fetchSeason(podcastId, seasonId) {
+  const data = await fetchPodcast({ id:podcastId });
+  // console.log(...data.seasons)
 
-  const podcastData = data && data.filter(podcast => podcast.title.toLowerCase() === title.toLowerCase()),
-  podcast = podcastData[0] && fetchPodcast({ id: podcastData[0].id });
+  const podcastData = data?.seasons && data.seasons[seasonId - 1].filter(season => season.season);
+  console.log(podcastData)
+  // podcast = podcastData[0] && fetchPodcast({ id: podcastData[0].id });
 
-  return podcast;
+  // return podcast;
 }
 
 
