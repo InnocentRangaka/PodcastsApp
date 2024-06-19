@@ -5,12 +5,13 @@ import PauseIcon from '@mui/icons-material/Pause';
 import { AudioContext } from './AudioPlaceholder';
 
 const AudioPlayerButton = ({ audioSrc, audioName }) => {
+  const { onPlay, onPause, setCurrentAudio, currentAudio } = useContext(AudioContext);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const { onPlay, onPause, duration, currentTime, setCurrentAudio, currentAudio } = useContext(AudioContext);
-
   useEffect(() => {
-    if (currentAudio !== audioSrc) {
+    if (currentAudio === audioSrc) {
+      setIsPlaying(true);
+    } else {
       setIsPlaying(false);
     }
   }, [currentAudio, audioSrc]);
@@ -19,11 +20,9 @@ const AudioPlayerButton = ({ audioSrc, audioName }) => {
     if (currentAudio === audioSrc) {
       onPause();
       setCurrentAudio(null);
-      setIsPlaying(false);
     } else {
-      setCurrentAudio(audioSrc);
       onPlay(audioSrc);
-      setIsPlaying(true);
+      setCurrentAudio(audioSrc);
     }
   };
 
@@ -32,12 +31,12 @@ const AudioPlayerButton = ({ audioSrc, audioName }) => {
       <IconButton onClick={handleTogglePlay} className='playerButton' name={audioName}>
         {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
       </IconButton>
-      {currentAudio === audioSrc && (
+      {/* {currentAudio === audioSrc && (
         <div>
           <p>Duration: {duration.toFixed(2)} seconds</p>
           <p>Current Time: {currentTime.toFixed(2)} seconds</p>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -10,7 +10,9 @@ const AudioPlaceholder = ({ children }) => {
 
   const onPlay = (audioSrc) => {
     if (audioRef.current) {
-      audioRef.current.src = audioSrc;
+      if (audioRef.current.src !== audioSrc) {
+        audioRef.current.src = audioSrc;
+      }
       audioRef.current.play();
     }
   };
