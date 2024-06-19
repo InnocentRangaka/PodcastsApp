@@ -120,7 +120,7 @@ export default function Season() {
                     <div className='show-list-item-center'>
                       <div className='show-list-item-title'>
                         <Link
-                          to={`${season.season}/episode/${episode.episode}`}
+                          to={`episode/${episode.episode}`}
                           className='show-list-item-link'
                           spellCheck="false"
                           title={season.title}
@@ -133,6 +133,7 @@ export default function Season() {
                                 viewEpisode: {
                                   id: `${episode.episode}`,
                                   title: `${episode.title}`,
+                                  description: `${episode.description}`,
                                   file: `${episode.file}`,
                                 }
                               }

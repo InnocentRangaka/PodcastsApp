@@ -8,33 +8,37 @@ export default function Episode() {
   const showName = useParams()?.name && decodeTextWithCharacter(useParams().name, '_'),
   location = useLocation(),
   path = location?.pathname || '',
-  [season, setSeason] = useState([]),
+  [episode, setEpisode] = useState([]),
   [error, setError] = useState(null),
   [loading, setLoading] = useState(false);
   const { podcastId, viewSeason } = location.state?.show || [];
   const { seasonId, seasonTitle, viewEpisode } = viewSeason || [];
-  const { id, title } = viewEpisode || [];
   // Use useCallback for fetchSeason to prevent unnecessary re-renders
-  const getSeasonData = useCallback(async () => {
+  const getEpisodeData = useCallback(async () => {
     try {
       setLoading(true);
-      const fetchedSeason = await fetchSeason(podcastId, id);
-      setSeason(fetchedSeason);
+      const { id, title, description, file } = viewEpisode || [];
+  
+      const fetchedSeason = id && title && description && file ? viewEpisode : {};
+      setEpisode(viewEpisode);
     } catch (error) {
       console.log(error)
       setError(error);
     } finally {
       setLoading(false);
     }
-  }, [podcastId, id, fetchSeason]);
+  }, [viewEpisode]);
 
   useEffect(() => {
-    getSeasonData();
-  }, [getSeasonData]);
+    getEpisodeData();
+  }, [getEpisodeData]);
 
-  console.log(viewSeason)
+  const { id, title, description, file } = episode || [];
+  
 
-  console.log(showName, podcastId, "|", seasonId, seasonTitle, "|", id,title,path)
+  console.log(episode)
+
+  console.log(showName, podcastId, "|", seasonId, seasonTitle, "|", id, title, description, file, "|", path)
 
   return (
     !loading && season
