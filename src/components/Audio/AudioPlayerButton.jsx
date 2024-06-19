@@ -7,22 +7,28 @@ import { AudioContext } from './AudioPlaceholder';
 const AudioPlayerButton = ({ audioSrc, audioId, audioName }) => {
   const { onPlay, onPause, duration, currentTime, currentAudio, currentAudioId, setCurrentAudio, isEnded } = useContext(AudioContext);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
-    if (currentAudio === audioSrc) {
+    if (currentAudio === audioSrc && isClicked) {
       setIsPlaying(true);
+      setCurrentAudio(audioSrc);
+      onPlay(audioSrc);
     } else {
       setIsPlaying(false);
     }
-  }, [currentAudio, audioSrc]);
+  }, [currentAudio, audioSrc, isClicked]);
 
   const handleTogglePlay = () => {
-    if (currentAudio === audioSrc) {
+    if (currentAudio === audioSrc && isPlaying) {
       onPause();
+      setIsPlaying(false);
       setCurrentAudio(null);
     } else {
       onPlay(audioSrc);
+      setIsPlaying(true);
       setCurrentAudio(audioSrc);
+      setIsClicked(true);
     }
   };
 
