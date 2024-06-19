@@ -174,7 +174,7 @@ export default function Season() {
                         <FavouriteButton audio='' />
                         {episode.file && (
                           <AudioPlaceholder>
-                            <AudioPlayerButton key={episode.episode} audioSrc={episode.file} />
+                            <AudioPlayerButton key={episode.episode} audioId={season.season} audioSrc={episode.file} />
                           </AudioPlaceholder>
                           )}
                       </div>

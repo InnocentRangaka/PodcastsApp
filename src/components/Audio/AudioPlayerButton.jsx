@@ -4,8 +4,8 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import { AudioContext } from './AudioPlaceholder';
 
-const AudioPlayerButton = ({ audioSrc, audioName }) => {
-  const { onPlay, onPause, setCurrentAudio, currentAudio } = useContext(AudioContext);
+const AudioPlayerButton = ({ audioSrc, audioId, audioName }) => {
+  const { onPlay, onPause, duration, currentTime, currentAudio, currentAudioId, setCurrentAudio, isEnded } = useContext(AudioContext);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -27,9 +27,9 @@ const AudioPlayerButton = ({ audioSrc, audioName }) => {
   };
 
   return (
-    <div>
+    <>
       <IconButton onClick={handleTogglePlay} className='playerButton' name={audioName}>
-        {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+        {isPlaying && !isEnded ? <PauseIcon /> : isEnded ? <PlayArrowIcon /> : <PlayArrowIcon />}
       </IconButton>
       {/* {currentAudio === audioSrc && (
         <div>
@@ -37,7 +37,7 @@ const AudioPlayerButton = ({ audioSrc, audioName }) => {
           <p>Current Time: {currentTime.toFixed(2)} seconds</p>
         </div>
       )} */}
-    </div>
+    </>
   );
 };
 

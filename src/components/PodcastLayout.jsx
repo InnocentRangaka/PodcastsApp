@@ -4,6 +4,9 @@ import { Img } from 'react-image';
 import { fetchPodcast, fetchPodcastByTitle } from '../../api';
 import { getYear, getTotalEpisodes, showNameFromPath } from '../utils/podcastUtils';
 import {encodeText} from '../utils/textUtils'
+import FavouriteButton from './FavouriteButton';
+import AudioPlaceholder from './Audio/AudioPlaceholder';
+import AudioPlayerButton from './Audio/AudioPlayerButton';
 
 export default function Show() {
   const { name } = useParams(); // Destructure name from useParams
@@ -176,6 +179,14 @@ export default function Show() {
                           </div>
                           )}
                         
+                      </div>
+                      <div>
+                        <FavouriteButton audio='' />
+                        {episode.file && (
+                          <AudioPlaceholder>
+                            <AudioPlayerButton key={season.season} audioId={season.season} audioSrc={episode.file} />
+                          </AudioPlaceholder>
+                          )}
                       </div>
                     </div>
                   </div>
