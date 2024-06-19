@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
 import {decodeTextWithCharacter} from '../utils/textUtils'
 import { fetchSeason, fetchPodcastByTitle } from '../../api';
+import FavouriteButton from './FavouriteButton';
 import { SvgIcon } from '@mui/material';
 
 export default function Season() {
@@ -166,8 +167,8 @@ export default function Season() {
                             {/* {season.episodes && <span>{season.episodes.length}{' '}{season.episodes.length >= 2 ? 'Episodes' : "Episode"}</span>} */}
                           </div>
                           )}
-                        
                       </div>
+                      <div><FavouriteButton audio='' /></div>
 
                       {episode?.description && (
                         <div className='show-list-item-description'>
