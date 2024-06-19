@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
 import { fetchPodcast, fetchPodcastByTitle } from '../../api';
 import { getYear, getTotalEpisodes, showNameFromPath } from '../utils/podcastUtils';
+import {encodeText} from '../utils/textUtils'
 
 export default function Show() {
   const { name } = useParams(); // Destructure name from useParams
@@ -55,7 +56,7 @@ export default function Show() {
     getPodcastData(method, args);
   }, [id, path, getPodcastData]);
 
-  // console.log(podcast.seasons)
+  // console.log(podcast.description)
 
   return (
     !loading && podcast
@@ -103,6 +104,14 @@ export default function Show() {
 
                 </div>
               </div>
+              {podcast?.description && (
+                <div className="show-description">
+                  <p className="">
+                    {podcast.description}
+                  </p>
+                </div>
+              )}
+              
             </div>
             <div className='show-list-container'>
               
@@ -142,9 +151,18 @@ export default function Show() {
                     <div className='show-list-item-center'>
                       <div className='show-list-item-title'>
                         <Link
+                        to={`season/${season.season}`}
                         className='show-list-item-link'
                         spellCheck="false"
-                        >{season.title}</Link>
+                        title={season.title}
+                        state={{
+                          show: {
+                            id: `${season.season}`,
+                            title: `${season.title}`,
+                          },
+                        }}
+                        >{season.title}
+                        </Link>
                       </div>
                       <div className='show-list-item-text'>
                         {season && (

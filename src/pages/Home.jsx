@@ -39,7 +39,7 @@ export default function Home() {
   }, []);
 
   // console.log(podcasts);
-  console.log(location);
+  // console.log(location);
   // console.log(error);
 
   return (

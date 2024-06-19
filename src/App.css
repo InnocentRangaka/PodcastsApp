@@ -417,6 +417,15 @@
     content: " • ";
   }
 
+  .show-description {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    font-weight: 400;
+    color: #aaa;
+    text-align: left;
+  }
+
   .show-list-container {
     display: flex;
     flex-direction: column;
@@ -575,6 +584,7 @@
 
   .show-list-item-link {
     display: block;
+    color: var(--color);
     margin-right: -.1em;
     padding-right: .1em;
     white-space: pre;
