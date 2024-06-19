@@ -9,6 +9,30 @@ import {decodeTextWithCharacter} from './textUtils'
 const slicePodcasts = (object, from, to) => object.slice(from, to);
 const podcastsNotEmpty = (object) => object || []; // Use empty array for default
 
+const sortByTitle = (a, b) => {
+  const titleA = a.title.toLowerCase();
+  const titleB = b.title.toLowerCase();
+  if (titleA < titleB) return -1;
+  if (titleA > titleB) return 1;
+  return 0;
+};
+
+export const sortAlphabetically = (podcasts) => {
+  return [...podcasts].sort((a, b) => a.title.localeCompare(b.title));
+};
+
+export const sortAlphabeticallyReversed = (podcasts) => {
+  return [...podcasts].sort((a, b) => b.title.localeCompare(a.title));
+};
+
+export const sortByDate = (podcasts) => {
+  return [...podcasts].sort((a, b) => new Date(a.updated) - new Date(b.updated));
+};
+
+export const sortByLatestRelease = (podcasts) => {
+  return sortByDate(podcasts).reverse();
+};
+
 const getPodcastListByLimit = (allPodcasts, limit) => {
   const maxNumber = allPodcasts.length >= limit ? limit : allPodcasts.length;
   return slicePodcasts(allPodcasts, 0, maxNumber);
@@ -33,10 +57,9 @@ export const getNewPodcasts = ({ podcasts }) => {
   const notEmptyObject = podcastsNotEmpty(podcasts);
   let newPodcasts = [];
   if (notEmptyObject) {
-    const sortBySeasons = (a, b) => new Date(a.updated) - new Date(b.updated);
-    notEmptyObject.sort(sortBySeasons).reverse();
+    const sortedSeasons = sortByLatestRelease(notEmptyObject);
 
-    const top15Podcasts = getPodcastListByLimit(notEmptyObject, 15);
+    const top15Podcasts = getPodcastListByLimit(sortedSeasons, 15);
 
     newPodcasts = ListPodcasts({ title: 'New', podcastsObject: top15Podcasts });
   }
@@ -48,10 +71,9 @@ export const getRecommendedPodcastsByDate = ({ podcasts }) => {
   const notEmptyObject = podcastsNotEmpty(podcasts);
   let newPodcasts = [];
   if (notEmptyObject) {
-    const sortBySeasons = (a, b) => new Date(a.updated) - new Date(b.updated);
-    notEmptyObject.sort(sortBySeasons).reverse();
+    const sortedSeasons = sortByLatestRelease(notEmptyObject);
 
-    const top15Podcasts = slicePodcasts(notEmptyObject, 15, 30);
+    const top15Podcasts = slicePodcasts(sortedSeasons, 15, 30);
 
     newPodcasts = ListPodcasts({ title: 'Recommended', podcastsObject: top15Podcasts });
   }
