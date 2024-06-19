@@ -41,7 +41,7 @@ export default function Episode() {
   console.log(showName, podcastId, "|", seasonId, seasonTitle, "|", id, title, description, file, "|", path)
 
   return (
-    !loading && season
+    !loading && episode
       ? (
         <section key={id} className="show">
           <h1>Episode {' ' } {id}</h1>
