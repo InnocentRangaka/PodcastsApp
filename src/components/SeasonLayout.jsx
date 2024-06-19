@@ -13,7 +13,7 @@ export default function Season() {
   [loading, setLoading] = useState(false);
   const { id, title } = location.state?.show || [];
 
-  console.log(showName,seasonId,id,title)
+  console.log(showName,seasonId,id,title,path)
 
   return (
     <section 
