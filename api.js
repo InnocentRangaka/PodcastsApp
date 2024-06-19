@@ -1,9 +1,9 @@
 // import { useState, useEffects } from 'react';
-
+  
 export const makeNewPodcastData = ({podcast}) => {
 
   const calculateTotalEpisodes = (seasons) => seasons.reduce((acc, season) => acc + season.episodes.length, 0);
-  
+
   const newPodcastData = {
     ...podcast,
     totalSeasons: podcast?.seasons?.length || 0,
@@ -11,6 +11,15 @@ export const makeNewPodcastData = ({podcast}) => {
   };
 
   return newPodcastData;
+}
+
+export const makeNewSeasonData = ({season}) => {
+  const newSeasonData = {
+    ...season,
+    totalEpisodes: season?.episodes && season.episodes.length || 0,
+  };
+
+  return newSeasonData;
 }
 
 export async function fetchPodcasts() {
@@ -56,8 +65,7 @@ export async function fetchSeason(podcastId, seasonId) {
   const data = await fetchPodcast({ id:podcastId });
 
   const seasonData = data?.seasons && data.seasons.find(season => season.season == seasonId);
-
-  return seasonData;
+  
+  return makeNewSeasonData({season: seasonData});
 }
-
 
