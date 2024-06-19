@@ -2,7 +2,7 @@ import { memo, useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
 import {decodeTextWithCharacter} from '../utils/textUtils'
-import { fetchSeason } from '../../api';
+import { fetchSeason, fetchPodcastByTitle } from '../../api';
 import { SvgIcon } from '@mui/material';
 
 export default function Season() {
@@ -19,16 +19,30 @@ export default function Season() {
   const getSeasonData = useCallback(async () => {
     try {
       setLoading(true);
-      const fetchedSeason = await fetchSeason(podcastId, id);
+
+      let makePodcastId = podcastId,
+      makeSeasonId = id;
+
+      if(!makePodcastId){
+        const podcastByTitle = await fetchPodcastByTitle({title: showName})
+        makePodcastId = podcastByTitle.id
+      }
+
+      if(!makeSeasonId){
+        const getIdFromPath = path.split('/').pop()
+        makeSeasonId = getIdFromPath;
+      }
+
+      const fetchedSeason = await fetchSeason(makePodcastId, makeSeasonId);
       setSeason(fetchedSeason);
-      podcastId && localStorage.setItem('previewShow', {podcast: podcastId, season: id,});
+      makePodcastId && localStorage.setItem('previewShow', {podcast: makePodcastId, season: makeSeasonId,});
     } catch (error) {
       console.log(error)
       setError(error);
     } finally {
       setLoading(false);
     }
-  }, [podcastId, id, fetchSeason]);
+  }, [podcastId, id, showName, fetchSeason, fetchPodcastByTitle]);
 
   useEffect(() => {
     getSeasonData();
@@ -54,6 +68,7 @@ export default function Season() {
                 <h1 className="show-title">
                   {season.title}
                 </h1>
+                
                 <div className="show-subtitle">
                   <span>
                     Season
