@@ -109,9 +109,11 @@ export default function Home() {
         <h2>Loading...</h2>
       ) : (
         <>
+        <div className='sort-view-container'>
           <ToggleButtonsGroup sortBy={sortBy} handleSortChange={handleSortChange} />
           <ToggleViewLayout isGridView={isGridView} setIsGridView={setIsGridView} />
-          
+        </div>
+
           {/* <GenreList /> */}
           {isGridView ? <GridPodcasts title="Podcasts" podcastsObject={podcasts} /> 
           : 
