@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
 import {decodeTextWithCharacter} from '../utils/textUtils'
 import { fetchSeason, fetchPodcastByTitle } from '../../api';
+import DescriptionLayout from './DescriptionLayout'
 import FavouriteButton from './FavouriteButton';
 import AudioPlaceholder from './Audio/AudioPlaceholder';
 import AudioPlayerButton from './Audio/AudioPlayerButton';
@@ -93,13 +94,8 @@ export default function Season() {
 
                 </div>
               </div>
-              {season?.description && (
-                <div className="show-description">
-                  <p className="">
-                    {season.description}
-                  </p>
-                </div>
-              )}
+
+              {season?.description && <DescriptionLayout description={season.description} />}
               
             </div>
             <div className='show-list-container'>

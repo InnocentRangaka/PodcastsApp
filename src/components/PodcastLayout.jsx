@@ -3,6 +3,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
 import { fetchPodcast, fetchPodcastByTitle } from '../../api';
 import { getYear, getTotalEpisodes, showNameFromPath } from '../utils/podcastUtils';
+import DescriptionLayout from './DescriptionLayout'
 import {encodeText} from '../utils/textUtils'
 import FavouriteButton from './FavouriteButton';
 import AudioPlaceholder from './Audio/AudioPlaceholder';
@@ -109,13 +110,7 @@ export default function Show() {
 
                 </div>
               </div>
-              {podcast?.description && (
-                <div className="show-description">
-                  <p className="">
-                    {podcast.description}
-                  </p>
-                </div>
-              )}
+              {podcast?.description && <DescriptionLayout description={podcast.description} />}
               
             </div>
             <div className='show-list-container'>
