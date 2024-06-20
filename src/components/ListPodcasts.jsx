@@ -15,8 +15,8 @@ function ListPodcasts({ title, podcastsObject }) {
     return (
       <>
         {memo(() => getPopularPodcasts({ podcasts }))}
-        {getNewPodcasts({ podcasts })}
-        {getRecommendedPodcastsByDate({ podcasts })}
+        {memo(() => getNewPodcasts({ podcasts }))}
+        {memo(() => getRecommendedPodcastsByDate({ podcasts }))}
       </>
     );
   }

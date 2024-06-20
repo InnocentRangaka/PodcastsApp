@@ -55,5 +55,5 @@ const GridPodcasts = ({ title, podcastsObject }) => {
   );
 };
 
-export default GridPodcasts;
+export default React.memo(GridPodcasts);
 
