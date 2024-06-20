@@ -16,7 +16,7 @@ const ToggleButtonsGroup = ({ sortBy, handleSortChange }) => {
   };
 
   return (
-    <div>
+    <div className='toggle-buttons-group'>
       <span>Sort by:</span>
       <ToggleButtonGroup
         value={formats}
