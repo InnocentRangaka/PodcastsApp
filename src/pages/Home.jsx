@@ -104,8 +104,9 @@ export default function Home() {
         <h2>Loading...</h2>
       ) : (
         <>
-          <ToggleButtonsGroup />
-          <ToggleViewLayout podcasts={ podcasts} onSelectPodcast={handlePodcastSelect} onToggleGridView={toggleView} />
+          <ToggleButtonsGroup sortBy={sortBy} handleSortChange={handleSortChange} />
+          <ToggleViewLayout isGridView={isGridView} setIsGridView={setIsGridView} />
+          
           {/* <GenreList /> */}
           {/* {getPopularPodcasts({ podcasts })}
           {getNewPodcasts({ podcasts })}
