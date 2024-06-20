@@ -153,15 +153,22 @@
     /* margin-left: -2px; */
   }
 
-  .css-bghv3y-MuiToggleButtonGroup-root 
+  /* .css-bghv3y-MuiToggleButtonGroup-root 
   .MuiToggleButtonGroup-lastButton, 
   .css-bghv3y-MuiToggleButtonGroup-root 
-  .MuiToggleButtonGroup-middleButton {
-    margin-left: 0px;
-    border-left: 1px solid transparent;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
+  .MuiToggleButtonGroup-middleButton { */
+  .css-1dlyelz-MuiButtonBase-root-MuiToggleButton-root {
+    margin-left: 0px !important;
+    border: 1px solid inherit !important;;
+  }
+
+  .toggle-buttons-group {
+    display: flex;
+    margin: 20px 0;
+    align-items: center;
+    font-size: 12px;
+    gap: 10px;
+  }
 
   h1 {
     font-size: var(--text-size-large) !important;
