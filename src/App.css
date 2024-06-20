@@ -495,11 +495,32 @@
     flex-direction:  column;
   }
 
+  .show-description-p {
+    display: block;
+    text-align: left;
+    margin-bottom: 0px;
+    font-weight: 300;
+    font-size: 14px;
+  }
+
   .show-description-title {
     width: 100%;
     display: flex;
     align-items: center;
     place-self: flex-start;
+    gap: 10px;
+  }
+
+  .show-description-title button {
+    margin: 1px;
+  }
+
+  .collapse-button {
+    color: var(--color) !important;
+  }
+
+  .show-description-title span {
+    font-size: 14px;
   }
 
   .show-list-container {
