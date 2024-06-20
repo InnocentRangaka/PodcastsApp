@@ -60,9 +60,7 @@ export default function Season() {
 
   const genres = ['Comedy', 'News', 'Sports', 'Technology', 'Music'];
 
-  // console.log(showName,podcastId,id,title,path)
   const handleInfoClick = (key) => {
-    //setDescriptionVisible(prev => !prev); // Toggle description visibility
     setDescriptionVisible(prev => !prev);
 
     if(currentEpisodeKey){
