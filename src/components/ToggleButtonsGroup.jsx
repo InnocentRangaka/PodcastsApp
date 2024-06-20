@@ -16,41 +16,41 @@ const ToggleButtonsGroup = ({ sortBy, handleSortChange }) => {
   };
 
   return (
-    <>
-    <span>Sort by:</span>
-    <ToggleButtonGroup
-      value={formats}
-      onChange={handleFormat}
-      aria-label="sort by"
-      size="small" 
-      color="primary"
-      exclusive
-    >
+    <div>
+      <span>Sort by:</span>
+      <ToggleButtonGroup
+        value={formats}
+        onChange={handleFormat}
+        aria-label="sort by"
+        size="small" 
+        color="primary"
+        exclusive
+      >
 
-      <ToggleButton value="bold" aria-label="bold">
-        <Tooltip title="Sort Alphabetically">
-          <IconButton onClick={() => handleSortChange('alphabetically')}>
-            {sortBy === 'alphabetically' ? <SortByAlphaIcon /> : <SortByAlphaIcon className='descending' />}
-          </IconButton>
-        </Tooltip>
-      </ToggleButton>
-      <ToggleButton value="italic" aria-label="italic">
-        <Tooltip title="Sort by Date">
-          <IconButton onClick={() => handleSortChange('byDate')}>
-            {sortBy === 'byDate' ? <EventIcon /> : <UnfoldMoreIcon />}
-          </IconButton>
-        </Tooltip>
-      </ToggleButton>
-      <ToggleButton value="underlined" aria-label="underlined">
-      <Tooltip title="Latest Release">
-          <IconButton onClick={() => handleSortChange('latestRelease')}>
-            {sortBy === 'latestRelease' ? <NewReleasesIcon /> : <UnfoldMoreIcon />}
-          </IconButton>
-        </Tooltip>
-      </ToggleButton>
-      
-    </ToggleButtonGroup>
-    </>
+        <ToggleButton value="bold" aria-label="bold">
+          <Tooltip title="Sort Alphabetically">
+            <IconButton onClick={() => handleSortChange('alphabetically')}>
+              {sortBy === 'alphabetically' ? <SortByAlphaIcon /> : <SortByAlphaIcon className='descending' />}
+            </IconButton>
+          </Tooltip>
+        </ToggleButton>
+        <ToggleButton value="italic" aria-label="italic">
+          <Tooltip title="Sort by Date">
+            <IconButton onClick={() => handleSortChange('byDate')}>
+              {sortBy === 'byDate' ? <EventIcon /> : <UnfoldMoreIcon />}
+            </IconButton>
+          </Tooltip>
+        </ToggleButton>
+        <ToggleButton value="underlined" aria-label="underlined">
+        <Tooltip title="Latest Release">
+            <IconButton onClick={() => handleSortChange('latestRelease')}>
+              {sortBy === 'latestRelease' ? <NewReleasesIcon /> : <UnfoldMoreIcon />}
+            </IconButton>
+          </Tooltip>
+        </ToggleButton>
+        
+      </ToggleButtonGroup>
+    </div>
   );
   };
   

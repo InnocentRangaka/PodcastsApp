@@ -126,6 +126,8 @@
   .css-1gws2xf-MuiButtonBase-root-MuiIconButton-root,
   .css-8je8zh-MuiTouchRipple-root, 
   .css-1f88mc5-MuiButtonBase-root-MuiIconButton-root,
+  .css-1dlyelz-MuiButtonBase-root-MuiToggleButton-root,
+  .css-78trlr-MuiButtonBase-root-MuiIconButton-root,
   .infoButton {
     color: #aaa !important;
   }
@@ -134,6 +136,32 @@
   .infoButton.infoIconActive {
     color: var(--color) !important;
   }
+
+  .css-1dlyelz-MuiButtonBase-root-MuiToggleButton-root { 
+    /* border: 1px solid #aaa !important; */
+  }
+
+  button:hover {
+    border-color: #646cff;
+  }
+
+  .css-1dlyelz-MuiButtonBase-root-MuiToggleButton-root,
+  .css-78trlr-MuiButtonBase-root-MuiIconButton-root{
+    padding: 0 !important;
+    width: 32px;
+    height: 32px;
+    /* margin-left: -2px; */
+  }
+
+  .css-bghv3y-MuiToggleButtonGroup-root 
+  .MuiToggleButtonGroup-lastButton, 
+  .css-bghv3y-MuiToggleButtonGroup-root 
+  .MuiToggleButtonGroup-middleButton {
+    margin-left: 0px;
+    border-left: 1px solid transparent;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
 
   h1 {
     font-size: var(--text-size-large) !important;
