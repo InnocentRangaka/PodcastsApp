@@ -501,6 +501,7 @@
     margin-bottom: 0px;
     font-weight: 300;
     font-size: 14px;
+    color: var(--color) !important;
   }
 
   .show-description-title {
