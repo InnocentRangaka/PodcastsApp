@@ -3,7 +3,7 @@ import GenreLabel from './GenreLabel';
 
 const GenreList = ({ genres }) => {
   return (
-    <div>
+    <div className="genre-list">
       {genres.map((genre, index) => (
         <GenreLabel key={index} genre={genre} />
       ))}

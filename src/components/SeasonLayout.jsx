@@ -4,9 +4,11 @@ import { Img } from 'react-image';
 import {decodeTextWithCharacter} from '../utils/textUtils'
 import { fetchSeason, fetchPodcastByTitle } from '../../api';
 import DescriptionLayout from './DescriptionLayout'
+import GenreList from './GenreList';
 import FavouriteButton from './FavouriteButton';
 import AudioPlaceholder from './Audio/AudioPlaceholder';
 import AudioPlayerButton from './Audio/AudioPlayerButton';
+import InfoButton from './InfoButton';
 import { SvgIcon } from '@mui/material';
 
 export default function Season() {
@@ -52,7 +54,12 @@ export default function Season() {
     getSeasonData();
   }, [getSeasonData]);
 
-  console.log(showName,podcastId,id,title,path)
+  const genres = ['Comedy', 'News', 'Sports', 'Technology', 'Music'];
+
+  // console.log(showName,podcastId,id,title,path)
+  const handleInfoClick = () => {
+    alert('Information icon clicked!');
+  };
 
   return (
     !loading && season
@@ -96,6 +103,8 @@ export default function Season() {
               </div>
 
               {season?.description && <DescriptionLayout description={season.description} />}
+
+              {<GenreList genres={genres} />}
               
             </div>
             <div className='show-list-container'>
@@ -167,6 +176,12 @@ export default function Season() {
                           )}
                       </div>
                       <div>
+                        <InfoButton
+                          tooltipText="Click for more information"
+                          onClick={handleInfoClick}
+                          color="primary"
+                          size="large"
+                         />
                         <FavouriteButton audio='' />
                         {episode.file && (
                           <AudioPlaceholder>

@@ -4,6 +4,7 @@ import { Img } from 'react-image';
 import { fetchPodcast, fetchPodcastByTitle } from '../../api';
 import { getYear, getTotalEpisodes, showNameFromPath } from '../utils/podcastUtils';
 import DescriptionLayout from './DescriptionLayout'
+import GenreList from './GenreList';
 import {encodeText} from '../utils/textUtils'
 import FavouriteButton from './FavouriteButton';
 import AudioPlaceholder from './Audio/AudioPlaceholder';
@@ -63,6 +64,7 @@ export default function Show() {
   }, [id, path, getPodcastData]);
 
   // console.log(podcast.description)
+  const genres = ['Comedy', 'News', 'Sports', 'Technology', 'Music'];
 
   return (
     !loading && podcast
@@ -110,7 +112,10 @@ export default function Show() {
 
                 </div>
               </div>
+
               {podcast?.description && <DescriptionLayout description={podcast.description} />}
+
+              {<GenreList genres={genres} />}
               
             </div>
             <div className='show-list-container'>

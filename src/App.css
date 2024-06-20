@@ -123,7 +123,8 @@
     padding-right: 0 !important;
   }
 
-  .css-1gws2xf-MuiButtonBase-root-MuiIconButton-root {
+  .css-1gws2xf-MuiButtonBase-root-MuiIconButton-root,
+  .css-8je8zh-MuiTouchRipple-root {
     color: #aaa !important;
   }
 
@@ -482,6 +483,22 @@
     content: " • ";
   }
 
+  .genre-list {
+    display: flex;
+    text-align: left;
+    gap: 5px;
+  }
+
+  .genre-label {
+    height: 25px !important;
+    border: 1px solid #aaa !important;
+    color: var(--color) !important;
+  }
+
+  .genre-label span {
+    font-size: 11px !important;
+  }
+
   .show-description {
     display: flex;
     overflow: hidden;
@@ -498,10 +515,10 @@
   .show-description-p {
     display: block;
     text-align: left;
-    margin-bottom: 0px;
     font-weight: 300;
     font-size: 14px;
     color: var(--color) !important;
+    margin: 15px 0 !important;
   }
 
   .show-description-title {
