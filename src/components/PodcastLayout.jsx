@@ -183,7 +183,7 @@ export default function Show() {
                       </div>
                     </div>
                     <div className='show-list-item-right'>
-                      <FavouriteButton audio='' />
+                      <FavouriteButton audio='https://podcast-api.netlify.app/placeholder-audio.mp3' />
                         {season.season && (
                           <AudioPlaceholder>
                             <AudioPlayerButton key={season.season} audioId={season.season} audioSrc="https://podcast-api.netlify.app/placeholder-audio.mp3" />
