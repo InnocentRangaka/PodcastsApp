@@ -174,7 +174,7 @@ export default function Season() {
                         <FavouriteButton audio='' />
                         {episode.file && (
                           <AudioPlaceholder>
-                            <AudioPlayerButton key={episode.episode} audioId={season.season} audioSrc={episode.file} />
+                            <AudioPlayerButton key={episode.episode} audioId={season.season} audioSrc="https://podcast-api.netlify.app/placeholder-audio.mp3" />
                           </AudioPlaceholder>
                           )}
                       </div>

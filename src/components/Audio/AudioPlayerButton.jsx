@@ -5,7 +5,7 @@ import PauseIcon from '@mui/icons-material/Pause';
 import { AudioContext } from './AudioPlaceholder';
 
 const AudioPlayerButton = ({ audioSrc, audioId, audioName }) => {
-  const { onPlay, onPause, duration, currentTime, currentAudio, currentAudioId, setCurrentAudio, isEnded } = useContext(AudioContext);
+  const { onPlay, onPause, duration, currentTime, currentAudio, currentAudioId, setCurrentAudio, isEnded, toggleAutoplay, playAutoplayQueue } = useContext(AudioContext);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -30,6 +30,7 @@ const AudioPlayerButton = ({ audioSrc, audioId, audioName }) => {
       setCurrentAudio(audioSrc);
       setIsClicked(true);
     }
+    // playAutoplayQueue(playlist)
   };
 
   return (
@@ -37,6 +38,9 @@ const AudioPlayerButton = ({ audioSrc, audioId, audioName }) => {
       <IconButton onClick={handleTogglePlay} className='playerButton' name={audioName}>
         {isPlaying && !isEnded ? <PauseIcon /> : isEnded ? <PlayArrowIcon /> : <PlayArrowIcon />}
       </IconButton>
+      {/* <button onClick={toggleAutoplay}>
+        {autoplayEnabled ? 'Disable Autoplay' : 'Enable Autoplay'}
+      </button> */}
       {/* {currentAudio === audioSrc && (
         <div>
           <p>Duration: {duration.toFixed(2)} seconds</p>

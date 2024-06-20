@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { fetchPodcasts } from '../../api';
 import { getPopularPodcasts, 
@@ -6,8 +6,15 @@ import { getPopularPodcasts,
   sortAlphabetically, sortAlphabeticallyReversed,
   sortByDate, sortByLatestRelease
  } from '../utils/podcastUtils';
+ import GenreList from '../components/Genres';
+
 import reactLogo from '../assets/react.svg';
 import viteLogo from '../assets/vite.svg';
+import { IconButton } from '@mui/material';
+import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
+import EventIcon from '@mui/icons-material/Event';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 
 export default function Home() {
   const [count, setCount] = useState(0);
@@ -17,7 +24,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [sortedPodcasts, setSortedPodcasts] = useState([]);
   const [sortBy, setSortBy] = useState('alphabetically'); // Default sort
-
 
   useEffect(() => {
     const getPosts = async () => {
@@ -45,32 +51,58 @@ export default function Home() {
     getPosts();
   }, []);
 
-  // console.log(podcasts);
-  // console.log(location);
-  // console.log(error);
+  const handleSortChange = (type) => {
+    switch (type) {
+      case 'alphabetically':
+        setSortedPodcasts(sortBy === 'alphabetically' ? [...podcasts].reverse() : sortAlphabetically([...podcasts]));
+        setSortBy(sortBy === 'alphabetically' ? 'reverseAlphabetically' : 'alphabetically');
+        break;
+      case 'reverseAlphabetically':
+        setSortedPodcasts(sortBy === 'reverseAlphabetically' ? [...podcasts].reverse() : sortAlphabeticallyReversed([...podcasts]));
+        setSortBy(sortBy === 'reverseAlphabetically' ? 'alphabetically' : 'reverseAlphabetically');
+        break;
+      case 'byDate':
+        setSortedPodcasts(sortBy === 'byDate' ? [...podcasts].reverse() : sortByDate([...podcasts]));
+        setSortBy(sortBy === 'byDate' ? 'byDate' : 'byDate');
+        break;
+      case 'latestRelease':
+        setSortedPodcasts(sortBy === 'latestRelease' ? [...podcasts].reverse() : sortByLatestRelease([...podcasts]));
+        setSortBy(sortBy === 'latestRelease' ? 'latestRelease' : 'latestRelease');
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <>
-      {loading
-        ? <h2>Loading...</h2>
-        : (
-          <>
-            <span>Sort by</span>
-            <button onClick={() => handleSortChange('alphabetically')}>A-Z</button>
-            <button onClick={() => handleSortChange('reverseAlphabetically')}>Z-A</button>
-            <button onClick={() => handleSortChange('byDate')}>By Date</button>
-            <button onClick={() => handleSortChange('latestRelease')}>Latest Release</button>
-            {getPopularPodcasts(
-              { podcasts },
-            )}
-            {getNewPodcasts(
-              { podcasts },
-            )}
-            {getRecommendedPodcastsByDate(
-              { podcasts },
-            )}
-          </>
-        )}
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : (
+        <>
+          <span>Sort by:</span>
+          
+          <span>A-Z</span>
+          <IconButton onClick={() => handleSortChange('alphabetically')}>
+            {sortBy === 'alphabetically' ? <SortByAlphaIcon /> : <SortByAlphaIcon className='descending' />}
+          </IconButton>
+          
+          <span>New</span>
+          <IconButton onClick={() => handleSortChange('byDate')}>
+            {sortBy === 'byDate' ? <EventIcon /> : <UnfoldMoreIcon />}
+          </IconButton>
+          
+          <span>Release</span>
+          <IconButton onClick={() => handleSortChange('latestRelease')}>
+            {sortBy === 'latestRelease' ? <NewReleasesIcon /> : <UnfoldMoreIcon />}
+          </IconButton>
+          {/* <ToggleViewLayout podcasts={podcasts} /> */}
+          <GenreList />
+          {getPopularPodcasts({ podcasts })}
+          {getNewPodcasts({ podcasts })}
+          {getRecommendedPodcastsByDate({ podcasts })}
+        </>
+      )}
     </>
   );
 }

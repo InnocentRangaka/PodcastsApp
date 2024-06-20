@@ -1,4 +1,3 @@
-// AudioPlaceholder.jsx
 import React, { createContext, useRef, useState, useEffect } from 'react';
 
 export const AudioContext = createContext();
@@ -11,6 +10,9 @@ const AudioPlaceholder = ({ children }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [isEnded, setIsEnded] = useState(null);
   const [intervalId, setIntervalId] = useState(null);
+  const [autoplayQueue, setAutoplayQueue] = useState([]);
+  const [autoplayIndex, setAutoplayIndex] = useState(0);
+  const [autoplayEnabled, setAutoplayEnabled] = useState(false);
 
   useEffect(() => {
     const savedAudioData = JSON.parse(localStorage.getItem('audioData'));
@@ -18,15 +20,22 @@ const AudioPlaceholder = ({ children }) => {
       audioRef.current.id = savedAudioData.id;
       audioRef.current.src = savedAudioData.src;
       audioRef.current.currentTime = savedAudioData.currentTime;
-      setCurrentAudioId(audioRef.current.id)
+      setCurrentAudioId(savedAudioData.id);
       setCurrentAudio(savedAudioData.src);
       setDuration(savedAudioData.duration);
       setCurrentTime(savedAudioData.currentTime);
     }
   }, []);
 
-  const saveAudioData = (src, duration, currentTime) => {
-    const audioData = { src, duration, currentTime };
+  useEffect(() => {
+    if (autoplayEnabled && autoplayQueue.length > 0 && autoplayIndex < autoplayQueue.length) {
+      const nextAudioSrc = autoplayQueue[autoplayIndex];
+      onPlay(nextAudioSrc);
+    }
+  }, [autoplayIndex, autoplayQueue, autoplayEnabled]);
+
+  const saveAudioData = (id, src, duration, currentTime) => {
+    const audioData = { id, src, duration, currentTime };
     localStorage.setItem('audioData', JSON.stringify(audioData));
   };
 
@@ -78,13 +87,24 @@ const AudioPlaceholder = ({ children }) => {
   };
 
   const onEnded = () => {
-    if (audioRef.current) {
-      setIsEnded(true);
+    setIsEnded(true);
+    if (autoplayEnabled && autoplayIndex < autoplayQueue.length - 1) {
+      setAutoplayIndex(prevIndex => prevIndex + 1);
     }
   };
 
+  const toggleAutoplay = () => {
+    setAutoplayEnabled(prev => !prev);
+  };
+
+  const playAutoplayQueue = (queue) => {
+    setAutoplayQueue(queue);
+    setAutoplayIndex(0);
+    setAutoplayEnabled(true);
+  };
+
   return (
-    <AudioContext.Provider value={{ onPlay, onPause, duration, currentTime, currentAudio, currentAudioId, setCurrentAudio, isEnded }}>
+    <AudioContext.Provider value={{ onPlay, onPause, duration, currentTime, currentAudio, currentAudioId, setCurrentAudio, isEnded, toggleAutoplay, playAutoplayQueue }}>
       <audio ref={audioRef} onTimeUpdate={onTimeUpdate} onLoadedMetadata={onLoadedMetadata} onEnded={onEnded} />
       {children}
     </AudioContext.Provider>
