@@ -12,12 +12,12 @@ const DescriptionLayout = ({ description }) => {
   };
 
   return (
-    <div className="show-description">
-      <div>
-      <IconButton onClick={handleToggle}>
-        {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-      </IconButton>
-      <span>Description</span>
+    <div className="show-description flex-row">
+      <div className='show-description-title'>
+            <IconButton onClick={handleToggle}>
+                {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+            <span>Description</span>
       </div>
       <Collapse in={isOpen}>
         <Typography variant="body2" color="textSecondary" component="p" className="">

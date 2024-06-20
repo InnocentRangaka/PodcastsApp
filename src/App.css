@@ -491,6 +491,17 @@
     text-align: left;
   }
 
+  .show-description.flex-row {
+    flex-direction:  column;
+  }
+
+  .show-description-title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    place-self: flex-start;
+  }
+
   .show-list-container {
     display: flex;
     flex-direction: column;
