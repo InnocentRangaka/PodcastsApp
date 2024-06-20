@@ -72,7 +72,8 @@ export default function Home() {
 
   // Define toggleView function with useCallback
   const toggleView = useCallback(() => {
-    setIsGridView(prev => !prev); // Toggle between true (gridView) and false (listView)
+    setIsGridView(prev => !prev);
+    handleSortChange(sortBy) // Toggle between true (gridView) and false (listView)
   }, []);
 
   // Function to handle podcast selection
@@ -115,7 +116,7 @@ export default function Home() {
         </div>
 
           {/* <GenreList /> */}
-          {isGridView ? <GridPodcasts title="Podcasts" podcastsObject={podcasts} /> 
+          {isGridView ? <GridPodcasts title="Podcasts" podcastsObject={podcasts} sortBy={sortBy} /> 
           : 
             <>
               {/* <ListPodcasts title="Podcasts" podcastsObject={[podcasts]} /> */}

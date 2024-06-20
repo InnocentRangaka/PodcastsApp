@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useCallback  } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { encodeText, decodeText } from '../utils/textUtils';
+import { sortAlphabetically, sortAlphabeticallyReversed,
+  sortByDate, sortByLatestRelease
+ } from '../utils/podcastUtils';
 
-const GridPodcasts = ({ title, podcastsObject }) => {
+const GridPodcasts = ({ title, podcastsObject, sortBy }) => {
 
   const typeName = title ? title.toLowerCase() : '';
-  const podcasts = [...podcastsObject] || [];
+
+  const makeSortedPodcasts = (type) => {
+    switch (type) {
+      case 'alphabetically':
+        return sortAlphabetically(podcastsObject)
+        break;
+      case 'reverseAlphabetically':
+        return sortAlphabeticallyReversed([...podcastsObject]);
+        break;
+      case 'byDate':
+        return sortByDate([...podcastsObject]);
+        break;
+      case 'latestRelease':
+        return sortByLatestRelease([...podcastsObject]);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const podcasts = [...makeSortedPodcasts(sortBy)] || [];
 
   return (
     <section>
