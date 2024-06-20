@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import GridPodcasts from './GridPodcasts';
-import ListPodcasts from './ListPodcasts';
 import { IconButton, Tooltip } from '@mui/material';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
@@ -27,30 +25,11 @@ const ToggleViewLayout = ({ podcasts }) => {
   }, []);
 
   return (
-    <>
-      <Tooltip title={isGridView ? "Switch to List View" : "Switch to Grid View"}>
-        <IconButton onClick={toggleView}>
-          {isGridView ? <ViewModuleIcon /> : <ViewListIcon />}
-        </IconButton>
-      </Tooltip>
-
-      {/* <div className={isGridView ? 'grid-container' : 'list-container'}>
-        {podcasts.map(podcast => (
-          <div key={podcast.id} className={isGridView ? 'grid-item' : 'list-item'}>
-            <GridPodcasts title="Podcasts" podcastsObject={[podcast]} />
-          </div>
-        ))}
-      </div> */}
-      {isGridView ? 
-      podcasts.map(podcast => (
-        <GridPodcasts key={podcast.id} title="Podcasts" podcastsObject={[podcast]} /> 
-      ))
-      : 
-      <>
-        <ListPodcasts title="Podcasts" podcastsObject={[podcasts]} />
-      </>
-      }
-    </>
+    <Tooltip title={isGridView ? "Switch to List View" : "Switch to Grid View"}>
+      <IconButton onClick={toggleView}>
+        {isGridView ? <ViewModuleIcon /> : <ViewListIcon />}
+      </IconButton>
+    </Tooltip>
   );
 };
 

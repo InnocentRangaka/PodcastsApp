@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback  } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { fetchPodcasts } from '../../api';
 import { getPopularPodcasts, 
@@ -10,6 +10,9 @@ import { getPopularPodcasts,
 import ToggleButtonsGroup from '../components/ToggleButtonsGroup';
 import ToggleViewLayout from '../components/ToggleViewLayout'
 
+import GridPodcasts from '../components/GridPodcasts';
+import ListPodcasts from '../components/ListPodcasts';
+
 export default function Home() {
   const location = useLocation();
   const [podcasts, setPodcasts] = useState([]);
@@ -17,6 +20,9 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [sortedPodcasts, setSortedPodcasts] = useState([]);
   const [sortBy, setSortBy] = useState('alphabetically'); // Default sort
+
+  const [isGridView, setIsGridView] = useState(true);
+  const [selectedPodcast, setSelectedPodcast] = useState(null);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -44,6 +50,29 @@ export default function Home() {
     };
 
     getPosts();
+  }, []);
+
+  // Load initial view state from localStorage on component mount
+  useEffect(() => {
+    const savedView = localStorage.getItem('viewMode');
+    if (savedView) {
+      setIsGridView(savedView === 'grid');
+    }
+  }, []);
+
+  // Save view state to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('viewMode', isGridView ? 'grid' : 'list');
+  }, [isGridView]);
+
+  // Define toggleView function with useCallback
+  const toggleView = useCallback(() => {
+    setIsGridView(prev => !prev); // Toggle between true (gridView) and false (listView)
+  }, []);
+
+  // Function to handle podcast selection
+  const handlePodcastSelect = useCallback((podcast) => {
+    setSelectedPodcast(podcast);
   }, []);
 
   const handleSortChange = (type) => {
@@ -76,11 +105,20 @@ export default function Home() {
       ) : (
         <>
           <ToggleButtonsGroup />
-          <ToggleViewLayout podcasts={ podcasts} />
+          <ToggleViewLayout podcasts={ podcasts} onSelectPodcast={handlePodcastSelect} onToggleGridView={toggleView} />
           {/* <GenreList /> */}
           {/* {getPopularPodcasts({ podcasts })}
           {getNewPodcasts({ podcasts })}
           {getRecommendedPodcastsByDate({ podcasts })} */}
+          {isGridView ? 
+            podcasts.map(podcast => (
+              <GridPodcasts key={podcast.id} title="Podcasts" podcastsObject={[podcast]} /> 
+            ))
+          : 
+            <>
+              <ListPodcasts title="Podcasts" podcastsObject={[podcasts]} />
+            </>
+          }
         </>
       )}
     </>
