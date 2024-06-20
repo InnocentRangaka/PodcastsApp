@@ -20,6 +20,8 @@ export default function Season() {
   [error, setError] = useState(null),
   [loading, setLoading] = useState(false);
   const [descriptionVisible, setDescriptionVisible] = useState(false);
+  const [infoIconActive, setInfoIconActive] = useState(false);
+  const [infoIconKey, setInfoIconKey] = useState(false);
   const [currentEpisodeKey, setCurrentEpisodeKey] = useState(null);
 
   const { podcastId, viewSeason } = location.state?.show || [];
@@ -60,6 +62,18 @@ export default function Season() {
 
   const genres = ['Comedy', 'News', 'Sports', 'Technology', 'Music'];
 
+  const handleInfoColor = (dataKey) => {
+    const descriptionDiv = infoIconKey && infoIconKey !== dataKey ? document.querySelector(`div[data-episode-key="${infoIconKey}"]`) : document.querySelector(`div[data-episode-key="${dataKey}"]`);
+
+    setInfoIconActive(prev => !prev);
+
+    if(descriptionDiv){
+      const infoIconDiv = descriptionDiv.querySelector(`.infoButton`);
+      infoIconDiv && infoIconDiv?.classList.toggle('infoIconActive')
+      setInfoIconKey(prev => dataKey);
+    }
+  }
+
   const handleInfoClick = (key) => {
     setDescriptionVisible(prev => !prev);
 
@@ -74,6 +88,7 @@ export default function Season() {
     }
     
     setCurrentEpisodeKey(prevKey => prevKey === key ? null : key); // Set current episode key
+    handleInfoColor(key)
   };
 
   return (
@@ -190,12 +205,11 @@ export default function Season() {
                           </div>
                           )}
                       </div>
-                      <div>
+                      <div data-episode-key={episode.episode}>
                         <InfoButton
                           dataKey={episode.episode}
                           tooltipText="Click for more information"
                           onClick={handleInfoClick}
-                          color="primary"
                           size="large"
                          />
                         <FavouriteButton audio='' />

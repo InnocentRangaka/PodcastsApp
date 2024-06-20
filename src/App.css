@@ -124,11 +124,14 @@
   }
 
   .css-1gws2xf-MuiButtonBase-root-MuiIconButton-root,
-  .css-8je8zh-MuiTouchRipple-root {
+  .css-8je8zh-MuiTouchRipple-root, 
+  .css-1f88mc5-MuiButtonBase-root-MuiIconButton-root,
+  .infoButton {
     color: #aaa !important;
   }
 
-  .playerButton {
+  .playerButton, .infoIconActive,
+  .infoButton.infoIconActive {
     color: var(--color) !important;
   }
 
