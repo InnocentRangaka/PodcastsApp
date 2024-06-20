@@ -4,20 +4,15 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { fetchPodcasts } from '../../api';
 import {
-  getPopularPodcasts,
-  getNewPodcasts,
-  getRecommendedPodcastsByDate,
   sortAlphabetically,
   sortAlphabeticallyReversed,
   sortByDate,
   sortByLatestRelease,
 } from '../utils/podcastUtils';
-import reactLogo from '../assets/react.svg';
-import viteLogo from '../assets/vite.svg';
 import SortLayout from '../components/SortLayout'; // Import the SortLayout
 import ToggleViewLayout from '../components/ToggleViewLayout';
 
-export default function Home() {
+export default function HomeGridView() {
   const [podcasts, setPodcasts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);

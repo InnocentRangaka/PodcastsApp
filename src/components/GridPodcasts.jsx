@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { encodeText, decodeText } from '../utils/textUtils';
 
-const ListPodcasts = ({ title, podcastsObject }) => {
-  ListPodcasts.propTypes = {
+const GridPodcasts = ({ title, podcastsObject }) => {
+  GridPodcasts.propTypes = {
     title: PropTypes.string.isRequired,
     podcastsObject: PropTypes.array.isRequired,
   };
@@ -14,11 +14,6 @@ const ListPodcasts = ({ title, podcastsObject }) => {
 
   return (
     <section>
-      <div className="section-header">
-        <h2>
-          {(typeName && typeName.charAt(0).toUpperCase() + typeName.slice(1))} podcasts
-        </h2>
-      </div>
       <div className="grid-container">
         {podcasts.map((podcast) => (
           <div key={podcast.id} className="grid-item">
@@ -60,4 +55,4 @@ const ListPodcasts = ({ title, podcastsObject }) => {
   );
 };
 
-export default ListPodcasts;
+export default GridPodcasts;

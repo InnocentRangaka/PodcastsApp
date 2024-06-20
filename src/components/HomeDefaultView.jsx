@@ -7,10 +7,18 @@ import { getPopularPodcasts,
   sortByDate, sortByLatestRelease
  } from '../utils/podcastUtils';
  import GenreList from '../components/Genres';
-import ToggleButtonsGroup from '../components/ToggleButtonsGroup';
-import ToggleViewLayout from '../components/ToggleViewLayout'
 
-export default function Home() {
+import reactLogo from '../assets/react.svg';
+import viteLogo from '../assets/vite.svg';
+import { IconButton } from '@mui/material';
+import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
+import EventIcon from '@mui/icons-material/Event';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
+import ToggleButtonsGroup from '../components/ToggleButtonsGroup';
+
+export default function HomeDefaultView() {
+  const [count, setCount] = useState(0);
   const location = useLocation();
   const [podcasts, setPodcasts] = useState([]);
   const [error, setError] = useState(null);
@@ -33,9 +41,7 @@ export default function Home() {
           };
         }
 
-        const sorted = sortedPodcasts ? sortAlphabetically([...data]) : data;
-
-        setPodcasts(sorted);
+        setPodcasts(data);
       } catch (fetchError) {
         setError(fetchError);
       } finally {
@@ -76,11 +82,11 @@ export default function Home() {
       ) : (
         <>
           <ToggleButtonsGroup />
-          <ToggleViewLayout podcasts={ podcasts} />
+          <ToggleViewLayout podcasts={podcasts} />
           {/* <GenreList /> */}
-          {/* {getPopularPodcasts({ podcasts })}
+          {getPopularPodcasts({ podcasts })}
           {getNewPodcasts({ podcasts })}
-          {getRecommendedPodcastsByDate({ podcasts })} */}
+          {getRecommendedPodcastsByDate({ podcasts })}
         </>
       )}
     </>
