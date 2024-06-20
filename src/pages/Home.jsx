@@ -15,6 +15,7 @@ import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import EventIcon from '@mui/icons-material/Event';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
+import ToggleButtonsGroup from '../components/ToggleButtonsGroup';
 
 export default function Home() {
   const [count, setCount] = useState(0);
@@ -80,22 +81,7 @@ export default function Home() {
         <h2>Loading...</h2>
       ) : (
         <>
-          <span>Sort by:</span>
-          
-          <span>A-Z</span>
-          <IconButton onClick={() => handleSortChange('alphabetically')}>
-            {sortBy === 'alphabetically' ? <SortByAlphaIcon /> : <SortByAlphaIcon className='descending' />}
-          </IconButton>
-          
-          <span>New</span>
-          <IconButton onClick={() => handleSortChange('byDate')}>
-            {sortBy === 'byDate' ? <EventIcon /> : <UnfoldMoreIcon />}
-          </IconButton>
-          
-          <span>Release</span>
-          <IconButton onClick={() => handleSortChange('latestRelease')}>
-            {sortBy === 'latestRelease' ? <NewReleasesIcon /> : <UnfoldMoreIcon />}
-          </IconButton>
+          <ToggleButtonsGroup />
           {/* <ToggleViewLayout podcasts={podcasts} /> */}
           <GenreList />
           {getPopularPodcasts({ podcasts })}
