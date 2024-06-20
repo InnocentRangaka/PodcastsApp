@@ -10,6 +10,7 @@ import AudioPlaceholder from './Audio/AudioPlaceholder';
 import AudioPlayerButton from './Audio/AudioPlayerButton';
 import InfoButton from './InfoButton';
 import { SvgIcon } from '@mui/material';
+import LoadingIcon from './LoadingIcon'; 
 
 export default function Season() {
   const showName = useParams()?.name && decodeTextWithCharacter(useParams().name, '_'),
@@ -18,6 +19,9 @@ export default function Season() {
   [season, setSeason] = useState([]),
   [error, setError] = useState(null),
   [loading, setLoading] = useState(false);
+  const [descriptionVisible, setDescriptionVisible] = useState(false);
+  const [currentEpisodeKey, setCurrentEpisodeKey] = useState(null);
+
   const { podcastId, viewSeason } = location.state?.show || [];
   const { id, title } = viewSeason || [];
   
@@ -57,8 +61,21 @@ export default function Season() {
   const genres = ['Comedy', 'News', 'Sports', 'Technology', 'Music'];
 
   // console.log(showName,podcastId,id,title,path)
-  const handleInfoClick = () => {
-    alert('Information icon clicked!');
+  const handleInfoClick = (key) => {
+    //setDescriptionVisible(prev => !prev); // Toggle description visibility
+    setDescriptionVisible(prev => !prev);
+
+    if(currentEpisodeKey){
+      const prevDescriptionDiv = document.querySelector(`.show-list-item-description[data-key="${currentEpisodeKey}"]`);
+      prevDescriptionDiv.classList.toggle('hide')
+    }
+    
+    if(currentEpisodeKey !== key){
+      const descriptionDiv = document.querySelector(`.show-list-item-description[data-key="${key}"]`)
+      descriptionDiv.classList.toggle('hide')
+    }
+    
+    setCurrentEpisodeKey(prevKey => prevKey === key ? null : key); // Set current episode key
   };
 
   return (
@@ -177,6 +194,7 @@ export default function Season() {
                       </div>
                       <div>
                         <InfoButton
+                          dataKey={episode.episode}
                           tooltipText="Click for more information"
                           onClick={handleInfoClick}
                           color="primary"
@@ -191,7 +209,8 @@ export default function Season() {
                       </div>
 
                       {episode?.description && (
-                        <div className='show-list-item-description'>
+                        <div data-key={episode.episode}
+                        className={`show-list-item-description hide`}>
                           <p>{episode.description}</p>
                         </div>
                       )}

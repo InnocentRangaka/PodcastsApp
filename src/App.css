@@ -760,3 +760,13 @@
 .padding-10 {
   padding: 10px 0 !important;
 }
+
+.show {
+  display: block !important;
+  visibility: visible;
+}
+
+.hide {
+  display: none !important;
+  visibility: none;
+}
