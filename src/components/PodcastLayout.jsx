@@ -26,7 +26,8 @@ export default function Show() {
       let data;
       if (method === 'getByPath') {
         const { path } = args;
-        const title = name || showNameFromPath(path)
+        const title = showNameFromPath(name) || showNameFromPath(path)
+        
         data = await fetchPodcastByTitle({ title });
       } else if (method === 'getPosts') {
         const { id } = args;
