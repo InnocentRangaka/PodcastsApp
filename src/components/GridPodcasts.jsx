@@ -4,13 +4,9 @@ import PropTypes from 'prop-types';
 import { encodeText, decodeText } from '../utils/textUtils';
 
 const GridPodcasts = ({ title, podcastsObject }) => {
-  GridPodcasts.propTypes = {
-    title: PropTypes.string.isRequired,
-    podcastsObject: PropTypes.array.isRequired,
-  };
 
   const typeName = title ? title.toLowerCase() : '';
-  const podcasts = podcastsObject || [];
+  const podcasts = [...podcastsObject] || [];
 
   return (
     <section>
@@ -35,12 +31,12 @@ const GridPodcasts = ({ title, podcastsObject }) => {
                     title={podcast.title}
                     state={{
                       show: {
-                        id: `${podcast.id}`,
-                        title: `${podcast.title}`,
+                        id: podcast.id,
+                        title: podcast.title,
                       },
                     }}
                   >
-                    <span className="">
+                    <span>
                       {decodeText(podcast.title)}
                     </span>
                   </Link>
@@ -55,5 +51,9 @@ const GridPodcasts = ({ title, podcastsObject }) => {
   );
 };
 
-export default React.memo(GridPodcasts);
+GridPodcasts.propTypes = {
+  title: PropTypes.string.isRequired,
+  podcastsObject: PropTypes.array.isRequired,
+};
 
+export default React.memo(GridPodcasts);

@@ -41,6 +41,11 @@ export default function Home() {
 
         const sorted = sortedPodcasts ? sortAlphabetically([...data]) : data;
 
+        const savedView = localStorage.getItem('viewMode');
+        if (savedView) {
+          setIsGridView(savedView === 'grid');
+        }
+
         setPodcasts(sorted);
       } catch (fetchError) {
         setError(fetchError);
@@ -108,16 +113,13 @@ export default function Home() {
           <ToggleViewLayout isGridView={isGridView} setIsGridView={setIsGridView} />
           
           {/* <GenreList /> */}
-          {/* {getPopularPodcasts({ podcasts })}
-          {getNewPodcasts({ podcasts })}
-          {getRecommendedPodcastsByDate({ podcasts })} */}
-          {isGridView ? 
-            podcasts.map(podcast => (
-              <GridPodcasts key={podcast.id} title="Podcasts" podcastsObject={[podcast]} /> 
-            ))
+          {isGridView ? <GridPodcasts title="Podcasts" podcastsObject={podcasts} /> 
           : 
             <>
-              <ListPodcasts title="Podcasts" podcastsObject={[podcasts]} />
+              {/* <ListPodcasts title="Podcasts" podcastsObject={[podcasts]} /> */}
+              {getPopularPodcasts({ podcasts })}
+              {getNewPodcasts({ podcasts })}
+              {getRecommendedPodcastsByDate({ podcasts })}
             </>
           }
         </>

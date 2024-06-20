@@ -360,13 +360,13 @@
     max-width: 300px; /* Adjust max-width as needed */
   }
   
-  .card-link {
+  /* .card-link {
     position: relative;
     display: block;
     overflow: hidden;
     border-radius: 6px;
     min-height: 48px;
-  }
+  } */
   
   .card-image {
     width: 100%;
