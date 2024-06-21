@@ -4,7 +4,6 @@ import Tooltip from '@mui/material/Tooltip';
 import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import EventIcon from '@mui/icons-material/Event';
 import DateRangeIcon from '@mui/icons-material/DateRange';
-import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import UnfoldLessIcon from '@mui/icons-material/UnfoldLess';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -21,14 +20,14 @@ const ToggleButtonsGroup = ({ sortBy, handleSortChange }) => {
       <ToggleButtonGroup
         value={sortBy} // Use sortBy state directly from props
         exclusive
-        onChange={handleClick} // Directly pass the handleClick function
         aria-label="sort by"
         size="small"
         color="primary"
       >
         <ToggleButton 
           value="alphabetically" 
-          aria-label="alphabetically" 
+          aria-label="alphabetically"
+          onChange={(event) => handleClick(event, 'alphabetically')}
         >
           <Tooltip title="Sort Alphabetically">
             {sortBy === 'alphabetically' ? <SortByAlphaIcon /> : <SortByAlphaIcon className='descending' />}
@@ -36,17 +35,19 @@ const ToggleButtonsGroup = ({ sortBy, handleSortChange }) => {
         </ToggleButton>
 
         <ToggleButton 
-          value="byDate" 
-          aria-label="byDate" 
+          value="bySeasonsCount" 
+          aria-label="bySeasonsCount"
+          onChange={(event) => handleClick(event, 'bySeasonsCount')}
         >
-          <Tooltip title="Sort by Date">
-            {sortBy === 'byDate' ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
+          <Tooltip title="Sort by Seasons">
+            {sortBy === 'bySeasonsCount' ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
           </Tooltip>
         </ToggleButton>
 
         <ToggleButton 
           value="latestRelease" 
           aria-label="latestRelease" 
+          onChange={(event) => handleClick(event, 'latestRelease')}
         >
           <Tooltip title="Latest Release">
             {sortBy === 'latestRelease' ? <EventIcon /> : <DateRangeIcon />}

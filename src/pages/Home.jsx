@@ -4,7 +4,8 @@ import { fetchPodcasts } from '../../api';
 import { getPopularPodcasts, 
   getNewPodcasts, getRecommendedPodcastsByDate,
   sortAlphabetically, sortAlphabeticallyReversed,
-  sortByDate, sortByLatestRelease
+  sortByDate, sortByLatestRelease, sortBySeasonsCount,
+  sortBySeasonsCountReversed,
  } from '../utils/podcastUtils';
  import GenreList from '../components/Genres';
 import ToggleButtonsGroup from '../components/ToggleButtonsGroup';
@@ -81,29 +82,34 @@ export default function Home() {
     setSelectedPodcast(podcast);
   }, []);
 
-  const handleSortChange = (type) => {
+    const handleSortChange = (type) => {
     switch (type) {
-      case 'alphabetically':
-        setSortedPodcasts(sortBy === 'alphabetically' ? [...podcasts].reverse() : sortAlphabetically([...podcasts]));
-        setSortBy(sortBy === 'alphabetically' ? 'reverseAlphabetically' : 'alphabetically');
+      case 'bySeasonsCount':
+        case 'bySeasonsCountReversed':
+        setSortedPodcasts(sortBy === 'bySeasonsCount' ? sortBySeasonsCountReversed([...podcasts]) : sortBySeasonsCount([...podcasts]));
+        setSortBy(sortBy === 'bySeasonsCount' ? 'bySeasonsCountReversed' : 'bySeasonsCount');
         break;
+      case 'alphabetically':
       case 'reverseAlphabetically':
-        setSortedPodcasts(sortBy === 'reverseAlphabetically' ? [...podcasts].reverse() : sortAlphabeticallyReversed([...podcasts]));
-        setSortBy(sortBy === 'reverseAlphabetically' ? 'alphabetically' : 'reverseAlphabetically');
+        setSortedPodcasts(sortBy === 'alphabetically' ? sortAlphabeticallyReversed([...podcasts]) : sortAlphabetically([...podcasts]));
+        setSortBy(sortBy === 'alphabetically' ? 'reverseAlphabetically' : 'alphabetically');;
         break;
       case 'byDate':
-        setSortedPodcasts(sortBy === 'byDate' ? [...podcasts].reverse() : sortByDate([...podcasts]));
+        setSortedPodcasts(sortBy === 'byDate' ? sortByLatestRelease([...podcasts]) : sortByDate([...podcasts]));
         setSortBy(sortBy === 'byDate' ? 'byDate' : 'byDate');
         break;
       case 'latestRelease':
-        setSortedPodcasts(sortBy === 'latestRelease' ? [...podcasts].reverse() : sortByLatestRelease([...podcasts]));
-        setSortBy(sortBy === 'latestRelease' ? 'latestRelease' : 'latestRelease');
+      case 'newest':
+        setSortedPodcasts(sortBy === 'latestRelease' ? sortByDate([...podcasts]) : sortByLatestRelease([...podcasts]));
+        setSortBy(sortBy === 'latestRelease' ? 'newest' : 'latestRelease');
         break;
       default:
+        setSortedPodcasts(sortBy === 'alphabetically' ? sortAlphabeticallyReversed([...podcasts]) : sortAlphabetically([...podcasts]));
+        setSortBy(sortBy === 'alphabetically' ? 'reverseAlphabetically' : 'alphabetically');
         break;
     }
   };
-
+  
   return (
     <>
       {loading ? (

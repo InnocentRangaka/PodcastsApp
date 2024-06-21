@@ -33,6 +33,14 @@ export const sortByLatestRelease = (podcasts) => {
   return sortByDate(podcasts).reverse();
 };
 
+export const sortBySeasonsCount = (podcasts) => {
+  return [...podcasts].sort((a, b) => a.seasons - b.seasons).reverse();
+};
+
+export const sortBySeasonsCountReversed = (podcasts) => {
+  return [...podcasts].sort((a, b) => a.seasons - b.seasons);
+};
+
 const getPodcastListByLimit = (allPodcasts, limit) => {
   const maxNumber = allPodcasts.length >= limit ? limit : allPodcasts.length;
   return slicePodcasts(allPodcasts, 0, maxNumber);

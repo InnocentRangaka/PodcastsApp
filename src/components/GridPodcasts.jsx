@@ -25,11 +25,12 @@ const GridPodcasts = ({ title, podcastsObject, sortBy }) => {
         return sortByLatestRelease([...podcastsObject]);
         break;
       default:
+        return sortAlphabetically(podcastsObject)
         break;
     }
   };
 
-  const podcasts = [...makeSortedPodcasts(sortBy)] || [];
+  const podcasts = [...makeSortedPodcasts(sortBy)] || podcastsObject;
 
   return (
     <section>
