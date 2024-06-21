@@ -11,6 +11,7 @@ import Show from './components/PodcastLayout';
 import Season from './components/SeasonLayout';
 import Episode from './components/EpisodeLayout';
 import Home from './pages/Home';
+// import Search from './pages/Search';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             </Route>
             
           </Route>
+          {/* <Route path="/search" element={<Search />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
