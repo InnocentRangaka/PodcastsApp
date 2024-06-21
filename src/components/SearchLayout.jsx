@@ -2,8 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Grid, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import SearchIcon from '@mui/icons-material/Search';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import InputBase from '@mui/material/InputBase';
+import Button from '@mui/material/Button';
+import MainMenu from './MainMenu';
+import SearchLayout from './SearchLayout'; // Assuming SearchComponent is imported correctly
 
-const SearchComponent = ({ podcasts }) => {
+const SearchComponent = ({ podcasts, setSearchQuery }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchType, setSearchType] = useState('Title'); // Default to 'Title'
   const [inputValue, setInputValue] = useState('');
@@ -38,42 +46,31 @@ const SearchComponent = ({ podcasts }) => {
     setSearchType(newValue);
   };
 
-  return (
-    <div>
-      <Autocomplete
-        value={searchType}
-        onChange={handleTypeChange}
-        inputValue={inputValue}
-        onInputChange={handleInputChange}
-        id="search-autocomplete"
-        options={['Title', 'ID', 'Genre']}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Search by"
-            variant="outlined"
-            fullWidth
-            InputProps={{
-              ...params.InputProps,
-              startAdornment: <SearchIcon />,
-            }}
-          />
-        )}
-      />
+  const filterData = (query, data) => {
+    if (!query) {
+      return data;
+    } else {
+      return data.filter((d) => d.toLowerCase().includes(query));
+    }
+  };
 
-      <Grid container spacing={2} style={{ marginTop: '20px' }}>
-        {searchResults.map(podcast => (
-          <Grid item xs={12} key={podcast.id}>
-            <Typography variant="h6">{podcast.title}</Typography>
-            <Typography variant="subtitle1">ID: {podcast.id}</Typography>
-            <Typography variant="body1">Description: {podcast.description}</Typography>
-            <Typography variant="body2">Seasons: {podcast.seasons}</Typography>
-            <img src={podcast.image} alt={podcast.title} style={{ maxWidth: '100%', marginTop: '10px' }} />
-            {/* Display other relevant information */}
-          </Grid>
-        ))}
-      </Grid>
-    </div>
+  return (
+    <form>
+    <TextField
+      id="search-bar"
+      className="text"
+      onInput={(e) => {
+        setSearchQuery(e.target.value);
+      }}
+      label="Enter a city name"
+      variant="outlined"
+      placeholder="Search..."
+      size="small"
+    />
+    <IconButton type="submit" aria-label="search">
+      <SearchIcon style={{ fill: "blue" }} />
+    </IconButton>
+  </form>
   );
 };
 

@@ -1,19 +1,43 @@
 import React from 'react';
 import { Grid, Typography } from '@mui/material';
 
-const SearchResultsLayout = ({ searchResults }) => {
+const SearchResultsLayout = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const dataFiltered = filterData(searchQuery, data);
+
   return (
-    <Grid container spacing={2} style={{ marginTop: '20px' }}>
-      {searchResults.map(podcast => (
-        <Grid item xs={12} key={podcast.id}>
-          <Typography variant="h5">{podcast.title}</Typography>
-          <Typography variant="body1">ID: {podcast.id}</Typography>
-          <Typography variant="body2">Genre: {podcast.genre}</Typography>
-          {/* Add more details as needed */}
-        </Grid>
-      ))}
-    </Grid>
+    <div
+      style={{
+        display: "flex",
+        alignSelf: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        padding: 20
+      }}
+    >
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <div style={{ padding: 3 }}>
+        {dataFiltered.map((d) => (
+          <div
+            className="text"
+            style={{
+              padding: 5,
+              justifyContent: "normal",
+              fontSize: 20,
+              color: "blue",
+              margin: 1,
+              width: "250px",
+              BorderColor: "green",
+              borderWidth: "10px"
+            }}
+            key={d.id}
+          >
+            {d}
+          </div>
+        ))}
+      </div>
+    </div>
   );
-};
+}
 
 export default SearchResultsLayout;
