@@ -22,7 +22,7 @@ export default function Show() {
   const { totalFavorites, totalSeasons, totalEpisodes } = getTotalCountsByShowId(id)
   const [genres, setGenres] = useState([]);
 
-  console.log(getTotalCountsByShowId(id))
+  // console.log(getTotalCountsByShowId(id))
 
   // Use useCallback for fetchSeason to prevent unnecessary re-renders
   const getPodcastData = useCallback(async (method, args) => {

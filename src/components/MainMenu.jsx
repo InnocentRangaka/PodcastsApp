@@ -15,7 +15,7 @@ function MainMenu() {
   const open = Boolean(anchorEl);
   const theme = useTheme(); // Access the current theme
   const handleClick = (event) => {
-    console.log(event.currentTarget);
+    // console.log(event.currentTarget);
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {

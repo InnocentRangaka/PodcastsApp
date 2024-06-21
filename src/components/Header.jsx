@@ -22,7 +22,7 @@ function Header() {
       <Toolbar disableGutters variant="dense">
         <MainMenu />
         <Typography variant="p" noWrap component="div" sx={{ flexGrow: 1 }}>
-          DJS11 - Podcast App
+          INNRAN532 - PodcastApp
         </Typography>
         {!showSearch && (
           <Badge color="secondary">

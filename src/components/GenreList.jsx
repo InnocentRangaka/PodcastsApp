@@ -2,7 +2,7 @@ import React from 'react';
 import GenreLabel from './GenreLabel';
 
 const GenreList = ({ genres }) => {
-  console.log(genres)
+  // console.log(genres)
   return (
     <div className="genre-list">
       {genres.map((genre, index) => (
