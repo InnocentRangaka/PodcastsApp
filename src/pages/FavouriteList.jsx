@@ -84,7 +84,7 @@ const FavouriteList = () => {
                     <span>{decodeText(item.title)}</span>
                   </Link>
                   <p>Season: {item.seasonId}</p>
-                  <p>Episode: {item.episodeId}</p>
+                  {item.episodeId !== 'true' && <p>Episode: {item.episodeId}</p>}
                   <p>Favorite Added: {formatDateTime(item.episode.addedAt)}</p>
                   <FavouriteButton
                     initialFavorite={true}
