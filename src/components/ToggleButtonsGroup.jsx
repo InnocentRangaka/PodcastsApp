@@ -9,9 +9,46 @@ import UnfoldLessIcon from '@mui/icons-material/UnfoldLess';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-const ToggleButtonsGroup = ({ sortBy, handleSortChange }) => {
+const ToggleButtonsGroup = ({ sortBy, handleSortChange, podcastsObject, setSortedPodcasts, setSortBy }) => {
   const handleClick = (event, newSortBy) => {
-    handleSortChange(newSortBy);
+    let sortedShows;
+
+    switch (sortBy) {
+      case 'bySeasonsCount':
+        sortedShows = 'bySeasonsCountReversed';
+        break;
+      case 'bySeasonsCountReversed':
+        sortedShows = 'bySeasonsCount';
+        break;
+      case 'alphabetically':
+        sortedShows = 'reverseAlphabetically';
+        break;
+      case 'reverseAlphabetically':
+        sortedShows = 'alphabetically';
+        break;
+      case 'byDate':
+        sortedShows = 'latestRelease';
+        break;
+      case 'latestRelease':
+        sortedShows = 'newest';
+        break;
+      case 'newest':
+        sortedShows = 'latestRelease';
+        break;
+      default:
+        // sortedShows = 'reverseAlphabetically'
+        break;
+    }
+
+    const elements = Object?.values(document.querySelectorAll(`button`))?.find(button => button.value.toLowerCase() === sortBy)
+    if(elements) {
+      elements.value = sortedShows;
+      elements.ariaLabel = sortedShows;
+    } 
+    console.log('click',sortedShows)
+    console.log(elements)
+
+    handleSortChange(newSortBy, podcastsObject, setSortedPodcasts, setSortBy);
   };
 
   return (

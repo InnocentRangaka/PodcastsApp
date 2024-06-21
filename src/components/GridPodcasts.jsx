@@ -1,36 +1,23 @@
-import React, { useCallback  } from 'react';
+import React, { useCallback, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { encodeText, decodeText } from '../utils/textUtils';
-import { sortAlphabetically, sortAlphabeticallyReversed,
-  sortByDate, sortByLatestRelease
- } from '../utils/podcastUtils';
+import { handleSortChange } from '../utils/podcastUtils';
 
-const GridPodcasts = ({ title, podcastsObject, sortBy }) => {
-
+const GridPodcasts = ({ title, podcastsObject, sortBy, setSortedPodcasts, setSortBy }) => {
   const typeName = title ? title.toLowerCase() : '';
 
-  const makeSortedPodcasts = (type) => {
-    switch (type) {
-      case 'alphabetically':
-        return sortAlphabetically(podcastsObject)
-        break;
-      case 'reverseAlphabetically':
-        return sortAlphabeticallyReversed([...podcastsObject]);
-        break;
-      case 'byDate':
-        return sortByDate([...podcastsObject]);
-        break;
-      case 'latestRelease':
-        return sortByLatestRelease([...podcastsObject]);
-        break;
-      default:
-        return sortAlphabetically(podcastsObject)
-        break;
-    }
-  };
+  const handleSort = useCallback(() => {
+    handleSortChange(sortBy, podcastsObject, setSortedPodcasts, setSortBy);
+  }, [sortBy, podcastsObject, setSortedPodcasts, setSortBy]);
 
-  const podcasts = [...makeSortedPodcasts(sortBy)] || podcastsObject;
+  memo(() => {
+    if (sortBy !== null) {
+      handleSort();
+    }
+  }, [sortBy, handleSort]);
+
+  const podcasts = podcastsObject || [];
 
   return (
     <section>
@@ -78,6 +65,9 @@ const GridPodcasts = ({ title, podcastsObject, sortBy }) => {
 GridPodcasts.propTypes = {
   title: PropTypes.string.isRequired,
   podcastsObject: PropTypes.array.isRequired,
+  sortBy: PropTypes.string.isRequired,
+  setSortedPodcasts: PropTypes.func.isRequired,
+  setSortBy: PropTypes.func.isRequired,
 };
 
-export default React.memo(GridPodcasts);
+export default GridPodcasts;

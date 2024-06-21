@@ -5,7 +5,7 @@ import { getPopularPodcasts,
   getNewPodcasts, getRecommendedPodcastsByDate,
   sortAlphabetically, sortAlphabeticallyReversed,
   sortByDate, sortByLatestRelease, sortBySeasonsCount,
-  sortBySeasonsCountReversed,
+  sortBySeasonsCountReversed, handleSortChange
  } from '../utils/podcastUtils';
  import GenreList from '../components/Genres';
 import ToggleButtonsGroup from '../components/ToggleButtonsGroup';
@@ -20,10 +20,12 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sortedPodcasts, setSortedPodcasts] = useState([]);
-  const [sortBy, setSortBy] = useState('alphabetically'); // Default sort
+  const [sortBy, setSortBy] = useState(null); // Default sort
 
   const [isGridView, setIsGridView] = useState(true);
   const [selectedPodcast, setSelectedPodcast] = useState(null);
+
+  // handleSortChange = (type, podcasts,setSortedPodcasts, setSortBy)
 
   useEffect(() => {
     const getPosts = async () => {
@@ -40,14 +42,18 @@ export default function Home() {
           };
         }
 
-        const sorted = sortedPodcasts ? sortAlphabetically([...data]) : data;
+        const type = sortBy == null ? "alphabetically" : sortBy;
+
+        const sorted = sortedPodcasts ? handleSortChange(type, data, setSortedPodcasts, setSortBy) : data;
 
         const savedView = localStorage.getItem('viewMode');
+        
         if (savedView) {
           setIsGridView(savedView === 'grid');
         }
 
         setPodcasts(sorted);
+        setSortBy(type)
       } catch (fetchError) {
         setError(fetchError);
       } finally {
@@ -56,7 +62,7 @@ export default function Home() {
     };
 
     getPosts();
-  }, []);
+  }, [handleSortChange]);
 
   // Load initial view state from localStorage on component mount
   useEffect(() => {
@@ -74,55 +80,28 @@ export default function Home() {
   // Define toggleView function with useCallback
   const toggleView = useCallback(() => {
     setIsGridView(prev => !prev);
-    handleSortChange(sortBy) // Toggle between true (gridView) and false (listView)
+    handleSortChange(sortBy, podcasts, setSortedPodcasts, setSortBy) // Toggle between true (gridView) and false (listView)
   }, []);
 
   // Function to handle podcast selection
   const handlePodcastSelect = useCallback((podcast) => {
     setSelectedPodcast(podcast);
   }, []);
-
-    const handleSortChange = (type) => {
-    switch (type) {
-      case 'bySeasonsCount':
-        case 'bySeasonsCountReversed':
-        setSortedPodcasts(sortBy === 'bySeasonsCount' ? sortBySeasonsCountReversed([...podcasts]) : sortBySeasonsCount([...podcasts]));
-        setSortBy(sortBy === 'bySeasonsCount' ? 'bySeasonsCountReversed' : 'bySeasonsCount');
-        break;
-      case 'alphabetically':
-      case 'reverseAlphabetically':
-        setSortedPodcasts(sortBy === 'alphabetically' ? sortAlphabeticallyReversed([...podcasts]) : sortAlphabetically([...podcasts]));
-        setSortBy(sortBy === 'alphabetically' ? 'reverseAlphabetically' : 'alphabetically');;
-        break;
-      case 'byDate':
-        setSortedPodcasts(sortBy === 'byDate' ? sortByLatestRelease([...podcasts]) : sortByDate([...podcasts]));
-        setSortBy(sortBy === 'byDate' ? 'byDate' : 'byDate');
-        break;
-      case 'latestRelease':
-      case 'newest':
-        setSortedPodcasts(sortBy === 'latestRelease' ? sortByDate([...podcasts]) : sortByLatestRelease([...podcasts]));
-        setSortBy(sortBy === 'latestRelease' ? 'newest' : 'latestRelease');
-        break;
-      default:
-        setSortedPodcasts(sortBy === 'alphabetically' ? sortAlphabeticallyReversed([...podcasts]) : sortAlphabetically([...podcasts]));
-        setSortBy(sortBy === 'alphabetically' ? 'reverseAlphabetically' : 'alphabetically');
-        break;
-    }
-  };
   
   return (
     <>
-      {loading ? (
+      {loading || !podcasts ? (
         <h2>Loading...</h2>
       ) : (
         <>
         <div className='sort-view-container'>
-          <ToggleButtonsGroup sortBy={sortBy} handleSortChange={handleSortChange} />
-          <ToggleViewLayout isGridView={isGridView} setIsGridView={setIsGridView} />
+          <ToggleButtonsGroup sortBy={sortBy} handleSortChange={handleSortChange} podcastsObject={podcasts} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} />
+          <ToggleViewLayout isGridView={isGridView} setIsGridView={setIsGridView} sortBy={sortBy} />
         </div>
 
           {/* <GenreList /> */}
-          {isGridView ? <GridPodcasts title="Podcasts" podcastsObject={podcasts} sortBy={sortBy} /> 
+          
+          {isGridView && sortBy ? <GridPodcasts title="Podcasts" podcastsObject={podcasts} sortBy={sortBy} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} /> 
           : 
             <>
               {/* <ListPodcasts title="Podcasts" podcastsObject={[podcasts]} /> */}

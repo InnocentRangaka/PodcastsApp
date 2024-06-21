@@ -24,8 +24,6 @@ const ToggleViewLayout = ({ isGridView, setIsGridView }) => {
     setIsGridView(prev => !prev); // Toggle between true (gridView) and false (listView)
   }, [setIsGridView]);
 
-  console.log(isGridView)
-
   return (
     <div className='view-buttons-group'>
       <span>view by:</span>

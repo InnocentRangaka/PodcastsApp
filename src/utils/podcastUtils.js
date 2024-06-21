@@ -17,16 +17,31 @@ const sortByTitle = (a, b) => {
   return 0;
 };
 
+const ensureIsArray = (object) => {
+  let podcastArray = [];
+
+  if (Array.isArray(object)) {
+    podcastArray = object;
+  } else if (typeof object === 'object' && object !== null) {
+    podcastArray = Object.values(object);
+  } else {
+    console.error("Expected an array or object of podcasts, but received:", object);
+    return podcastArray;
+  }
+
+  return podcastArray;
+}
+
 export const sortAlphabetically = (podcasts) => {
-  return [...podcasts].sort((a, b) => a.title.localeCompare(b.title));
+  return ensureIsArray(podcasts).sort((a, b) => a.title.localeCompare(b.title));
 };
 
 export const sortAlphabeticallyReversed = (podcasts) => {
-  return [...podcasts].sort((a, b) => b.title.localeCompare(a.title));
+  return ensureIsArray(podcasts).sort((a, b) => b.title.localeCompare(a.title));
 };
 
 export const sortByDate = (podcasts) => {
-  return [...podcasts].sort((a, b) => new Date(a.updated) - new Date(b.updated));
+  return ensureIsArray(podcasts).sort((a, b) => new Date(a.updated) - new Date(b.updated));
 };
 
 export const sortByLatestRelease = (podcasts) => {
@@ -34,12 +49,58 @@ export const sortByLatestRelease = (podcasts) => {
 };
 
 export const sortBySeasonsCount = (podcasts) => {
-  return [...podcasts].sort((a, b) => a.seasons - b.seasons).reverse();
+  return ensureIsArray(podcasts).sort((a, b) => a.seasons - b.seasons).reverse();
 };
 
 export const sortBySeasonsCountReversed = (podcasts) => {
-  return [...podcasts].sort((a, b) => a.seasons - b.seasons);
+  return ensureIsArray(podcasts).sort((a, b) => a.seasons - b.seasons);
 };
+
+export const handleSortChange = (sortBy, podcasts, setSortedPodcasts, setSortBy) => {
+  podcasts = ensureIsArray(podcasts)
+
+  let sortedShows = null;
+
+  switch (sortBy) {
+    case 'bySeasonsCount':
+      sortedShows = sortBySeasonsCount(podcasts);
+      setSortBy('bySeasonsCountReversed');
+      break;
+    case 'bySeasonsCountReversed':
+      sortedShows = sortBySeasonsCountReversed(podcasts);
+      setSortBy('bySeasonsCount');
+      break;
+    case 'alphabetically':
+      sortedShows = sortAlphabetically(podcasts);
+      setSortBy('reverseAlphabetically');
+      break;
+    case 'reverseAlphabetically':
+      sortedShows = sortAlphabeticallyReversed(podcasts);
+      setSortBy('alphabetically');
+      break;
+    case 'byDate':
+      sortedShows = sortByDate(podcasts);
+      setSortBy('latestRelease');
+      break;
+    case 'latestRelease':
+      sortedShows = sortByLatestRelease(podcasts);
+      setSortBy('newest');
+      break;
+    case 'newest':
+      sortedShows = sortByLatestRelease(podcasts);
+      setSortBy('latestRelease');
+      break;
+    default:
+      sortedShows = sortAlphabetically(podcasts);
+      setSortBy('reverseAlphabetically');
+      break;
+  }
+
+  setSortedPodcasts(sortedShows);
+  return sortedShows;
+};
+
+
 
 const getPodcastListByLimit = (allPodcasts, limit) => {
   const maxNumber = allPodcasts.length >= limit ? limit : allPodcasts.length;
