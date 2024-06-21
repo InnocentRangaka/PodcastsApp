@@ -2,14 +2,22 @@ import './App.css';
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // routes
+import {Home} from './pages/Home';
 import {
-  Home,
-  Signup,
+  Signup
+} from './pages/Signup';
+import {
   SinglePodcast,
-  Login,
+} from './pages/SinglePodcast';
+import {
+  Login
+} from './pages/Login';
+import {
   Favourites,
-  PageNotFound,
-} from './pages';
+} from './pages/Favourites';
+import {
+  PageNotFound
+} from './pages/PageNotFound';
 import supabase from './supabase/client';
 // redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,7 +28,7 @@ import {
   setUserDataFromDB,
   setHasAccount,
   setFavourites,
-} from './globalState/reducers/podcastsReducer';
+} from './utils/reducers/podcastsReducer';
 
 import Layout from './components/Layout';
 import Show from './components/PodcastLayout';
