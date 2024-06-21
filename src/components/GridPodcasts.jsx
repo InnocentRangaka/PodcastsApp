@@ -23,11 +23,12 @@ const GridPodcasts = ({ title, podcastsObject, sortBy, setSortedPodcasts, setSor
     <section>
       <div className="grid-container">
         {podcasts.map((podcast) => (
-          <div key={podcast.id} className="grid-item">
+          <div key={`podcast-${podcast.id}grid-item`} className="grid-item">
             <div className="slider-card">
               <div className="card-link" />
               {podcast?.image && (
                 <img
+                  key={`podcast${podcast.id}image`}
                   src={podcast.image}
                   className="card-image"
                   alt={podcast.title}
@@ -37,6 +38,7 @@ const GridPodcasts = ({ title, podcastsObject, sortBy, setSortedPodcasts, setSor
               <div className="card-footer">
                 <div className="card-footer-content">
                   <Link
+                    key={`podcast${podcast.id}link`}
                     to={`/show/${encodeText(podcast.title)}`}
                     className="card-footer-link overflow-wrap"
                     title={podcast.title}

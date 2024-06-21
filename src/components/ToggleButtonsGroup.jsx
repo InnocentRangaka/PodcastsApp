@@ -1,5 +1,4 @@
-import React from 'react';
-import IconButton from '@mui/material/IconButton';
+import React, { useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import EventIcon from '@mui/icons-material/Event';
@@ -10,6 +9,8 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 const ToggleButtonsGroup = ({ sortBy, handleSortChange, podcastsObject, setSortedPodcasts, setSortBy }) => {
+  const [sortByBtn, setSortByBtn] = useState('alphabetically'); // Initial state, default to 'alphabetically'
+
   const handleClick = (event, newSortBy) => {
     let sortedShows;
 
@@ -40,29 +41,47 @@ const ToggleButtonsGroup = ({ sortBy, handleSortChange, podcastsObject, setSorte
         break;
     }
 
-    const elements = Object?.values(document.querySelectorAll(`button`))?.find(button => button.value.toLowerCase() === sortBy)
-    if(elements) {
-      elements.value = sortedShows;
-      elements.ariaLabel = sortedShows;
-    } 
-    console.log('click',sortedShows)
-    console.log(elements)
+    let elements;
 
+    switch (true) {
+      case event.target.nodeName.toLowerCase() =="button":
+        elements = event.target;
+        break;
+      case event.target.parentElement.nodeName.toLowerCase() =="button":
+        elements = event.target.parentElement;
+        break;
+      case event.target.parentElement.parentElement.nodeName.toLowerCase() =="button":
+        elements = event.target.parentElement.parentElement;
+      break;
+      default:
+        elements = Object?.values(document.querySelectorAll(`button`))?.find(button => button.value.toLowerCase() == sortByBtn);
+        break;
+    }
+
+    if(elements) {
+      elements.setAttribute("value", sortedShows);
+      elements.setAttribute("aria-label",sortedShows);
+    }
+
+    setSortByBtn(newSortBy);
     handleSortChange(newSortBy, podcastsObject, setSortedPodcasts, setSortBy);
+    
   };
 
   return (
     <div className='toggle-buttons-group'>
       <span>Sort by:</span>
       <ToggleButtonGroup
+        key="sortingToggleBtnGroup"
         value={sortBy} // Use sortBy state directly from props
         exclusive
         aria-label="sort by"
         size="small"
         color="primary"
       >
-        <ToggleButton 
-          value="alphabetically" 
+        <ToggleButton
+          key="alphabeticallyBtn"
+          value="alphabetically"
           aria-label="alphabetically"
           onChange={(event) => handleClick(event, 'alphabetically')}
         >
@@ -71,8 +90,9 @@ const ToggleButtonsGroup = ({ sortBy, handleSortChange, podcastsObject, setSorte
           </Tooltip>
         </ToggleButton>
 
-        <ToggleButton 
-          value="bySeasonsCount" 
+        <ToggleButton
+          key="bySeasonsCountBtn"
+          value="bySeasonsCount"
           aria-label="bySeasonsCount"
           onChange={(event) => handleClick(event, 'bySeasonsCount')}
         >
@@ -81,9 +101,10 @@ const ToggleButtonsGroup = ({ sortBy, handleSortChange, podcastsObject, setSorte
           </Tooltip>
         </ToggleButton>
 
-        <ToggleButton 
-          value="latestRelease" 
-          aria-label="latestRelease" 
+        <ToggleButton
+          key="latestReleaseBtn"
+          value="latestRelease"
+          aria-label="latestRelease"
           onChange={(event) => handleClick(event, 'latestRelease')}
         >
           <Tooltip title="Latest Release">

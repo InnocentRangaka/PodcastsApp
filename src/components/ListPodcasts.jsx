@@ -28,6 +28,7 @@ function ListPodcasts({ title, podcastsObject }) {
                   <div className="card-link" />
                   {podcast?.image && (
                   <img
+                    key={`podcast${podcast.id}image`}
                     src={podcast.image}
                     className="card-image"
                     alt={podcast.title}
@@ -39,6 +40,7 @@ function ListPodcasts({ title, podcastsObject }) {
                   <div className="card-footer">
                     <div className="card-footer-content">
                       <Link
+                        key={`podcast${podcast.id}link`}
                         to={`/show/${encodeText(podcast.title)}`}
                         className="card-footer-link overflow-wrap"
                         title={podcast.title}
