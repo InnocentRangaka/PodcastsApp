@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import supabase from '../supabase/client';
-import { setIsLoggedIn } from '../globalState/reducers/podcastsReducer';
+import { setIsLoggedIn } from '../utils/reducers/podcastsReducer';
 import { Link, useNavigate } from 'react-router-dom';
 
 const LoginContainer = styled.div`
