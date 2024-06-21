@@ -10,6 +10,7 @@ import Layout from './components/Layout';
 import Show from './components/PodcastLayout';
 import Season from './components/SeasonLayout';
 import Episode from './components/EpisodeLayout';
+import FavouriteList from './pages/FavouriteList';
 import Home from './pages/Home';
 // import Search from './pages/Search';
 
@@ -30,6 +31,8 @@ function App() {
             
           </Route>
           {/* <Route path="/search" element={<Search />} /> */}
+
+          <Route path="/favorites" element={<FavouriteList />} />
         </Route>
       </Routes>
     </BrowserRouter>

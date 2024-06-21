@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,20 +7,38 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Fade from '@mui/material/Fade';
 import { useTheme } from '@mui/material/styles';
-// import { darkTheme } from '../Theme';
 
-const menuItems = ['Home', 'Seasons', 'Favourites', 'Contact', 'Settings'];
+const menuItems = ['Home', 'Shows', 'Favourites'];
 
 function MainMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const theme = useTheme(); // Access the current theme
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const handleClick = (event) => {
-    // console.log(event.currentTarget);
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleMenuItemClick = (option) => {
+    setAnchorEl(null); // Close the menu
+    switch (option) {
+      case 'Home':
+        navigate('/'); // Navigate to Home page
+        break;
+      case 'Shows':
+        navigate('/show'); // Navigate to Shows page
+        break;
+      case 'Favourites':
+        navigate('/favorites'); // Navigate to Favourites page
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -53,10 +72,9 @@ function MainMenu() {
           'aria-labelledby': 'main-menu-button',
         }}
         TransitionComponent={Fade}
-        // theme={darkTheme}
       >
         {menuItems.map((option) => (
-          <MenuItem key={option} onClick={handleClose}>
+          <MenuItem key={option} onClick={() => handleMenuItemClick(option)}>
             {option}
           </MenuItem>
         ))}
