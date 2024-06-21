@@ -20,6 +20,7 @@ export default function Show() {
   const [loading, setLoading] = useState(false);
   const { id, title } = location.state?.show || [];
   const { totalFavorites, totalSeasons, totalEpisodes } = getTotalCountsByShowId(id)
+  const [genres, setGenres] = useState([]);
 
   console.log(getTotalCountsByShowId(id))
 
@@ -68,7 +69,11 @@ export default function Show() {
   }, [id, path, getPodcastData]);
 
   // console.log(podcast.description)
-  const genres = ['Comedy', 'News', 'Sports', 'Technology', 'Music'];
+  if(!loading && podcast){
+    // const genres = podcast && podcast.genres.flat();
+    
+  }
+  
 
   return (
     !loading && podcast

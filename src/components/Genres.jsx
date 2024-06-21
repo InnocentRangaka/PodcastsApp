@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const GenreList = () => {
+const Genres = () => {
   const [genres, setGenres] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -45,4 +45,4 @@ const GenreList = () => {
   );
 };
 
-export default GenreList;
+export default Genres;

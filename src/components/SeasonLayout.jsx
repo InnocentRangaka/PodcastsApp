@@ -133,8 +133,6 @@ export default function Season() {
               </div>
 
               {season?.description && <DescriptionLayout description={season.description} />}
-
-              {<GenreList genres={genres} />}
               
             </div>
             <div className='show-list-container'>

@@ -1,13 +1,9 @@
-import React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
+import React, { useRef } from 'react';
+import { AppBar, Toolbar, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Autocomplete from '@mui/material/Autocomplete';
-import { TextField } from '@mui/material';
+import { styled, alpha } from '@mui/material/styles';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -47,30 +43,42 @@ const CancelIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const SearchAppBar = ({ handleSearch, handleClear }) => {
+  const inputRef = useRef(null); // Create a ref for focusing the input
+
+  const handleFocus = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
   return (
     <AppBar position="static">
       <Toolbar>
-        <Search>
+        <Search onClick={handleFocus}>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
           <Autocomplete
             id="search-autocomplete"
             freeSolo
-            fullWidth
             disableClearable
-            onChange={handleSearch}
+            onChange={(event, newValue) => handleSearch(event, newValue)}
             renderInput={(params) => (
               <TextField
                 {...params}
+                inputRef={inputRef} // Assign inputRef to the TextField
                 placeholder="Search podcasts"
                 InputProps={{
                   ...params.InputProps,
                   startAdornment: <SearchIcon />,
                   endAdornment: (
-                    <CancelIconWrapper onClick={handleClear}>
-                      <CancelIcon />
-                    </CancelIconWrapper>
+                    <React.Fragment>
+                      {params.inputProps.value && (
+                        <CancelIconWrapper onClick={handleClear}>
+                          <CancelIcon />
+                        </CancelIconWrapper>
+                      )}
+                    </React.Fragment>
                   ),
                 }}
               />

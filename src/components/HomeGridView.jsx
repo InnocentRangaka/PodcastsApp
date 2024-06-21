@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { fetchPodcasts } from '../../api';
+import { fetchPodcasts, getGenres } from '../../api';
 import {
   sortAlphabetically,
   sortAlphabeticallyReversed,
@@ -83,6 +83,7 @@ export default function HomeGridView() {
               <p>Duration: {podcast.duration} seconds</p>
               {/* Add more details as needed */}
             </div>
+            <GenreList genres={podcast.genres} />
           ))}
         </>
       )}

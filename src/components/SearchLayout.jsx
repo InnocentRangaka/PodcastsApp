@@ -1,27 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Grid } from '@mui/material';
+import { TextField, Grid, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import SearchIcon from '@mui/icons-material/Search';
 
-// Assuming you have fetched podcasts, seasons, and episodes data from an API
-const podcastData = [
-  { id: '1', title: 'Podcast 1', genre: 'Tech' },
-  { id: '2', title: 'Podcast 2', genre: 'Education' },
-  { id: '3', title: 'Podcast 3', genre: 'Health' },
-  // Add more podcast objects as needed
-];
-
-const SearchLayout = () => {
+const SearchComponent = ({ podcasts }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchType, setSearchType] = useState('Title'); // Default to 'Title'
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    // Filter podcasts based on search input and type
+    // This effect filters podcasts based on user input and selected search type
     if (inputValue.trim() === '') {
       setSearchResults([]);
     } else {
-      const filteredResults = podcastData.filter(podcast => {
+      const filteredResults = podcasts.filter(podcast => {
         const lowerCaseInput = inputValue.toLowerCase();
         switch (searchType) {
           case 'Title':
@@ -29,24 +21,28 @@ const SearchLayout = () => {
           case 'ID':
             return podcast.id.toLowerCase().includes(lowerCaseInput);
           case 'Genre':
-            return podcast.genre.toLowerCase().includes(lowerCaseInput);
+            return podcast.genres.some(genre => genre === parseInt(inputValue)); // Assuming genres are numeric
           default:
             return false;
         }
       });
       setSearchResults(filteredResults);
     }
-  }, [inputValue, searchType]);
+  }, [inputValue, searchType, podcasts]);
 
   const handleInputChange = (event, newInputValue) => {
     setInputValue(newInputValue);
+  };
+
+  const handleTypeChange = (event, newValue) => {
+    setSearchType(newValue);
   };
 
   return (
     <div>
       <Autocomplete
         value={searchType}
-        onChange={(event, newValue) => setSearchType(newValue)}
+        onChange={handleTypeChange}
         inputValue={inputValue}
         onInputChange={handleInputChange}
         id="search-autocomplete"
@@ -64,14 +60,16 @@ const SearchLayout = () => {
           />
         )}
       />
-      
+
       <Grid container spacing={2} style={{ marginTop: '20px' }}>
         {searchResults.map(podcast => (
           <Grid item xs={12} key={podcast.id}>
-            <h2>{podcast.title}</h2>
-            <p>ID: {podcast.id}</p>
-            <p>Genre: {podcast.genre}</p>
-            {/* Add other components or functionality as needed */}
+            <Typography variant="h6">{podcast.title}</Typography>
+            <Typography variant="subtitle1">ID: {podcast.id}</Typography>
+            <Typography variant="body1">Description: {podcast.description}</Typography>
+            <Typography variant="body2">Seasons: {podcast.seasons}</Typography>
+            <img src={podcast.image} alt={podcast.title} style={{ maxWidth: '100%', marginTop: '10px' }} />
+            {/* Display other relevant information */}
           </Grid>
         ))}
       </Grid>
@@ -79,4 +77,4 @@ const SearchLayout = () => {
   );
 };
 
-export default SearchLayout;
+export default SearchComponent;

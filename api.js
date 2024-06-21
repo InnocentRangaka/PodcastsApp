@@ -22,6 +22,25 @@ export const makeNewSeasonData = ({season}) => {
   return newSeasonData;
 }
 
+const fetchAllGenre = async (id) => {
+  const response = await fetch(`https://podcast-api.netlify.app/genre/${id}`);
+  if (!response.ok) {
+    throw new Error(`Error fetching data for ID ${id}: ${response.statusText}`);
+  }
+  const data = await response.json();
+  return data;
+};
+
+const fetchAllGenres = async (ids) => {
+  try {
+    const promises = ids.map(id => fetchAllGenre(id));
+    const genres = await Promise.all(promises);
+    return genres;
+  } catch (error) {
+    console.error("Error fetching podcast data:", error);
+  }
+};
+
 export async function fetchPodcasts() {
   
   const response = await fetch('https://podcast-api.netlify.app/');
@@ -33,7 +52,21 @@ export async function fetchPodcasts() {
     };
   }
   const data = await response.json();
+
   return data;
+}
+
+export const getAllGenres = async (data) => {
+  const allGenres = data.map(show => show.genres).flat()
+  const genres = [...new Set(allGenres)]
+
+  const genreText = fetchAllGenres(genres);
+  return genreText;
+}
+
+export const getGenres = (arr) => {
+  const genreText = fetchAllGenres(arr);
+  return genreText;
 }
 
 export async function fetchPodcast({ id }) {
