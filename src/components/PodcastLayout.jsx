@@ -6,6 +6,7 @@ import { getYear, getTotalEpisodes, showNameFromPath } from '../utils/podcastUti
 import DescriptionLayout from './DescriptionLayout'
 import GenreList from './GenreList';
 import {encodeText} from '../utils/textUtils'
+import {getTotalCountsByShowId} from '../utils/favouriteUtils'
 import FavouriteButton from './FavouriteButton';
 import AudioPlaceholder from './Audio/AudioPlaceholder';
 import AudioPlayerButton from './Audio/AudioPlayerButton';
@@ -18,6 +19,9 @@ export default function Show() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { id, title } = location.state?.show || [];
+  const { totalFavorites, totalSeasons, totalEpisodes } = getTotalCountsByShowId(id)
+
+  console.log(getTotalCountsByShowId(id))
 
   // Use useCallback for fetchSeason to prevent unnecessary re-renders
   const getPodcastData = useCallback(async (method, args) => {
@@ -183,7 +187,7 @@ export default function Show() {
                       </div>
                     </div>
                     <div className='show-list-item-right'>
-                      <FavouriteButton audio='https://podcast-api.netlify.app/placeholder-audio.mp3' />
+                      <FavouriteButton initialFavorite={false} onFavoriteChange="" type='season' podcastId={podcast.id} seasonId={season.season} episodeId />
                         {season.season && (
                           <AudioPlaceholder>
                             <AudioPlayerButton key={season.season} audioId={season.season} audioSrc="https://podcast-api.netlify.app/placeholder-audio.mp3" />

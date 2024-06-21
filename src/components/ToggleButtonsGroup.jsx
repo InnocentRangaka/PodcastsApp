@@ -11,6 +11,9 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 const ToggleButtonsGroup = ({ sortBy, handleSortChange }) => {
+  const handleClick = (event, newSortBy) => {
+    handleSortChange(newSortBy);
+  };
 
   return (
     <div className='toggle-buttons-group'>
@@ -18,7 +21,7 @@ const ToggleButtonsGroup = ({ sortBy, handleSortChange }) => {
       <ToggleButtonGroup
         value={sortBy} // Use sortBy state directly from props
         exclusive
-        onChange={handleSortChange} // Directly pass the handleSortChange function
+        onChange={handleClick} // Directly pass the handleClick function
         aria-label="sort by"
         size="small"
         color="primary"

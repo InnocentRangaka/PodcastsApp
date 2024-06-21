@@ -212,7 +212,9 @@ export default function Season() {
                           onClick={handleInfoClick}
                           size="large"
                          />
-                        <FavouriteButton audio='' />
+
+                        <FavouriteButton initialFavorite={false} onFavoriteChange="" type='episode' podcastId={podcastId} seasonId={season.season} episodeId={episode.episode} />
+                        
                         {episode.file && (
                           <AudioPlaceholder>
                             <AudioPlayerButton key={episode.episode} audioId={season.season} audioSrc="https://podcast-api.netlify.app/placeholder-audio.mp3" />
