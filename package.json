@@ -18,6 +18,7 @@
     "@mui/material": "^5.15.18",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@reduxjs/toolkit": "^2.2.5",
+    "@supabase/supabase-js": "^2.43.5",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-audio-wizard": "^0.0.3-alpha.4",
