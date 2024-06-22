@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
-import { fetchPodcast, fetchPodcastByTitle } from '../../api';
+import { fetchPodcast, fetchPodcastByTitle, getGenres } from '../../api';
 import { getYear, getTotalEpisodes, showNameFromPath } from '../utils/podcastUtils';
 import DescriptionLayout from '../components/Podcast/DescriptionLayout'
 import GenreList from '../components/Genre/GenreList';
@@ -23,6 +23,10 @@ export default function Show() {
   const [genres, setGenres] = useState([]);
 
   // console.log(getTotalCountsByShowId(id))
+
+  const displayGenres = useCallback(async (show) => {
+    return show?.genres && setGenres(show.genres)
+  }, [getGenres])
 
   // Use useCallback for fetchSeason to prevent unnecessary re-renders
   const getPodcastData = useCallback(async (method, args) => {
@@ -52,6 +56,7 @@ export default function Show() {
       }
   
       setPodcast(data);
+      displayGenres(data)
       data?.id && localStorage.setItem('previewShow', {podcast: data.id,});
     } catch (fetchError) {
       setError(fetchError);
@@ -67,12 +72,6 @@ export default function Show() {
 
     getPodcastData(method, args);
   }, [id, path, getPodcastData]);
-
-  // console.log(podcast.description)
-  if(!loading && podcast){
-    // const genres = podcast && podcast.genres.flat();
-    
-  }
   
 
   return (
