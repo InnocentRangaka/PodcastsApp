@@ -1,18 +1,13 @@
 import React, { useState, useEffect, useCallback  } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { fetchPodcasts } from '../../api';
-import { getPopularPodcasts, 
-  getNewPodcasts, getRecommendedPodcastsByDate,
-  sortAlphabetically, sortAlphabeticallyReversed,
-  sortByDate, sortByLatestRelease, sortBySeasonsCount,
-  sortBySeasonsCountReversed, handleSortChange
- } from '../utils/podcastUtils';
- import GenreList from '../components/Genre/Genres';
+import { handleSortChange } from '../utils/podcastUtils';
 import ToggleButtonsGroup from '../components/Includes/ToggleButtonsGroup';
 import ToggleViewLayout from '../components/Includes/ToggleViewLayout'
 
 import GridPodcasts from '../components/Podcast/GridPodcasts';
 import ListPodcasts from '../components/Podcast/ListPodcasts';
+import HomeDefaultView from '../components/Home/HomeDefaultView';
 
 export default function Home() {
   const location = useLocation();
@@ -49,7 +44,7 @@ export default function Home() {
         const savedView = localStorage.getItem('viewMode');
         
         if (savedView) {
-          setIsGridView(savedView === 'grid');
+          setIsGridView(savedView === 'l');
         }
 
         setPodcasts(sorted);
@@ -104,7 +99,8 @@ export default function Home() {
           {isGridView && sortBy ? 
             <GridPodcasts title="Podcasts" podcastsObject={podcasts} sortBy={sortBy} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} /> 
           : 
-            <ListPodcasts title="Podcasts" podcastsObject={[podcasts]} />
+            // <ListPodcasts title="Podcasts" podcastsObject={podcasts} />
+            <HomeDefaultView podcastsObject={podcasts} sortBy={sortBy} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} /> 
           }
         </>
       )}

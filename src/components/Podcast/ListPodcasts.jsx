@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import { Img } from 'react-image';
 import { encodeText, decodeText } from '../../utils/textUtils';
 
 function ListPodcasts({ title, podcastsObject }) {
@@ -9,71 +8,64 @@ function ListPodcasts({ title, podcastsObject }) {
   const typeName = title ? title.toLowerCase() : '';
   const podcasts = podcastsObject || []; // Use empty array for default
   
-  if (podcasts) {
+  if (podcasts.length > 0) {
     return (
-      <section>
-        <div className="section-header">
-          <h2>
+      <section key="listPodcastSection">
+        <div key="sectionHeader" className="section-header">
+          <h2 key="sectionHeaderH2">
             {(typeName && typeName.charAt(0).toUpperCase() + typeName.slice(1))}
             {' '}
             podcasts
           </h2>
         </div>
-        <div className="section-slider">
+        <div key="sectionSlider" className="section-slider">
+          {podcasts.map((podcast) => (
+            <div key={podcast.id} className="section-slider-item">
+              <div key={`sliderCard${podcast.id}`} className="slider-card">
+                <div key={`sliderCard${podcast.id}CardLink`} className="card-link" />
+                {podcast?.image && (
+                <img
+                  key={`podcast${podcast.id}image`}
+                  src={podcast.image}
+                  className="card-image"
+                  alt={podcast.title}
+                  loading="lazy"
+                />
+                )}
 
-          <div className="section-slider">
-            {podcasts.map((podcast) => (
-              <div key={podcast.id} className="section-slider-item">
-                <div className="slider-card">
-                  <div className="card-link" />
-                  {podcast?.image && (
-                  <img
-                    key={`podcast${podcast.id}image`}
-                    src={podcast.image}
-                    className="card-image"
-                    alt={podcast.title}
-                    // fallback={<span>Loading...</span>} <- // use Img instead of img
-                    loading="lazy"
-                  />
-                  )}
-
-                  <div className="card-footer">
-                    <div className="card-footer-content">
-                      <Link
-                        key={`podcast${podcast.id}link`}
-                        to={`/show/${encodeText(podcast.title)}`}
-                        className="card-footer-link overflow-wrap"
-                        title={podcast.title}
-                        state={{
-                          show: {
-                            id: `${podcast.id}`,
-                            title: `${podcast.title}`,
-                          },
-                        }}
-                      >
-                        <span className="">
-                          {decodeText(podcast.title)}
-                        </span>
-                        
-                      </Link>
-                    </div>
+                <div key={`sliderCard${podcast.id}CardFooter`} className="card-footer">
+                  <div key={`sliderCard${podcast.id}CardFooterContent`} className="card-footer-content">
+                    <Link
+                      key={`podcast${podcast.id}link`}
+                      to={`/show/${encodeText(podcast.title)}`}
+                      className="card-footer-link overflow-wrap"
+                      title={podcast.title}
+                      state={{
+                        show: {
+                          id: `${podcast.id}`,
+                          title: `${podcast.title}`,
+                        },
+                      }}
+                    >
+                      <span key={`sliderCard${podcast.id}CardFooterContentSpan`} className="">
+                        {decodeText(podcast.title)}
+                      </span>
+                    </Link>
                   </div>
                 </div>
               </div>
-            ))}
-
-          </div>
+            </div>
+          ))}
         </div>
       </section>
     );
   }
+  return null;
 }
 
 ListPodcasts.propTypes = {
-  // Title is required and must be a string
   title: PropTypes.string.isRequired,
-  // podcastsObject is required and must be an object
-  podcastsObject: PropTypes.instanceOf(Object).isRequired,
+  podcastsObject: PropTypes.array.isRequired, // Changed from instanceOf(Object) to array
 };
 
 export default ListPodcasts;
