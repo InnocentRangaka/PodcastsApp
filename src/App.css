@@ -46,11 +46,20 @@ a, a:focus, a:hover {
   text-decoration: none;
 }
 
+.justify-normal{
+  justify-items: normal !important;
+}
+
 #root {
+  min-width: -webkit-fill-available;
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0; /* margin: 0 auto; */
+  padding: 0; /* padding: 2rem; */
   text-align: center;
+  top: 0;
+  display: flex;
+  position: relative;
+  width: 100%;
 }
 
 .logo {
@@ -73,6 +82,12 @@ a, a:focus, a:hover {
   to {
     transform: rotate(360deg);
   }
+}
+
+
+
+.masonry .grid-item .slider-card {
+  display: flex !important;
 }
 
 section.show {
@@ -162,8 +177,23 @@ section.show {
   -ms-flex-direction: column;
   flex-direction: column;
   text-align: left;
+  width: 100%;
   gap: 8px;
   z-index: 0;
+}
+
+.misonry .show-info {
+  flex-flow: wrap !important;
+}
+
+.masonry .show-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  max-width: inherit;
 }
 
 .show-subtitle {
@@ -200,6 +230,14 @@ section.show {
 
 span + span::before {
   content: " • ";
+}
+
+.masonry .card-stats span + span {
+  display: block;
+}
+
+.masonry .card-stats span + span::before {
+  content: "";
 }
 
 .genre-list {
@@ -739,19 +777,6 @@ section {
 
 @media screen and (max-width: 690px) {
 
-  #root {
-    max-width: 1280px;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    top: 0;
-    display: flex;
-    position: relative;
-    width: 100%;
-  }
-
-  
-
   .card-link {
     position: absolute;
     inset: 0px;
@@ -793,10 +818,18 @@ section {
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
   }
+
+  .grid-container:has(.masonry){
+    grid-template-columns: 1fr;
+  }
   
   .grid-item {
     width: 100%;
     max-width: 300px; /* Adjust max-width as needed */
+  }
+
+  .masonry .grid-item {
+    max-width: -webkit-fill-available !important;
   }
   
   .card-image {
