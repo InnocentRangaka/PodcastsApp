@@ -96,7 +96,7 @@ export default function Home() {
         <>
         <div className='sort-view-container'>
           <ToggleButtonsGroup sortBy={sortBy} handleSortChange={handleSortChange} podcastsObject={podcasts} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} />
-          {/* <ToggleViewLayout isGridView={isGridView} setIsGridView={setIsGridView} sortBy={sortBy} /> */}
+          <ToggleViewLayout isGridView={isGridView} setIsGridView={setIsGridView} sortBy={sortBy} />
         </div>
 
           {/* <GenreList /> */}
