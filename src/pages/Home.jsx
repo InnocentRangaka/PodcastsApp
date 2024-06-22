@@ -7,7 +7,7 @@ import ToggleViewLayout from '../components/Includes/ToggleViewLayout'
 
 import GridPodcasts from '../components/Podcast/GridPodcasts';
 import ListPodcasts from '../components/Podcast/ListPodcasts';
-import HomeDefaultView from '../components/Home/HomeDefaultView';
+import HomeDefaultView from '../components/Home/HomeListView';
 
 export default function Home() {
   const location = useLocation();
