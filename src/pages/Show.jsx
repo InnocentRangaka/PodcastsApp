@@ -3,13 +3,13 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
 import { fetchPodcast, fetchPodcastByTitle } from '../../api';
 import { getYear, getTotalEpisodes, showNameFromPath } from '../utils/podcastUtils';
-import DescriptionLayout from './DescriptionLayout'
-import GenreList from './GenreList';
+import DescriptionLayout from '../components/Podcast/DescriptionLayout'
+import GenreList from '../components/Genre/GenreList';
 import {encodeText} from '../utils/textUtils'
 import {getTotalCountsByShowId} from '../utils/favouriteUtils'
-import FavouriteButton from './FavouriteButton';
-import AudioPlaceholder from './Audio/AudioPlaceholder';
-import AudioPlayerButton from './Audio/AudioPlayerButton';
+import FavouriteButton from '../components/Includes/FavouriteButton';
+import AudioPlaceholder from '../components/Audio/AudioPlaceholder';
+import AudioPlayerButton from '../components/Audio/AudioPlayerButton';
 
 export default function Show() {
   const { name } = useParams(); // Destructure name from useParams

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, memo } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { encodeText, decodeText } from '../utils/textUtils';
-import { handleSortChange } from '../utils/podcastUtils';
+import { encodeText, decodeText } from '../../utils/textUtils';
+import { handleSortChange } from '../../utils/podcastUtils';
 
 const GridPodcasts = ({ title, podcastsObject, sortBy, setSortedPodcasts, setSortBy }) => {
   const typeName = title ? title.toLowerCase() : '';

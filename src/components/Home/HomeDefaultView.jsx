@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { fetchPodcasts } from '../../api';
+import { fetchPodcasts } from '../../../api';
 import { getPopularPodcasts, 
   getNewPodcasts, getRecommendedPodcastsByDate,
   sortAlphabetically, sortAlphabeticallyReversed,
   sortByDate, sortByLatestRelease
- } from '../utils/podcastUtils';
- import GenreList from '../components/Genres';
+ } from '../../utils/podcastUtils';
+ import GenreList from '../Genre/Genres';
 
 import reactLogo from '../assets/react.svg';
 import viteLogo from '../assets/vite.svg';
@@ -15,7 +15,7 @@ import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import EventIcon from '@mui/icons-material/Event';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
-import ToggleButtonsGroup from '../components/ToggleButtonsGroup';
+import ToggleButtonsGroup from '../Includes/ToggleButtonsGroup';
 
 export default function HomeDefaultView() {
   const [count, setCount] = useState(0);

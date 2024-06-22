@@ -7,12 +7,12 @@ import { getPopularPodcasts,
   sortByDate, sortByLatestRelease, sortBySeasonsCount,
   sortBySeasonsCountReversed, handleSortChange
  } from '../utils/podcastUtils';
- import GenreList from '../components/Genres';
-import ToggleButtonsGroup from '../components/ToggleButtonsGroup';
-import ToggleViewLayout from '../components/ToggleViewLayout'
+ import GenreList from '../components/Genre/Genres';
+import ToggleButtonsGroup from '../components/Includes/ToggleButtonsGroup';
+import ToggleViewLayout from '../components/Includes/ToggleViewLayout'
 
-import GridPodcasts from '../components/GridPodcasts';
-import ListPodcasts from '../components/ListPodcasts';
+import GridPodcasts from '../components/Podcast/GridPodcasts';
+import ListPodcasts from '../components/Podcast/ListPodcasts';
 
 export default function Home() {
   const location = useLocation();
@@ -101,14 +101,10 @@ export default function Home() {
 
           {/* <GenreList /> */}
           
-          {isGridView && sortBy ? <GridPodcasts title="Podcasts" podcastsObject={podcasts} sortBy={sortBy} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} /> 
+          {isGridView && sortBy ? 
+            <GridPodcasts title="Podcasts" podcastsObject={podcasts} sortBy={sortBy} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} /> 
           : 
-            <>
-              {/* <ListPodcasts title="Podcasts" podcastsObject={[podcasts]} /> */}
-              {getPopularPodcasts({ podcasts })}
-              {getNewPodcasts({ podcasts })}
-              {getRecommendedPodcastsByDate({ podcasts })}
-            </>
+            <ListPodcasts title="Podcasts" podcastsObject={[podcasts]} />
           }
         </>
       )}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { encodeText, decodeText } from '../utils/textUtils';
 import {formatDateTime} from '../utils/dateTimeFormat'
-import FavouriteButton from '../components/FavouriteButton';
+import FavouriteButton from '../components/Includes/FavouriteButton';
 import { fetchPodcasts, getGenres } from '../../api'; // Assuming FavouriteButton is in the same folder
 
 const FavouriteList = () => {

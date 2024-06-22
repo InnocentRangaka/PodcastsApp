@@ -7,10 +7,10 @@ import {
 import './App.css';
 import { darkTheme, lightTheme } from './Theme';
 import Layout from './components/Layout';
-import Show from './components/PodcastLayout';
-import Season from './components/SeasonLayout';
-import Episode from './components/EpisodeLayout';
-import FavouriteList from './pages/FavouriteList';
+import Show from './pages/Show';
+import Season from './pages/Season';
+import Episode from './pages/Episode';
+import FavouriteList from './pages/Favourites';
 import Home from './pages/Home';
 // import Search from './pages/Search';
 
