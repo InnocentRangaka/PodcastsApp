@@ -3,16 +3,13 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import SearchIcon from '@mui/icons-material/Search';
-import InputBase from '@mui/material/InputBase';
+
 import Button from '@mui/material/Button';
 import MainMenu from './MainMenu';
-import SearchLayout from './SearchLayout';
+import SearchLayout from './Search/SearchLayout';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 function Header() {
-  const [showSearch, setShowSearch] = useState(false);
   const [auth, setAuth] = useState(false);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -32,10 +29,6 @@ function Header() {
     setAnchorElUser(null);
   };
 
-  const toggleSearch = () => {
-    setShowSearch(!showSearch);
-  };
-
   const handleAuthMenu = () => {
     setAuth(false);
   }
@@ -49,19 +42,8 @@ function Header() {
         <Typography variant="p" noWrap component="div" sx={{ flexGrow: 1 }}>
           INNRAN532 - PodcastApp
         </Typography>
-        {!showSearch && (
-          <Badge color="secondary">
-            <IconButton
-              size="large"
-              aria-label="search"
-              color="inherit"
-              sx={{ mr: 2 }}
-              onClick={toggleSearch}
-            >
-              <SearchIcon />
-            </IconButton>
-          </Badge>
-        )}
+        
+        <SearchLayout data={settings} />
 
         {auth ? (
             <div>
@@ -113,7 +95,6 @@ function Header() {
         }
 
       </Toolbar>
-      {/* {showSearch && <SearchLayout />} */}
     </AppBar>
   );
 }
