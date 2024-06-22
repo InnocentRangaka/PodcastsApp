@@ -8,14 +8,39 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
 import MainMenu from './MainMenu';
-import SearchLayout from './SearchLayout'; // Assuming SearchComponent is imported correctly
+import SearchLayout from './SearchLayout';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 function Header() {
   const [showSearch, setShowSearch] = useState(false);
+  const [auth, setAuth] = useState(false);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   const toggleSearch = () => {
     setShowSearch(!showSearch);
   };
+
+  const handleAuthMenu = () => {
+    setAuth(false);
+  }
+
+  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
   return (
     <AppBar position="static" className="primary-dark">
@@ -37,6 +62,56 @@ function Header() {
             </IconButton>
           </Badge>
         )}
+
+        {auth ? (
+            <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="user-menu-appbar"
+                aria-haspopup="true"
+                onClick={handleAuthMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="user-menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+              ))}
+              </Menu>
+            </div>
+          )
+        :
+          (
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              onClick={handleAuthMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          )
+        }
+
       </Toolbar>
       {showSearch && <SearchLayout />}
     </AppBar>
