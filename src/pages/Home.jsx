@@ -98,8 +98,11 @@ export default function Home() {
           {isGridView && sortBy ? 
             <GridPodcasts title="Podcasts" podcastsObject={podcasts} sortBy={sortBy} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} /> 
           : 
-            // <ListPodcasts title="Podcasts" podcastsObject={podcasts} />
-            <HomeDefaultView podcastsObject={podcasts} sortBy={sortBy} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} /> 
+            (isGridView && sortBy ? 
+              <HomeDefaultView podcastsObject={podcasts} sortBy={sortBy} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} /> 
+            : 
+              ''
+            ) 
           }
         </>
       )}
