@@ -50,15 +50,17 @@ const GridPodcasts = ({ title, podcastsObject, sortBy, setSortedPodcasts, setSor
                       },
                     }}
                   >
-                    <span className=" show-title">
+                    <h3 className="show-title">
                       {decodeText(podcast.title)}
-                    </span>
+                    </h3>
                   </Link>
                   
                   <div className="show-subtitle">
-                    <p>Duration: {podcast.duration} seconds</p>
-                    {podcast?.seasons && (<span>Seasons: {podcast.seasons}</span>)}
-                    {podcast?.updated && (<span>Updated: {formatDateTime(podcast.updated)}</span>)}
+                    {podcast?.description && (<p className="card-description-p">{podcast.description.substring(0, 61)}</p>)}
+                    <div className="card-stats">
+                      {podcast?.seasons && (<span>Seasons: {podcast.seasons}</span>)}
+                      {podcast?.updated && (<span>Updated: {formatDateTime(podcast.updated)}</span>)}
+                    </div>
                   </div>
                 </div>
               </div>
