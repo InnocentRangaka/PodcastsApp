@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { encodeText, decodeText } from '../../utils/textUtils';
 import { handleSortChange } from '../../utils/podcastUtils';
+import { formatDateTime } from '../../utils/dateTimeFormat';
 
 const GridPodcasts = ({ title, podcastsObject, sortBy, setSortedPodcasts, setSortBy }) => {
   const typeName = title ? title.toLowerCase() : '';
@@ -36,7 +37,7 @@ const GridPodcasts = ({ title, podcastsObject, sortBy, setSortedPodcasts, setSor
                 />
               )}
               <div className="card-footer">
-                <div className="card-footer-content">
+                <div className="card-footer-content show-info">
                   <Link
                     key={`podcast${podcast.id}link`}
                     to={`/show/${encodeText(podcast.title)}`}
@@ -49,11 +50,16 @@ const GridPodcasts = ({ title, podcastsObject, sortBy, setSortedPodcasts, setSor
                       },
                     }}
                   >
-                    <span>
+                    <span className=" show-title">
                       {decodeText(podcast.title)}
                     </span>
                   </Link>
-                  <p>Duration: {podcast.duration} seconds</p> {/* Display episode duration */}
+                  
+                  <div className="show-subtitle">
+                    <p>Duration: {podcast.duration} seconds</p>
+                    {podcast?.seasons && (<span>Seasons: {podcast.seasons}</span>)}
+                    {podcast?.updated && (<span>Updated: {formatDateTime(podcast.updated)}</span>)}
+                  </div>
                 </div>
               </div>
             </div>
