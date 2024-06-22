@@ -5,9 +5,8 @@ import PauseIcon from '@mui/icons-material/Pause';
 import { AudioContext } from './AudioPlaceholder';
 
 const AudioPlayerButton = ({ audioSrc, audioId, audioName }) => {
-  const { onPlay, onPause, duration, currentTime, currentAudio, currentAudioId, setCurrentAudio, isEnded, toggleAutoplay, playAutoplayQueue } = useContext(AudioContext);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isClicked, setIsClicked] = useState(false);
+  const { onPlay, onPause, duration, currentTime, currentAudio, currentAudioId, setCurrentAudioId, setCurrentAudio, isEnded, toggleAutoplay, playAutoplayQueue, isPlaying, setIsPlaying, isClicked, setIsClicked } = useContext(AudioContext);
+  
 
   useEffect(() => {
     if (currentAudio === audioSrc && isClicked) {
@@ -24,10 +23,12 @@ const AudioPlayerButton = ({ audioSrc, audioId, audioName }) => {
       onPause();
       setIsPlaying(false);
       setCurrentAudio(null);
+      setIsClicked(false);
     } else {
       onPlay(audioSrc);
       setIsPlaying(true);
       setCurrentAudio(audioSrc);
+      setCurrentAudioId(audioId)
       setIsClicked(true);
     }
     // playAutoplayQueue(playlist)
@@ -35,7 +36,7 @@ const AudioPlayerButton = ({ audioSrc, audioId, audioName }) => {
 
   return (
     <>
-      <IconButton onClick={handleTogglePlay} className='playerButton' name={audioName}>
+      <IconButton onClick={handleTogglePlay} className='playerButton' name={audioName} id={audioId}>
         {isPlaying && !isEnded ? <PauseIcon /> : isEnded ? <PlayArrowIcon /> : <PlayArrowIcon />}
       </IconButton>
       {/* <button onClick={toggleAutoplay}>
