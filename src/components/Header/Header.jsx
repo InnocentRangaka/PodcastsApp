@@ -113,7 +113,7 @@ function Header() {
         }
 
       </Toolbar>
-      {showSearch && <SearchLayout />}
+      {/* {showSearch && <SearchLayout />} */}
     </AppBar>
   );
 }

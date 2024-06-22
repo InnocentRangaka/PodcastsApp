@@ -547,13 +547,17 @@ img {
   z-index: 0;
 }
 
-.css-hu6rs9-MuiButtonBase-root-MuiIconButton-root{
-  padding-left: 0 !important;
+.css-lz9mh9-MuiToolbar-root {
+  padding: 5px 16px !important;
 }
 
+.css-hu6rs9-MuiButtonBase-root-MuiIconButton-root{
+  margin-left: 0px !important;
+}
+/* 
 .css-xip06h-MuiButtonBase-root-MuiIconButton-root{
   padding-right: 0 !important;
-}
+} */
 
 .css-1gws2xf-MuiButtonBase-root-MuiIconButton-root,
 .css-8je8zh-MuiTouchRipple-root, 
