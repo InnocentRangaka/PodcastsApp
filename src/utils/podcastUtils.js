@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 // import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchPodcastByTitle } from '../../api';
-import ListPodcasts from '../components/ListPodcasts';
+import ListPodcasts from '../components/Podcast/ListPodcasts';
 import {decodeTextWithCharacter} from './textUtils'
 
 

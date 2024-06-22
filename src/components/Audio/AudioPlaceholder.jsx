@@ -13,6 +13,8 @@ const AudioPlaceholder = ({ children }) => {
   const [autoplayQueue, setAutoplayQueue] = useState([]);
   const [autoplayIndex, setAutoplayIndex] = useState(0);
   const [autoplayEnabled, setAutoplayEnabled] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     const savedAudioData = JSON.parse(localStorage.getItem('audioData'));
@@ -41,8 +43,8 @@ const AudioPlaceholder = ({ children }) => {
 
   const startUpdatingLocalStorage = () => {
     const id = setInterval(() => {
-      if (audioRef.current) {
-        saveAudioData(audioRef.current.id, audioRef.current.src, audioRef.current.duration, audioRef.current.currentTime);
+      if (audioRef.current && isPlaying) {
+        saveAudioData(currentAudioId, audioRef.current.src, audioRef.current.duration, audioRef.current.currentTime);
       }
     }, 1000); // Update every second
     setIntervalId(id);
@@ -56,7 +58,7 @@ const AudioPlaceholder = ({ children }) => {
   };
 
   const onPlay = (audioSrc) => {
-    if (audioRef.current) {
+    if (audioRef.current && isPlaying) {
       if (audioRef.current.src !== audioSrc) {
         audioRef.current.src = audioSrc;
         audioRef.current.currentTime = 0; // reset time if new audio
@@ -68,8 +70,8 @@ const AudioPlaceholder = ({ children }) => {
 
   const onPause = () => {
     if (audioRef.current) {
+      saveAudioData(currentAudioId, audioRef.current.src, audioRef.current.duration, audioRef.current.currentTime);
       audioRef.current.pause();
-      saveAudioData(audioRef.current.id, audioRef.current.src, audioRef.current.duration, audioRef.current.currentTime);
       stopUpdatingLocalStorage();
     }
   };
@@ -104,7 +106,7 @@ const AudioPlaceholder = ({ children }) => {
   };
 
   return (
-    <AudioContext.Provider value={{ onPlay, onPause, duration, currentTime, currentAudio, currentAudioId, setCurrentAudio, isEnded, toggleAutoplay, playAutoplayQueue }}>
+    <AudioContext.Provider value={{ onPlay, onPause, duration, currentTime, currentAudio, currentAudioId, setCurrentAudioId, setCurrentAudio, isEnded, toggleAutoplay, playAutoplayQueue, isPlaying, setIsPlaying, isClicked, setIsClicked }}>
       <audio ref={audioRef} onTimeUpdate={onTimeUpdate} onLoadedMetadata={onLoadedMetadata} onEnded={onEnded} />
       {children}
     </AudioContext.Provider>

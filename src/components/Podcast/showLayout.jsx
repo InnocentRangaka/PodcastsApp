@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
-import { getYear, getTotalEpisodes} from '../utils/podcastUtils';
+import { getYear, getTotalEpisodes} from '../../utils/podcastUtils';
 
 export default function ShowLayout({type, show, loading = false}) {
     const podcast = type === 'podcast' ? show?.id && show : false,

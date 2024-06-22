@@ -3,14 +3,14 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { Img } from 'react-image';
 import {decodeTextWithCharacter} from '../utils/textUtils'
 import { fetchSeason, fetchPodcastByTitle } from '../../api';
-import DescriptionLayout from './DescriptionLayout'
-import GenreList from './GenreList';
-import FavouriteButton from './FavouriteButton';
-import AudioPlaceholder from './Audio/AudioPlaceholder';
-import AudioPlayerButton from './Audio/AudioPlayerButton';
-import InfoButton from './InfoButton';
+import DescriptionLayout from '../components/Podcast/DescriptionLayout'
+import GenreList from '../components/Genre/GenreList';
+import FavouriteButton from '../components/Includes/FavouriteButton';
+import AudioPlaceholder from '../components/Audio/AudioPlaceholder';
+import AudioPlayerButton from '../components/Audio/AudioPlayerButton';
+import InfoButton from '../components/Includes/InfoButton';
 import { SvgIcon } from '@mui/material';
-import LoadingIcon from './LoadingIcon'; 
+import LoadingIcon from '../components/LoadingIcon'; 
 
 export default function Season() {
   const showName = useParams()?.name && decodeTextWithCharacter(useParams().name, '_'),
@@ -60,7 +60,7 @@ export default function Season() {
     getSeasonData();
   }, [getSeasonData]);
 
-  const genres = ['Comedy', 'News', 'Sports', 'Technology', 'Music'];
+  const genres = ['Comedy', 'News', 'Sports', 'Technology'];
 
   const handleInfoColor = (dataKey) => {
     const descriptionDiv = infoIconKey && infoIconKey !== dataKey ? document.querySelector(`div[data-episode-key="${infoIconKey}"]`) : document.querySelector(`div[data-episode-key="${dataKey}"]`);
@@ -90,6 +90,10 @@ export default function Season() {
     setCurrentEpisodeKey(prevKey => prevKey === key ? null : key); // Set current episode key
     handleInfoColor(key)
   };
+
+  const episodeUniqueId = (posdcastId, seasonId, episodeId) => {
+    return `episode-${podcastId}-${seasonId}-${episodeId}`
+  }
 
   return (
     !loading && season
@@ -215,7 +219,7 @@ export default function Season() {
                         
                         {episode.file && (
                           <AudioPlaceholder>
-                            <AudioPlayerButton key={episode.episode} audioId={season.season} audioSrc="https://podcast-api.netlify.app/placeholder-audio.mp3" />
+                            <AudioPlayerButton key={episode.episode} audioId={episodeUniqueId(podcastId, season.season, episode.episode)} audioSrc={episode.file} />
                           </AudioPlaceholder>
                           )}
                       </div>

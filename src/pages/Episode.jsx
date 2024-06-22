@@ -36,9 +36,9 @@ export default function Episode() {
   }, [getEpisodeData]);
   
 
-  console.log(episode)
+  // console.log(episode)
 
-  console.log(showName, podcastId, "|", seasonId, seasonTitle, "|", id, title, description, file, "|", path)
+  // console.log(showName, podcastId, "|", seasonId, seasonTitle, "|", id, title, description, file, "|", path)
 
   return (
     !loading && episode

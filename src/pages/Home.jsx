@@ -1,18 +1,12 @@
 import React, { useState, useEffect, useCallback  } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { fetchPodcasts } from '../../api';
-import { getPopularPodcasts, 
-  getNewPodcasts, getRecommendedPodcastsByDate,
-  sortAlphabetically, sortAlphabeticallyReversed,
-  sortByDate, sortByLatestRelease, sortBySeasonsCount,
-  sortBySeasonsCountReversed, handleSortChange
- } from '../utils/podcastUtils';
- import GenreList from '../components/Genres';
-import ToggleButtonsGroup from '../components/ToggleButtonsGroup';
-import ToggleViewLayout from '../components/ToggleViewLayout'
+import { handleSortChange } from '../utils/podcastUtils';
+import ToggleButtonsGroup from '../components/Includes/ToggleButtonsGroup';
+import ToggleViewLayout from '../components/Includes/ToggleViewLayout'
 
-import GridPodcasts from '../components/GridPodcasts';
-import ListPodcasts from '../components/ListPodcasts';
+import GridPodcasts from '../components/Podcast/GridPodcasts';
+import HomeDefaultView from '../components/Home/HomeListView';
 
 export default function Home() {
   const location = useLocation();
@@ -80,8 +74,10 @@ export default function Home() {
   // Define toggleView function with useCallback
   const toggleView = useCallback(() => {
     setIsGridView(prev => !prev);
-    handleSortChange(sortBy, podcasts, setSortedPodcasts, setSortBy) // Toggle between true (gridView) and false (listView)
-  }, []);
+    handleSortChange(sortBy, podcasts, setSortedPodcasts, setSortBy); // Handle sorting change if needed
+    history.push(location.pathname); // This triggers a re-render
+  }, [history, location.pathname, handleSortChange, sortBy, podcasts, setSortedPodcasts, setSortBy]);
+  
 
   // Function to handle podcast selection
   const handlePodcastSelect = useCallback((podcast) => {
@@ -101,14 +97,14 @@ export default function Home() {
 
           {/* <GenreList /> */}
           
-          {isGridView && sortBy ? <GridPodcasts title="Podcasts" podcastsObject={podcasts} sortBy={sortBy} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} /> 
+          {isGridView && sortBy ? 
+            <GridPodcasts title="Podcasts" podcastsObject={podcasts} sortBy={sortBy} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} /> 
           : 
-            <>
-              {/* <ListPodcasts title="Podcasts" podcastsObject={[podcasts]} /> */}
-              {getPopularPodcasts({ podcasts })}
-              {getNewPodcasts({ podcasts })}
-              {getRecommendedPodcastsByDate({ podcasts })}
-            </>
+            (isGridView && sortBy ? 
+              <HomeDefaultView podcastsObject={podcasts} sortBy={sortBy} setSortedPodcasts={setSortedPodcasts} setSortBy={setSortBy} /> 
+            : 
+              ''
+            ) 
           }
         </>
       )}

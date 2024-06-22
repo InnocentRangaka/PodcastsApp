@@ -2,7 +2,7 @@ import { React } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // import { Img } from 'react-image';
-import { encodeText, decodeText } from '../utils/textUtils';
+import { encodeText, decodeText } from '../../../utils/textUtils';
 
 export default function ListSeasons({ currentSeasons }) {
     ListSeasons.propTypes = {
