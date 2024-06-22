@@ -43,7 +43,7 @@ export default function Home() {
         const savedView = localStorage.getItem('viewMode');
         
         if (savedView) {
-          setIsGridView(savedView === 'l');
+          setIsGridView(savedView === 'grid');
         }
 
         setPodcasts(sorted);
