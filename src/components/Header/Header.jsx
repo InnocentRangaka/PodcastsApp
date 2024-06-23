@@ -4,9 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
-import Button from '@mui/material/Button';
 import MainMenu from './MainMenu';
-import SearchLayout from './Search/SearchLayout';
 import SearchAutocomplete from './Search/SearchAutocomplete';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
@@ -44,7 +42,6 @@ function Header() {
           INNRAN532 - PodcastApp
         </Typography>
         
-        {/* <SearchLayout data={settings} /> */}
         <SearchAutocomplete />
 
         {auth ? (

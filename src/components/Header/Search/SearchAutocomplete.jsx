@@ -150,7 +150,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
             root: StyledPopper,
         }}
         placement='bottom-end'
-        sx={{ overflow: 'hidden' }}
+        sx={{ borderRadius: '2px' }}
         >    
         {listRender(groupedOptions)}
         </Popper>
@@ -225,7 +225,7 @@ const StyledPopper = styled('div')`
   z-index: 1001;
   width: 100%;
   max-width: 320px;
-  max-height: 320px;
+  max-height: 330px;
   overflow: 'hidden';
   border-radius: '8px';
   box-sizing: 'border-box';
