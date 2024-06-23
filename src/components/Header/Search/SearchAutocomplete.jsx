@@ -119,27 +119,6 @@ const Autocomplete = React.forwardRef(function Autocomplete(props, ref) {
           placeholder="Search…"
           type="text"
         />
-        {/* {focused && (
-          <Badge color="secondary">
-            {!value ? (
-              <IconButton
-                size="large"
-                aria-label="search"
-                sx={{ mr: 0, color: 'inherit', cursor: 'pointer', maxHeight: '37px', width: '48px' }}
-              />
-            ) : (
-              <IconButton
-                {...restClearProps}
-                size="large"
-                aria-label="search"
-                sx={{ mr: 0, color: 'inherit', cursor: 'pointer', width: '48px' }}
-                onClick={handleClear}
-              >
-                <ClearIcon key={`${key}Cancel`} />
-              </IconButton>
-            )}
-          </Badge>
-        )} */}
       </Search>
       {anchorEl && (
         
