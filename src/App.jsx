@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   BrowserRouter, Routes, Route, Link,
@@ -14,28 +14,36 @@ import FavouriteList from './pages/Favourites';
 import Home from './pages/Home';
 // import Search from './pages/Search';
 
+const PodcastsContext = createContext({
+  podcasts: [],
+  setPostcasts: () => {},
+})
 function App() {
+  const [podcasts, setPostcasts] = useState(null)
+  
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+    <PodcastsContext.Provider value={{podcasts, setPostcasts}}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
 
-          {/* Podcast Routes */}
-          <Route path="/show">
-            <Route path=":name" element={<Show />} />
-            <Route path=":name/season" >
-              <Route path=":id" element={<Season />} />
-              <Route path=":seasionId/episode/:id" element={<Episode />} />
+            {/* Podcast Routes */}
+            <Route path="/show">
+              <Route path=":name" element={<Show />} />
+              <Route path=":name/season" >
+                <Route path=":id" element={<Season />} />
+                <Route path=":seasionId/episode/:id" element={<Episode />} />
+              </Route>
+              
             </Route>
-            
-          </Route>
-          {/* <Route path="/search" element={<Search />} /> */}
+            {/* <Route path="/search" element={<Search />} /> */}
 
-          <Route path="/favorites" element={<FavouriteList />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            <Route path="/favorites" element={<FavouriteList />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </PodcastsContext.Provider>
   );
 }
 

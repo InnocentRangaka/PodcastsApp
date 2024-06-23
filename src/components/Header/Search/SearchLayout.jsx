@@ -10,6 +10,131 @@ import IconButton from '@mui/material/IconButton';
 import CancelIcon from '@mui/icons-material/Cancel';
 import InputAdornment from '@mui/material/InputAdornment';
 
+function SearchLayout({data}) {
+  const [showSearch, setShowSearch] = useState(false);
+  const inputRef = useRef(null); // Create a ref for focusing the input
+  const [inputValue, setInputValue] = React.useState('');
+
+  const toggleSearch = () => {
+    setShowSearch(!showSearch);
+  };
+
+  const handleFocus = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  };
+
+  const handleSearch = () => {
+    if (inputRef.current) {
+      // inputRef.current.focus();
+    }
+  };
+
+  const handleClear = () => {
+    if (inputRef.current) {
+      inputRef.current.value = '';
+      inputRef.current.focus();
+    }
+  };
+
+  const {
+    getRootProps,
+    getInputProps,
+    getListboxProps,
+    getOptionProps,
+    groupedOptions,
+    focused,
+  } = useAutocomplete({
+    id: 'autocomplete-search',
+    options: data, /* top100Films, */
+    ariaLabel: 'autocomplete-search-input',
+    getOptionLabel: (option) => option /*.title */,
+    onChange: (event, newValue) => handleSearch(event, newValue),
+    inputValue,
+    onInputChange: (event, newInputValue) => setInputValue(newInputValue),
+  });
+
+  const InputProps = {...getInputProps() }
+  const inputPropsValue = InputProps.value
+  
+  // onChange={(event, newValue) => handleSearch(event, newValue)}
+
+  return (
+    showSearch ? 
+    (
+      <Search  {...getRootProps()}>
+        <StyledInputBase {...getInputProps()}
+          // inputProps={{...InputProps}}
+          variant="standard"
+          label="Size small"
+          placeholder="Search…"
+          type="text"
+          endAdornment={
+            <>
+              <InputAdornment position="end">
+                {inputRef.current?.value && (
+                  <Badge color="secondary">
+                    <CancelIcon
+                      size="large"
+                      aria-label="search"
+                      color="inherit"
+                      sx={{ mr: 0, cursor: "pointer" }}
+                      onClick={handleClear}
+                    />
+                  </Badge>
+                )}
+              </InputAdornment>
+              <InputAdornment position="end">
+              <Badge color="secondary">
+                <IconButton
+                  size="large"
+                  aria-label="search"
+                  sx={{ mr: 1, color:"inherit", cursor: "pointer", }}
+                  onClick={toggleSearch}
+                >
+                  <SearchIcon />
+                </IconButton>
+              </Badge>
+              </InputAdornment>
+            
+            </>
+          }
+
+        />
+        {groupedOptions.length > 0 && (
+          
+          <Listbox {...getListboxProps()} >
+            {groupedOptions.map((option, index) => (
+              <ListItem {...getOptionProps({ option, index })}>
+                <ListItemText  primary={option} />
+              </ListItem>
+            ))}
+          </Listbox>
+        )}
+        
+      </Search>
+    )
+    : 
+    (
+      <Badge color="secondary">
+        <IconButton
+          size="large"
+          aria-label="search"
+          color="inherit"
+          sx={{ mr: 2 }}
+          onClick={toggleSearch}
+        >
+          <SearchIcon />
+        </IconButton>
+      </Badge>
+    )
+  )
+}
+
+export default SearchLayout;
+
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -75,128 +200,3 @@ const Listbox = styled('ul')(({ theme }) => ({
     color: 'white',
   },
 }));
-
-function SearchLayout({data}) {
-  const [showSearch, setShowSearch] = useState(false);
-  const inputRef = useRef(null); // Create a ref for focusing the input
-
-  const toggleSearch = () => {
-    setShowSearch(!showSearch);
-  };
-
-  const handleFocus = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  };
-
-  const handleSearch = () => {
-    if (inputRef.current) {
-      // inputRef.current.focus();
-    }
-  };
-
-  const handleClear = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  };
-
-  const {
-    getRootProps,
-    getInputProps,
-    getListboxProps,
-    getOptionProps,
-    groupedOptions,
-  } = useAutocomplete({
-    id: 'autocomplete-search',
-    options: data, /* top100Films, */
-    ariaLabel: 'autocomplete-search-input',
-    getOptionLabel: (option) => option /*.title */,
-    renderInput: (params) => (
-      <StyledInputBase
-        {...params}
-        inputRef={inputRef} // Assign inputRef to the TextField
-        inputProps= {
-          { 'aria-label': 'search'}
-        }
-      />
-    )
-  });
-
-  const inputProps = {...getInputProps()}
-  const inputPropsValue = inputProps.value
-  
-  // onChange={(event, newValue) => handleSearch(event, newValue)}
-
-  return (
-    showSearch ? 
-    (
-      <Search  {...getRootProps()}>
-        <StyledInputBase {...inputProps} variant="standard"
-          label="Size small"
-          placeholder="Search…"
-          type="text"
-          endAdornment={
-            <>
-              <InputAdornment position="end">
-                {inputPropsValue && (
-                  <Badge color="secondary">
-                    <CancelIcon
-                      size="large"
-                      aria-label="search"
-                      color="inherit"
-                      sx={{ mr: 0, cursor: "pointer" }}
-                      onClick={handleClear}
-                    />
-                  </Badge>
-                )}
-              </InputAdornment>
-              <InputAdornment position="end" color="secondary">
-              <Badge color="secondary">
-                <IconButton
-                  size="large"
-                  aria-label="search"
-                  sx={{ mr: 1, color:"inherit", cursor: "pointer", }}
-                  onClick={toggleSearch}
-                >
-                  <SearchIcon />
-                </IconButton>
-              </Badge>
-              </InputAdornment>
-            
-            </>
-          }
-
-        />
-        {groupedOptions.length > 0 ? (
-          
-          <Listbox {...getListboxProps()} >
-            {groupedOptions.map((option, index) => (
-              <ListItem {...getOptionProps({ option, index })}>
-                <ListItemText  primary={option} />
-              </ListItem>
-            ))}
-          </Listbox>
-        ) : null}
-        
-      </Search>
-    )
-    : 
-    (
-      <Badge color="secondary">
-        <IconButton
-          size="large"
-          aria-label="search"
-          color="inherit"
-          sx={{ mr: 2 }}
-          onClick={toggleSearch}
-        >
-          <SearchIcon />
-        </IconButton>
-      </Badge>
-    )
-  )
-}
-
-export default SearchLayout;
