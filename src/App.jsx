@@ -1,45 +1,49 @@
-import { createContext, useContext, useState } from 'react';
-import ReactDOM from 'react-dom/client';
-import {
-  BrowserRouter, Routes, Route, Link,
-} from 'react-router-dom';
+import { createContext, useContext, Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
 import { darkTheme, lightTheme } from './Theme';
 import Layout from './components/Layout';
-import Show from './pages/Show';
-import Season from './pages/Season';
-import Episode from './pages/Episode';
-import FavouriteList from './pages/Favourites';
-import Home from './pages/Home';
-// import Search from './pages/Search';
+import usePodcasts from './hooks/usePodcasts';
+
+const Show = lazy(() => import('./pages/Show'));
+const Season = lazy(() => import('./pages/Season'));
+const Episode = lazy(() => import('./pages/Episode'));
+const FavouriteList = lazy(() => import('./pages/Favourites'));
+const Home = lazy(() => import('./pages/Home'));
 
 const PodcastsContext = createContext({
   podcasts: [],
-  setPostcasts: () => {},
-})
+  setPodcasts: () => {},
+});
+
 function App() {
-  const [podcasts, setPostcasts] = useState(null)
-  
+  const { podcasts, loading, error } = usePodcasts();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
-    <PodcastsContext.Provider value={{podcasts, setPostcasts}}>
+    <PodcastsContext.Provider value={{ podcasts }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-
-            {/* Podcast Routes */}
-            <Route path="/show">
-              <Route path=":name" element={<Show />} />
-              <Route path=":name/season" >
-                <Route path=":id" element={<Season />} />
-                <Route path=":seasionId/episode/:id" element={<Episode />} />
+            <Route index element={<Suspense fallback={<div>Loading...</div>}><Home /></Suspense>} />
+            
+            <Route path="show">
+              <Route path=":name" element={<Suspense fallback={<div>Loading...</div>}><Show /></Suspense>} />
+              <Route path=":name/season">
+                <Route path=":id" element={<Suspense fallback={<div>Loading...</div>}><Season /></Suspense>} />
+                <Route path=":id/episode/:episodeId" element={<Suspense fallback={<div>Loading...</div>}><Episode /></Suspense>} />
               </Route>
-              
             </Route>
-            {/* <Route path="/search" element={<Search />} /> */}
 
-            <Route path="/favorites" element={<FavouriteList />} />
+            <Route path="favorites" element={<Suspense fallback={<div>Loading...</div>}><FavouriteList /></Suspense>} />
           </Route>
         </Routes>
       </BrowserRouter>
