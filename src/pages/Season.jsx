@@ -91,6 +91,10 @@ export default function Season() {
     handleInfoColor(key)
   };
 
+  const episodeUniqueId = (posdcastId, seasonId, episodeId) => {
+    return `episode-${podcastId}-${seasonId}-${episodeId}`
+  }
+
   return (
     !loading && season
       ? (
@@ -215,7 +219,7 @@ export default function Season() {
                         
                         {episode.file && (
                           <AudioPlaceholder>
-                            <AudioPlayerButton key={episode.episode} audioId={season.season} audioSrc="https://podcast-api.netlify.app/placeholder-audio.mp3" />
+                            <AudioPlayerButton key={episode.episode} audioId={episodeUniqueId(podcastId, season.season, episode.episode)} audioSrc={episode.file} />
                           </AudioPlaceholder>
                           )}
                       </div>

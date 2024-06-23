@@ -25,15 +25,15 @@ function App() {
               
               <Route path="show/:name">
                 <Route index element={<Suspense fallback={<div>Loading...</div>}><Show /></Suspense>} />
-                <Route path=":name/season">
-                  <Route path=":id" element={<Suspense fallback={<div>Loading...</div>}><Season /></Suspense>} />
-                  <Route path=":id/episode/:episodeId" element={<Suspense fallback={<div>Loading...</div>}><Episode /></Suspense>} />
+                <Route path="season/:id">
+                  <Route index element={<Suspense fallback={<div>Loading...</div>}><Season /></Suspense>} />
+                  {/* <Route path="episode/:episodeId" element={<Suspense fallback={<div>Loading...</div>}><Episode /></Suspense>} /> */}
                 </Route>
               </Route>
 
               <Route path="favorites" element={<Suspense fallback={<div>Loading...</div>}><FavouriteList /></Suspense>} />
 
-              <Route path="*" element={<PageNotFound />} />
+              {/* <Route path="*" element={<PageNotFound />} /> */}
             </Route>
         </Routes>
       </BrowserRouter>
