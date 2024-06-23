@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback  } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { fetchPodcasts } from '../../api';
 import { handleSortChange } from '../utils/podcastUtils';
 import ToggleButtonsGroup from '../components/Includes/ToggleButtonsGroup';
@@ -74,8 +74,10 @@ export default function Home() {
   // Define toggleView function with useCallback
   const toggleView = useCallback(() => {
     setIsGridView(prev => !prev);
-    handleSortChange(sortBy, podcasts, setSortedPodcasts, setSortBy) // Toggle between true (gridView) and false (listView)
-  }, []);
+    handleSortChange(sortBy, podcasts, setSortedPodcasts, setSortBy); // Handle sorting change if needed
+    history.push(location.pathname); // This triggers a re-render
+  }, [history, location.pathname, handleSortChange, sortBy, podcasts, setSortedPodcasts, setSortBy]);
+  
 
   // Function to handle podcast selection
   const handlePodcastSelect = useCallback((podcast) => {
