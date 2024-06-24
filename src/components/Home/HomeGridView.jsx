@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { fetchPodcasts, getGenres } from '../../api';
+import { fetchPodcasts, getGenres } from '../../../api';
 import {
   sortAlphabetically,
   sortAlphabeticallyReversed,
   sortByDate,
   sortByLatestRelease,
-} from '../utils/podcastUtils';
-import SortLayout from '../components/SortLayout'; // Import the SortLayout
-import ToggleViewLayout from '../components/ToggleViewLayout';
+} from '../../utils/podcastUtils';
+import SortLayout from '../Includes/SortLayout'; // Import the SortLayout
+import ToggleViewLayout from '../Includes/ToggleViewLayout';
 
 export default function HomeGridView() {
   const [podcasts, setPodcasts] = useState([]);
@@ -78,12 +78,14 @@ export default function HomeGridView() {
 
           {/* Display sorted podcasts */}
           {sortedPodcasts.map(podcast => (
-            <div key={podcast.id}>
-              <h2>{podcast.title}</h2>
-              <p>Duration: {podcast.duration} seconds</p>
-              {/* Add more details as needed */}
-            </div>
-            <GenreList genres={podcast.genres} />
+            <>
+              <div key={podcast.id}>
+                <h2>{podcast.title}</h2>
+                <p>Duration: {podcast.duration} seconds</p>
+                {/* Add more details as needed */}
+              </div>
+              <GenreList genres={podcast.genres} />
+            </>
           ))}
         </>
       )}
