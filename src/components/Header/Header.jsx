@@ -8,6 +8,7 @@ import MainMenu from './MainMenu';
 import SearchAutocomplete from './Search/SearchAutocomplete';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
+
 function Header() {
   const [auth, setAuth] = useState(false);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -38,6 +39,7 @@ function Header() {
     <AppBar position="static" className="primary-dark">
       <Toolbar disableGutters variant="dense">
         <MainMenu />
+        
         <Typography variant="p" noWrap component="div" sx={{ flexGrow: 1 }}>
           INNRAN532 - PodcastApp
         </Typography>
