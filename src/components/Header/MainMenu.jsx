@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Fade from '@mui/material/Fade';
 import { useTheme } from '@mui/material/styles';
 
-const menuItems = ['Home', 'Shows', 'Favourites'];
+const menuItems = ['Home', 'Shows', 'Favourites', 'History'];
 
 function MainMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
