@@ -6,9 +6,11 @@ const useUpdateLocalStorage = ({ storageItemType, type, podcastId, seasonId, epi
     return now.toISOString();
   };
 
-  const updateLocalStorage = (newData = null) => {
+  console.log('useUpdateLocalStorage')
+
+  const updateLocalStorage = ({ storageItemType, type, podcastId, seasonId, episodeId, newData }) => {
     const storeData = JSON.parse(localStorage.getItem(storageItemType)) || {};
-    const gotData = newData || data
+    const gotData = newData || data;
 
     switch (type) {
       case 'episode':
@@ -25,7 +27,7 @@ const useUpdateLocalStorage = ({ storageItemType, type, podcastId, seasonId, epi
                   ...storeData[podcastId]?.seasons?.[seasonId]?.episodes,
                   [episodeId]: {
                     ...gotData,
-                    lastUpdated: getCurrentDateTime()
+                    lastUpdated: getCurrentDateTime(),
                   }
                 }
               }
@@ -88,7 +90,7 @@ const useUpdateLocalStorage = ({ storageItemType, type, podcastId, seasonId, epi
     }
   };
   
-  return { updateLocalStorage };
+  return updateLocalStorage({ storageItemType, type, podcastId, seasonId, episodeId, newData: data });
 };
 
 export default useUpdateLocalStorage;
