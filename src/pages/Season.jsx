@@ -49,7 +49,8 @@ export default function Season() {
       setSeason(fetchedSeason);
       makePodcastId && localStorage.setItem('previewShow', {podcast: makePodcastId, season: makeSeasonId,});
     } catch (error) {
-      console.log(error)
+      // console.log(error)
+
       setError(error);
     } finally {
       setLoading(false);
@@ -91,7 +92,7 @@ export default function Season() {
     handleInfoColor(key)
   };
 
-  const episodeUniqueId = (posdcastId, seasonId, episodeId) => {
+  const episodeUniqueId = (podcastId, seasonId, episodeId) => {
     return `episode-${podcastId}-${seasonId}-${episodeId}`
   }
 

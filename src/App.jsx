@@ -16,7 +16,6 @@ const PageNotFound = lazy(() => import('./pages/PageNotFound'));
 function App() {
 
   return (
-    
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Layout />}>
@@ -36,7 +35,6 @@ function App() {
             </Route>
         </Routes>
       </BrowserRouter>
-    
   );
 }
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { IconButton, Tooltip } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import useUpdateLocalStorage from '../../hooks/useUpdateLocalStorage'
 
 const FavouriteButton = ({
   initialFavorite = false,
@@ -112,6 +113,7 @@ const FavouriteButton = ({
       addedAt: getCurrentDateTime()
     };
 
+    useUpdateLocalStorage({ storageItemType: 'favorites', type, podcastId, seasonId, episodeId, data: newData })
     updateLocalStorage(newData);
 
     if (onFavoriteChange) {

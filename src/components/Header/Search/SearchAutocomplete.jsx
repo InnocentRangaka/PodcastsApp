@@ -55,8 +55,8 @@ const Autocomplete = forwardRef(function Autocomplete(props, ref) {
     navigate(`/show/${option.title}`, {
       state: {
         show: {
-          id: podcast.id,
-          title: podcast.title,
+          id: option.id,
+          title: option.title,
         },
       },
     });

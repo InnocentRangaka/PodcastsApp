@@ -1,5 +1,5 @@
 import React, { createContext, useRef, useState, useEffect } from 'react';
-
+import useUpdateLocalStorage from '../../hooks/useUpdateLocalStorage'
 export const AudioContext = createContext();
 
 const AudioPlaceholder = ({ children }) => {
@@ -18,14 +18,16 @@ const AudioPlaceholder = ({ children }) => {
 
   useEffect(() => {
     const savedAudioData = JSON.parse(localStorage.getItem('audioData'));
-    if (savedAudioData) {
-      audioRef.current.id = savedAudioData.id;
-      audioRef.current.src = savedAudioData.src;
-      audioRef.current.currentTime = savedAudioData.currentTime;
+    const ensureSavedAudioData = savedAudioData?.id && savedAudioData?.src && savedAudioData?.currentTime;
+    if (ensureSavedAudioData) {
+      audioRef.current.id = savedAudioData?.id;
+      audioRef.current.src = savedAudioData?.src;
+      audioRef.current.currentTime = savedAudioData?.currentTime || 0;
       setCurrentAudioId(savedAudioData.id);
       setCurrentAudio(savedAudioData.src);
       setDuration(savedAudioData.duration);
       setCurrentTime(savedAudioData.currentTime);
+      // console.log(savedAudioData.id)
     }
   }, []);
 
@@ -38,7 +40,13 @@ const AudioPlaceholder = ({ children }) => {
 
   const saveAudioData = (id, src, duration, currentTime) => {
     const audioData = { id, src, duration, currentTime };
-    localStorage.setItem('audioData', JSON.stringify(audioData));
+    // localStorage.setItem('audioData', JSON.stringify(audioData));
+    // console.log(currentAudioId)
+    const [ type, podcastId, seasonId, episodeId ] = id.split('-'),
+    storageItemType = 'audioData',
+    data = JSON.stringify(audioData);
+    console.log(storageItemType, type, podcastId, seasonId, episodeId)
+    useUpdateLocalStorage({ storageItemType, type, podcastId, seasonId, episodeId, data })
   };
 
   const startUpdatingLocalStorage = () => {
