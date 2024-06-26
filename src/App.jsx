@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { darkTheme, lightTheme } from './Theme';
 import Layout from './components/Layout';
-import { PodcastsProvider } from './components/PodcastsContext';
 
 const Show = lazy(() => import('./pages/Show'));
 const Season = lazy(() => import('./pages/Season'));
@@ -17,7 +16,7 @@ const PageNotFound = lazy(() => import('./pages/PageNotFound'));
 function App() {
 
   return (
-    <PodcastsProvider>
+    
       <BrowserRouter>
         <Routes>
             <Route path="/" element={<Layout />}>
@@ -37,7 +36,7 @@ function App() {
             </Route>
         </Routes>
       </BrowserRouter>
-    </PodcastsProvider>
+    
   );
 }
 
