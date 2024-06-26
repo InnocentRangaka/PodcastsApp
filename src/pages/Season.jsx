@@ -50,6 +50,7 @@ export default function Season() {
       makePodcastId && localStorage.setItem('previewShow', {podcast: makePodcastId, season: makeSeasonId,});
     } catch (error) {
       // console.log(error)
+
       setError(error);
     } finally {
       setLoading(false);

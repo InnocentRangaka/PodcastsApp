@@ -5,6 +5,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import Fade from '@mui/material/Fade';
 import { useTheme } from '@mui/material/styles';
@@ -59,16 +60,14 @@ function MainMenu() {
       >
         <MenuIcon />
       </IconButton>
-
-      <IconButton
+        <IconButton
           size="large"
           onClick={() => handleMenuItemClick("Home")}
           color="inherit"
           sx={{ padding: '8px' }}
         >
-          <Avatar alt="App logo" src="../../../src/assets/images/android-chrome-192x192.png" sx={{ width: 32, height: 32 }} />
-        </IconButton>
-
+         <Avatar alt="App logo" src="../../../src/assets/images/android-chrome-192x192.png" sx={{ width: 32, height: 32 }} />
+       </IconButton>
       <Menu
         id="main-menu"
         anchorEl={anchorEl}

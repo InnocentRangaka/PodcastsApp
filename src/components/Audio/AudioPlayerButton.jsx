@@ -7,7 +7,6 @@ import { AudioContext } from './AudioPlaceholder';
 const AudioPlayerButton = ({ audioSrc, audioId, audioName }) => {
   const { onPlay, onPause, duration, currentTime, currentAudio, currentAudioId, setCurrentAudioId, setCurrentAudio, isEnded, toggleAutoplay, playAutoplayQueue, isPlaying, setIsPlaying, isClicked, setIsClicked } = useContext(AudioContext);
 
-
   useEffect(() => {
     if (currentAudio === audioSrc && isClicked) {
       setIsPlaying(true);
