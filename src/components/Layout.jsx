@@ -4,7 +4,7 @@ import Header from './Header/Header';
 // import Footer from "./Footer"
 
 import { PodcastsProvider } from '../components/PodcastsContext';
-import { AudioPlaceholder } from '../components/Audio/AudioPlaceholder'
+import AudioPlaceholder from '../components/Audio/AudioPlaceholder'
 
 export default function Layout() {
   return (
