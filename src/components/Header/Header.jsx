@@ -38,7 +38,12 @@ function Header() {
     <AppBar position="static" className="primary-dark">
       <Toolbar disableGutters variant="dense">
         <MainMenu />
-        <Typography variant="p" noWrap component="div" sx={{ flexGrow: 1 }}>
+        <Typography 
+          variant="p" 
+          noWrap 
+          component="div" 
+          sx={{ flexGrow: 1, textAlign: 'left', }}
+        >
           INNRAN532 - PodcastApp
         </Typography>
         

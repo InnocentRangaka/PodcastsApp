@@ -47,7 +47,7 @@ function MainMenu() {
   };
 
   return (
-    <div>
+    <div className='flex-row'>
       <IconButton
         size="large"
         aria-controls={open ? 'main-menu' : undefined}

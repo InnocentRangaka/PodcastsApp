@@ -547,7 +547,13 @@ img {
   z-index: 0;
 }
 
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
 .css-lz9mh9-MuiToolbar-root {
+  justify-content: space-between;
   padding: 5px 16px !important;
 }
 

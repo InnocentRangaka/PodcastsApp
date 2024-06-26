@@ -100,7 +100,7 @@ const Autocomplete = forwardRef(function Autocomplete(props, ref) {
         ref={rootRef}
         className={focused || searchInputValue ? 'Mui-focused' : ''}
       >
-        {focused && (
+        {/* {focused && (
           <Badge color="secondary">
             <IconButton
               size="large"
@@ -111,7 +111,7 @@ const Autocomplete = forwardRef(function Autocomplete(props, ref) {
               <SearchIcon />
             </IconButton>
           </Badge>
-        )}
+        )} */}
         <StyledInput
           {...getInputProps()}
           variant="standard"
@@ -166,6 +166,7 @@ const Search = styled('div')(({ theme }) => ({
     paddingBottom: '0px',
     marginLeft: 0,
     width: '100%',
+    maxWidth: '320px',
     maxHeight: '37px',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
@@ -186,16 +187,15 @@ const StyledInput = styled('input')(({ theme }) => ({
     padding: '8px 12px',
     outline: 0,
     flex: '1 0 auto',
-    paddingTop: theme.spacing(1, 1, 1, 0),
-    paddingRight: theme.spacing(1, 1, 1, 0),
-    paddingBottom: theme.spacing(1, 1, 1, 0),
-    paddingLeft: theme.spacing(1, 1, 1, 0),
+    paddingTop: theme.spacing(1),
     backgroundColor: alpha(theme.palette.common.black, .1),
     transition: theme.transitions.create('width'),
     [theme.breakpoints.up('sm')]: {
-        width: '12ch',
+        width: '9ch',
         '&:focus': {
-            width: '320px',
+            minWidth: '-webkit-fill-available',
+            width: '40ch',
+            maxWidth: '320px',
             marginTop: '0px',
         },
     },

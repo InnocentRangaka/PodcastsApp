@@ -25,7 +25,7 @@ const GridPodcasts = ({ title, podcastsObject, sortBy, setSortedPodcasts, setSor
     <section>
       <div className="grid-container justify-normal">
       <ResponsiveMasonry width='100%' 
-      columnsCountBreakPoints={{ 0: 1, 492: 2, 900: 3, 1200: 4, 1536: 5 }} 
+      columnsCountBreakPoints={{ 0: 1, 321: 2, 900: 3, 1200: 4, 1536: 5 }} 
       sx={{'& > div': { width: '100% !important', }}} >
       <Masonry className="container masonry" 
         spacing={{ xs: 1, sm: 2, md: 3, xl: 4 }} 
