@@ -1,4 +1,4 @@
-# DJS11 - Podcast Application
+# Podcast Application
 
 Welcome to the Podcast Application README! This project is designed to showcase various features related to browsing, listening, and managing favorite episodes of podcasts.
 
@@ -59,4 +59,4 @@ The project follows a structured approach with clean and readable code. Key poin
 Folder Structure: Organized structure for components, utils, and API interactions.
 Commit History: Clear and concise commit messages reflecting feature additions, changes, or fixes.
 
-Deployment: The project is deployed on Netlify, accessible via [Podcast App](https://innran532podcastapp.netlify.app/).
+Deployment: The project is deployed on Netlify, accessible via [PodcastApp](https://innran532podcastapp.netlify.app/).
